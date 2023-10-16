@@ -8,7 +8,7 @@ git pull origin main
 
 docker build -t $IMAGE_NAME:$DATE .
 
-result=$(docker ps -q -f name=$CONTAINER_NAME:$DATE)
+result=$(docker ps -q -f name=$CONTAINER_NAME)
 
 if [[ $? -eq 0 ]]; then
     echo "Delete old container"
