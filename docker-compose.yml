@@ -4,8 +4,10 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./docker/app/Dockerfile
+      dockerfile: ./Dockerfile
+      target: development
     container_name: app
+    command: yarn start:dev
     ports:
       - 3000:3000
     volumes:
