@@ -31,7 +31,7 @@ export function UniqueEmail(validationOptions?: ValidationOptions) {
       propertyName: propertyName,
       options: validationOptions,
       constraints: [],
-      validator: CheckPlayerEmailNotExists,
+      validator: PlayerEmailNotExistsValidator,
     });
   };
 }
