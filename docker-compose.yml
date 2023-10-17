@@ -7,7 +7,7 @@ services:
       dockerfile: ./Dockerfile
       target: development
     container_name: app
-    command: yarn start:dev
+    command: tail -f Dockerfile
     ports:
       - 3000:3000
     volumes:
