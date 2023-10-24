@@ -7,15 +7,18 @@ import {
   Param,
   Delete,
   UseInterceptors,
+  UseGuards,
 } from '@nestjs/common';
 import { TournamentsService } from './tournaments.service';
 import { CreateTournamentDto } from './dto/create-tournament.dto';
 import { UpdateTournamentDto } from './dto/update-tournament.dto';
 import { ResponseInterceptor } from 'src/common/interceptors/response.interceptor';
 import { ResponseMessage } from 'src/common/decorators/response_message.decorator';
+import { AccessTokenGuard } from 'src/common/guards/access-token.guard';
 
 @Controller('tournaments')
 @UseInterceptors(ResponseInterceptor)
+@UseGuards(AccessTokenGuard)
 export class TournamentsController {
   constructor(private readonly tournamentsService: TournamentsService) {}
 

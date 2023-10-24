@@ -7,15 +7,18 @@ import {
   Param,
   Delete,
   UseInterceptors,
+  UseGuards,
 } from '@nestjs/common';
 import { TeamsService } from './teams.service';
 import { CreateTeamDto } from './dto/create-team.dto';
 import { UpdateTeamDto } from './dto/update-team.dto';
 import { ResponseInterceptor } from 'src/common/interceptors/response.interceptor';
 import { ResponseMessage } from 'src/common/decorators/response_message.decorator';
+import { AccessTokenGuard } from 'src/common/guards/access-token.guard';
 
 @Controller('teams')
 @UseInterceptors(ResponseInterceptor)
+@UseGuards(AccessTokenGuard)
 export class TeamsController {
   constructor(private readonly teamsService: TeamsService) {}
 

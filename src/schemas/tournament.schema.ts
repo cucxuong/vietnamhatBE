@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
-export type TournamentDocument = Tournament & Document;
+export type TournamentDocument = HydratedDocument<Tournament>;
 
 @Schema({
   timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
@@ -24,6 +24,9 @@ export class Tournament {
 
   @Prop({ required: true })
   status: string;
+
+  @Prop()
+  options: string;
 }
 
 export const TournamentSchema = SchemaFactory.createForClass(Tournament);

@@ -7,15 +7,18 @@ import {
   Param,
   Delete,
   UseInterceptors,
+  UseGuards,
 } from '@nestjs/common';
 import { PlayersService } from './players.service';
 import { CreatePlayerDto } from './dto/create-player.dto';
 import { UpdatePlayerDto } from './dto/update-player.dto';
 import { ResponseMessage } from 'src/common/decorators/response_message.decorator';
 import { ResponseInterceptor } from 'src/common/interceptors/response.interceptor';
+import { AccessTokenGuard } from 'src/common/guards/access-token.guard';
 
 @Controller('players')
 @UseInterceptors(ResponseInterceptor)
+@UseGuards(AccessTokenGuard)
 export class PlayersController {
   constructor(private readonly playersService: PlayersService) {}
 

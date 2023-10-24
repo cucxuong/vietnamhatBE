@@ -29,4 +29,7 @@ export class CreateTournamentDto {
   @IsString()
   @IsNotEmpty()
   status: string;
+
+  @IsOptional()
+  options: string;
 }

@@ -1,9 +1,9 @@
 import { Body, Controller, Post, UseInterceptors } from '@nestjs/common';
+import { ResponseMessage } from 'src/common/decorators/response_message.decorator';
+import { ResponseInterceptor } from 'src/common/interceptors/response.interceptor';
+import { CreateUserDto } from '../admin/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
-import { ResponseInterceptor } from 'src/common/interceptors/response.interceptor';
-import { ResponseMessage } from 'src/common/decorators/response_message.decorator';
-import { CreateUserDto } from '../admin/users/dto/create-user.dto';
 
 @Controller('auth')
 @UseInterceptors(ResponseInterceptor)
@@ -16,7 +16,7 @@ export class AuthController {
     return this.authService.signUp(createUserDto);
   }
 
-  @Post('signin')
+  @Post('login')
   signin(@Body() authDto: AuthDto) {
     return this.authService.signIn(authDto);
   }
