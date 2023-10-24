@@ -13,7 +13,7 @@ export class TournamentPlayerController {
 
   @Post()
   @ResponseMessage('Register Tounament Successfully')
-  async find(@Body() createTournamentPlayerDto: CreateTournamentPlayerDto) {
+  async create(@Body() createTournamentPlayerDto: CreateTournamentPlayerDto) {
     return await this.tournamentPlayerService.create(createTournamentPlayerDto);
   }
 }

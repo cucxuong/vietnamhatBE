@@ -13,7 +13,7 @@ export class TournamentService {
 
     return {
       ...tournament,
-      options: tournament?.options ? JSON.parse(tournament.options) : [],
+      options: tournament?.options ?? null,
     };
   }
 }

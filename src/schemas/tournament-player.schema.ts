@@ -14,6 +14,9 @@ export class TournamentPlayer {
   @Prop({ required: true })
   email: string;
 
+  @Prop({ required: true })
+  player_code: string;
+
   @Prop()
   nickname: string;
 
