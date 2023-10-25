@@ -5,11 +5,13 @@ import {
   TournamentPlayerDocument,
 } from 'src/schemas/tournament-player.schema';
 import { CreateTournamentPlayerDto } from './dto/create-tournament-player.dto';
+import { MailService } from 'src/common/modules/mail/mail.service';
 
 export class TournamentPlayerService {
   constructor(
     @InjectModel(TournamentPlayer.name)
     private readonly tournamentPlayerModel: Model<TournamentPlayerDocument>,
+    private mailService: MailService,
   ) {}
 
   async create(
@@ -35,6 +37,18 @@ export class TournamentPlayerService {
       player_code: playerCode,
     });
 
-    return tournamentPlayer.save();
+    const player = await tournamentPlayer.save();
+
+    this.mailService.sendMail({
+      to: player.email,
+      subject: `[Vietnam HAT 2023] Register Info`,
+      template: './tournament-players/register',
+      context: {
+        full_name: player.full_name,
+        player_code: player.player_code,
+      },
+    });
+
+    return player;
   }
 }

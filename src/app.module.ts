@@ -8,6 +8,7 @@ import { AdminModule } from './modules/admin/admin.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { GuestModule } from './modules/guest/guest.module';
 import { TournamentsModule } from './modules/admin/tournaments/tournaments.module';
+import { MailModule } from './common/modules/mail/mail.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { TournamentsModule } from './modules/admin/tournaments/tournaments.modul
       }),
       inject: [ConfigService],
     }),
+    MailModule,
     // User defind Modules
     GuestModule,
     AdminModule,
