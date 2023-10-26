@@ -70,15 +70,20 @@
                         </tr>
                         <tr>
                           <td style="vertical-align:top;padding:12px">
-                            <div>Your player fee is
+                          <div>Your player fee is
+                            {{#if is_vietnam}}
                               <div
                                 style="font-weight: bold; display: inline;">
-                                {{ total_vnd }} VND ≈ {{ total_foreign }} {{ currency }}
+                                {{ total_fee }} VND
                               </div>
-                              <br>(with exchange
-                              rate: {{exchange_rate}})
+                            {{else}}
+                              <div
+                                style="font-weight: bold; display: inline;">
+                                {{ total_fee }} VND ≈ {{ total_foreign }} {{ currency }}
+                              </div>
+                              <br>(with exchange rate: 1 {{ currency }} = {{exchange_rate}} VND)
                             </div>
-
+                            {{/if}}
                           </td>
                         </tr>
                         </tbody>
@@ -96,7 +101,7 @@
             style="border-collapse:collapse;font-family:Roboto,Arial,Helvetica,sans-serif;hyphens:none;overflow-wrap:break-word;word-wrap:break-word;word-break:break-word;width:100%;margin:auto;max-width:700px;min-width:280px;text-align:left; font-size:14px">
             <tbody>
             <!-- For players in Vietnam, Malaysia, Singapore, Cambodia, Philippines -->
-            {{#unless other_country}}
+            {{#unless no_payment_method}}
               <tr>
                 <td style="padding: 12px 4.5% 0;">
                   <div style="padding: 12px 0;">Payment menthod:
@@ -109,7 +114,7 @@
                         <tr style="vertical-align: top;">
                           <td>Bank transfer:
                           </td>
-                          <td>Bank_name <br>
+                          <td>Techcombank <br>
                             9903059569
                             <br>
                             Vu Anh Vu
@@ -197,38 +202,38 @@
 
             <!-- For Vietnamese players -->
             {{#if is_vietnam}}
-            <tr>
-              <td style="vertical-align:top;padding:12px 4.5%">
-                <div>If you unfortunately cannot attend the tournament, please inform us at
-                  least 7 days before
-                  D-Day, and show your evidence (as flight ticket or hotel/motel booking) to
-                  be refunded 80% of the paid player fee.
-                </div>
-              </td>
-            </tr>
+              <tr>
+                <td style="vertical-align:top;padding:12px 4.5%">
+                  <div>If you unfortunately cannot attend the tournament, please inform us at
+                    least 7 days before
+                    D-Day, and show your evidence (as flight ticket or hotel/motel booking) to
+                    be refunded 80% of the paid player fee.
+                  </div>
+                </td>
+              </tr>
 
             {{else}}
-            <!-- For foreign players -->
-            <tr>
-              <td style="vertical-align:top;padding:12px 4.5%">
-                <div>If you unfortunately cannot attend the tournament, please inform us at
-                  least 14 days before D-Day, and show your
-                  evidence (as flight ticket or hotel/motel booking) to be refunded 80% of the
-                  paid player fee.
-                </div>
-              </td>
-            </tr>
+              <!-- For foreign players -->
+              <tr>
+                <td style="vertical-align:top;padding:12px 4.5%">
+                  <div>If you unfortunately cannot attend the tournament, please inform us at
+                    least 14 days before D-Day, and show your
+                    evidence (as flight ticket or hotel/motel booking) to be refunded 80% of the
+                    paid player fee.
+                  </div>
+                </td>
+              </tr>
             {{/if}}
 
             {{#if is_student}}
-            <!-- For student players -->
-            <tr>
-              <td style="vertical-align:top;padding:12px 4.5%">
-                <div>For students, in case of the lack of finance, you can pay 50% fee before D-Day then pay the rest
-                  till 16.02.2024
-                </div>
-              </td>
-            </tr>
+              <!-- For student players -->
+              <tr>
+                <td style="vertical-align:top;padding:12px 4.5%">
+                  <div>For students, in case of the lack of finance, you can pay 50% fee before D-Day then pay the rest
+                    till 16.02.2024
+                  </div>
+                </td>
+              </tr>
             {{/if}}
 
             <tr>

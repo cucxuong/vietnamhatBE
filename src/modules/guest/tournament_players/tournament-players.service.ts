@@ -50,7 +50,7 @@ export class TournamentPlayerService {
     const tournamentOptions = JSON.parse(tournament.options!);
     const tournamentAdditions = tournamentOptions.additions;
 
-    let totalFee: number = 0;
+    let totalFee: number = 700000;
 
     Object.keys(addition).forEach((key: any) => {
       const tournamentAddition = tournamentAdditions.find(
@@ -71,9 +71,8 @@ export class TournamentPlayerService {
       totalFee += tourFee * userNum;
     });
 
-    let currency: string = 'USD';
-    let exchangeRate = 24500;
-    const totalVietnam = totalFee * exchangeRate;
+    let currency: string = 'VND';
+    let exchangeRate = 1;
     let totalForeign = totalFee;
     let isOtherCountry = false;
     let isVietnam = false;
@@ -84,8 +83,8 @@ export class TournamentPlayerService {
     let isStudent = false;
     switch (player.current_country) {
       case 'Vietnam': {
-        currency = 'USD';
-        exchangeRate = 24500;
+        currency = 'VND';
+        exchangeRate = 1;
         isVietnam = true;
         isStudent = info?.is_student ?? false;
         break;
@@ -94,29 +93,33 @@ export class TournamentPlayerService {
         currency = 'PHP';
         exchangeRate = 425;
         isPhilippines = true;
-        totalForeign = totalVietnam / exchangeRate;
+        totalForeign = Math.ceil(totalFee / exchangeRate);
         break;
       }
       case 'Malaysia': {
         currency = 'MYR';
         exchangeRate = 5145;
         isMalaysia = true;
-        totalForeign = totalVietnam / exchangeRate;
+        totalForeign = Math.ceil(totalFee / exchangeRate);
         break;
       }
       case 'Singapore': {
         currency = 'SGD';
         exchangeRate = 17500;
         isSingapore = true;
-        totalForeign = totalVietnam / exchangeRate;
+        totalForeign = Math.ceil(totalFee / exchangeRate);
         break;
       }
       case 'Cambodia': {
+        currency = 'USD';
+        exchangeRate = 24500;
         isCambodia = true;
-        totalForeign = totalVietnam / exchangeRate;
+        totalForeign = Math.ceil(totalFee / exchangeRate);
         break;
       }
       default: {
+        currency = 'USD';
+        exchangeRate = 24500;
         isOtherCountry = true;
         break;
       }
@@ -134,9 +137,6 @@ export class TournamentPlayerService {
         exchange_rate: Intl.NumberFormat()
           .format(exchangeRate)
           .replaceAll(',', "'"),
-        total_vnd: Intl.NumberFormat()
-          .format(totalVietnam)
-          .replaceAll(',', "'"),
         total_foreign: Intl.NumberFormat()
           .format(totalForeign)
           .replaceAll(',', "'"),
@@ -148,6 +148,7 @@ export class TournamentPlayerService {
         is_singapore: isSingapore,
         is_cambodia: isCambodia,
         is_student: isStudent,
+        no_payment_method: isOtherCountry || isMalaysia,
       },
       attachments: [
         {
