@@ -5,7 +5,7 @@ import { Tournament } from './tournament.schema';
 export type TournamentPlayerDocument = HydratedDocument<TournamentPlayer>;
 
 @Schema({
-  collection: 'tournament_player',
+  collection: 'tournament_players',
   timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
 })
 export class TournamentPlayer {
