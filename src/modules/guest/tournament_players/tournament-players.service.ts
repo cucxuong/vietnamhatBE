@@ -6,11 +6,13 @@ import {
 } from 'src/schemas/tournament-player.schema';
 import { CreateTournamentPlayerDto } from './dto/create-tournament-player.dto';
 import { MailService } from 'src/common/modules/mail/mail.service';
+import { TournamentService } from '../tournaments/tournaments.service';
 
 export class TournamentPlayerService {
   constructor(
     @InjectModel(TournamentPlayer.name)
     private readonly tournamentPlayerModel: Model<TournamentPlayerDocument>,
+    private readonly tournamentService: TournamentService,
     private mailService: MailService,
   ) {}
 
@@ -33,11 +35,92 @@ export class TournamentPlayerService {
     const tournamentPlayer = new this.tournamentPlayerModel({
       ...createDto,
       status: 'pending',
-      tournament: '653761306d34b11e8c3ccc0f',
       player_code: playerCode,
     });
 
     const player = await tournamentPlayer.save();
+
+    const tournament = await this.tournamentService.getDetailInfo(
+      createDto.tournament,
+    );
+
+    const { addition, info } = JSON.parse(player.selected_options);
+
+
+    const tournamentOptions = JSON.parse(tournament.options!);
+    const tournamentAdditions = tournamentOptions.additions;
+
+    let totalFee: number = 0;
+
+    Object.keys(addition).forEach((key: any) => {
+      const tournamentAddition = tournamentAdditions.find(
+        (tourAdd: any) => tourAdd.value === key,
+        null,
+      );
+
+      const tourFee = tournamentAddition
+        ? tournamentAddition?.unit_fee ?? tournamentAddition?.fee ?? 0
+        : 0;
+      const userNum =
+        addition[key] === true
+          ? 1
+          : Array.isArray(addition[key])
+          ? addition[key].length
+          : addition[key];
+
+      totalFee += tourFee * userNum;
+    });
+
+    let currency: string = 'USD';
+    let exchangeRate = 24500;
+    const totalVietnam = totalFee * exchangeRate;
+    let totalForeign = totalFee;
+    let isOtherCountry = false;
+    let isVietnam = false;
+    let isPhilippines = false;
+    let isMalaysia = false;
+    let isSingapore = false;
+    let isCambodia = false;
+    let isStudent = false;
+    switch (player.current_country) {
+      case 'Vietnam': {
+        currency = 'USD';
+        exchangeRate = 24500;
+        isVietnam = true;
+        isStudent = info?.is_student ?? false;
+        break;
+      }
+      case 'Philippines': {
+        currency = 'PHP';
+        exchangeRate = 425;
+        isPhilippines = true;
+        totalForeign = totalVietnam / exchangeRate;
+        break;
+      }
+      case 'Malaysia': {
+        currency = 'MYR';
+        exchangeRate = 5145;
+        isMalaysia = true;
+        totalForeign = totalVietnam / exchangeRate;
+        break;
+      }
+      case 'Singapore': {
+        currency = 'SGD';
+        exchangeRate = 17500;
+        isSingapore = true;
+        totalForeign = totalVietnam / exchangeRate;
+        break;
+      }
+      case 'Cambodia': {
+        isCambodia = true;
+        totalForeign = totalVietnam / exchangeRate;
+        break;
+      }
+      default: {
+        isOtherCountry = true;
+        break;
+      }
+    }
 
     this.mailService.sendMail({
       to: player.email,
@@ -46,6 +129,25 @@ export class TournamentPlayerService {
       context: {
         full_name: player.full_name,
         player_code: player.player_code,
+        total_fee: Intl.NumberFormat().format(totalFee).replaceAll(',', "'"),
+        currency: currency,
+        exchange_rate: Intl.NumberFormat()
+          .format(exchangeRate)
+          .replaceAll(',', "'"),
+        total_vnd: Intl.NumberFormat()
+          .format(totalVietnam)
+          .replaceAll(',', "'"),
+        total_foreign: Intl.NumberFormat()
+          .format(totalForeign)
+          .replaceAll(',', "'"),
+        staying_country: player.current_country,
+        other_country: isOtherCountry,
+        is_vietnam: isVietnam,
+        is_philippines: isPhilippines,
+        is_malaysia: isMalaysia,
+        is_singapore: isSingapore,
+        is_cambodia: isCambodia,
+        is_student: isStudent,
       },
       attachments: [
         {

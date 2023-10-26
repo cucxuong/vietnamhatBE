@@ -5,4 +5,5 @@ export class CreateTournamentPlayerDto {
   gender: string;
   current_country: string;
   selected_options: string;
+  tournament: string;
 }

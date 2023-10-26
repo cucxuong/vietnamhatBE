@@ -7,6 +7,7 @@ import {
 import { Tournament, TournamentSchema } from 'src/schemas/tournament.schema';
 import { TournamentPlayerController } from './tournament-players.controller';
 import { TournamentPlayerService } from './tournament-players.service';
+import { TournamentsModule } from "../tournaments/tournaments.module";
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { TournamentPlayerService } from './tournament-players.service';
         schema: TournamentSchema,
       },
     ]),
+    TournamentsModule,
   ],
   controllers: [TournamentPlayerController],
   providers: [TournamentPlayerService],

@@ -12,7 +12,7 @@ export class TournamentPlayerController {
   ) {}
 
   @Post()
-  @ResponseMessage('Register Tounament Successfully')
+  @ResponseMessage('Register Tournament Successfully')
   async create(@Body() createTournamentPlayerDto: CreateTournamentPlayerDto) {
     return await this.tournamentPlayerService.create(createTournamentPlayerDto);
   }
