@@ -49,8 +49,8 @@ export class TournamentPlayerService {
       },
       attachments: [
         {
-          filename: '12conquys.png',
-          path: `${__dirname}/../../../common/modules/mail/templates/images/12conquys.png`,
+          filename: 'logo.png',
+          path: `${__dirname}/../../../common/modules/mail/templates/images/logo.png`,
           cid: 'logo',
         },
       ],
