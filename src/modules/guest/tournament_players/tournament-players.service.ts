@@ -98,7 +98,7 @@ export class TournamentPlayerService {
       }
       case 'Malaysia': {
         currency = 'MYR';
-        exchangeRate = 5145;
+        exchangeRate = 5000;
         isMalaysia = true;
         totalForeign = Math.ceil(totalFee / exchangeRate);
         break;

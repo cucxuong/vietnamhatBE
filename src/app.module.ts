@@ -9,6 +9,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { GuestModule } from './modules/guest/guest.module';
 import { TournamentsModule } from './modules/admin/tournaments/tournaments.module';
 import { MailModule } from './common/modules/mail/mail.module';
+import { VietnamHat2023Module } from './modules/admin/vietnam-hat-2023/vietnam-hat-2023.module';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { MailModule } from './common/modules/mail/mail.module';
       inject: [ConfigService],
     }),
     MailModule,
-    // User defind Modules
+    // User define Modules
     GuestModule,
     AdminModule,
     AuthModule,
@@ -29,7 +30,7 @@ import { MailModule } from './common/modules/mail/mail.module';
       {
         path: '/admin',
         module: AdminModule,
-        children: [TournamentsModule],
+        children: [TournamentsModule, VietnamHat2023Module],
       },
     ]),
   ],

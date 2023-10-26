@@ -33,6 +33,9 @@ export class TournamentPlayer {
   @Prop({ required: true })
   selected_options: string;
 
+  @Prop({ required: true })
+  status: string;
+
   @Prop({
     required: true,
     type: mongoose.Schema.Types.ObjectId,
