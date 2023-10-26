@@ -47,6 +47,13 @@ export class TournamentPlayerService {
         full_name: player.full_name,
         player_code: player.player_code,
       },
+      attachments: [
+        {
+          filename: '12conquys.png',
+          path: `${__dirname}/../../../common/modules/mail/templates/images/12conquys.png`,
+          cid: 'logo',
+        },
+      ],
     });
 
     return player;
