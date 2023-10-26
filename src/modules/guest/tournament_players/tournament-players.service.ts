@@ -148,7 +148,6 @@ export class TournamentPlayerService {
         is_singapore: isSingapore,
         is_cambodia: isCambodia,
         is_student: isStudent,
-        no_payment_method: isOtherCountry || isMalaysia,
       },
       attachments: [
         {

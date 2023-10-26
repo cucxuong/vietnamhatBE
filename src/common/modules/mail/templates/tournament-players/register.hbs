@@ -101,7 +101,7 @@
             style="border-collapse:collapse;font-family:Roboto,Arial,Helvetica,sans-serif;hyphens:none;overflow-wrap:break-word;word-wrap:break-word;word-break:break-word;width:100%;margin:auto;max-width:700px;min-width:280px;text-align:left; font-size:14px">
             <tbody>
             <!-- For players in Vietnam, Malaysia, Singapore, Cambodia, Philippines -->
-            {{#unless no_payment_method}}
+            {{#unless other_country}}
               <tr>
                 <td style="padding: 12px 4.5% 0;">
                   <div style="padding: 12px 0;">Payment menthod:
@@ -172,6 +172,21 @@
                           <td>ABA <br>
                             002 182 907 <br>
                             Koh Jie Yu
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    {{/if}}
+
+                    {{#if is_malaysia}}
+                      <table>
+                        <tbody>
+                        <tr style="vertical-align: top;">
+                          <td>Bank transfer:
+                          </td>
+                          <td>Uob <br>
+                            1653 021 548 <br>
+                            Lee Han king
                           </td>
                         </tr>
                         </tbody>
