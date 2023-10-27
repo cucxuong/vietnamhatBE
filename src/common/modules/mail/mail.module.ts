@@ -4,6 +4,7 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { join } from 'path';
 import { MailService } from './mail.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { EjsAdapter } from "@nestjs-modules/mailer/dist/adapters/ejs.adapter";
 
 @Global()
 @Module({
@@ -26,9 +27,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         },
         template: {
           dir: join(__dirname, 'templates'),
-          adapter: new HandlebarsAdapter(),
+          adapter: new EjsAdapter(),
           options: {
-            strict: true,
+            strict: false,
           },
         },
       }),

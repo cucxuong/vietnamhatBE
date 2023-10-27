@@ -51,6 +51,9 @@ export class TournamentPlayerService {
     const tournamentAdditions = tournamentOptions.additions;
 
     let totalFee: number = 700000;
+    let detailFee = {
+      fixed: { fee: 700000 },
+    };
 
     Object.keys(addition).forEach((key: any) => {
       const tournamentAddition = tournamentAdditions.find(
@@ -67,6 +70,83 @@ export class TournamentPlayerService {
           : Array.isArray(addition[key])
           ? addition[key].length
           : addition[key];
+
+      if (userNum > 0) {
+        if (key === 'jerseys' || key === 'shorts') {
+          let blackList = {};
+          let blackCount = 0;
+          let whiteList = {};
+          let whiteCount = 0;
+
+          // calculate for black
+          addition[key]
+            .filter((item: { color: string }) => item.color === 'black')
+            .map((itemMap: { size: string }) => {
+              blackCount += 1;
+              blackList = {
+                ...blackList,
+                [itemMap.size]:
+                  // @ts-ignore
+                  itemMap.size in blackList ? blackList[itemMap.size] + 1 : 1,
+              };
+            });
+
+          // calculate for white
+          addition[key]
+            .filter((item: { color: string }) => item.color === 'white')
+            .map((itemMap: { size: string }) => {
+              whiteCount += 1;
+              whiteList = {
+                ...whiteList,
+                [itemMap.size]:
+                  // @ts-ignore
+                  itemMap.size in whiteList ? whiteList[itemMap.size] + 1 : 1,
+              };
+            });
+
+          // @ts-ignore
+          const blackStr = Object.keys(blackList).reduce((result, item) => {
+            if (result !== '') {
+              result += ', ';
+            }
+
+            // @ts-ignore
+            result += item.toUpperCase() + 'x' + blackList[item];
+
+            return result;
+          }, '');
+
+          const whiteStr = Object.keys(whiteList).reduce((result, item) => {
+            if (result !== '') {
+              result += ', ';
+            }
+
+            // @ts-ignore
+            result += item.toUpperCase() + 'x' + whiteList[item];
+
+            return result;
+          }, '');
+
+          detailFee = {
+            ...detailFee,
+            [key]: {
+              black_str: blackStr,
+              black_count: blackCount,
+              white_str: whiteStr,
+              white_count: whiteCount,
+              fee: tourFee * userNum,
+            },
+          };
+        } else {
+          detailFee = {
+            ...detailFee,
+            [key]: {
+              count: userNum,
+              fee: tourFee * userNum,
+            },
+          };
+        }
+      }
 
       totalFee += tourFee * userNum;
     });
@@ -148,6 +228,7 @@ export class TournamentPlayerService {
         is_singapore: isSingapore,
         is_cambodia: isCambodia,
         is_student: isStudent,
+        detail_fee: detailFee,
       },
       attachments: [
         {
