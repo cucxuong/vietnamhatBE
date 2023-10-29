@@ -37,7 +37,7 @@
                                                         </div>
                                                         <div
                                                                 style="font-family:Roboto,Arial,Helvetica,sans-serif;font-style:normal;font-size:28px;font-weight: bold;line-height:36px;color:#d9d9d9; text-align: center;word-wrap:break-word;word-break:break-word">
-                                                            Your registration has been successful
+                                                            We have received your registration
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -48,14 +48,7 @@
                                                 <tbody>
                                                 <tr>
                                                     <td style="vertical-align:top;padding:12px">
-                                                        <div>Dear <%= full_name %>
-                                                            <div
-                                                                    style="color:inherit;">We are pleased to
-                                                                confirm that you have successfully
-                                                                registered 18th Vietnam Black and White
-                                                                HAT 2023.
-                                                            </div>
-                                                        </div>
+                                                        <div>Dear <%= full_name %></div>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -89,25 +82,18 @@
                                                 </tbody>
                                             </table>
 
-                                            <table border="1" bordercolor="#d9d9d9" style="border-collapse: collapse;">
-                                                <thead>
-                                                <tr>
-                                                    <th colspan="2" style="text-align: left; padding: 4px 8px;">
-                                                        Included
-                                                    </th>
-                                                </tr>
-                                                </thead>
+                                            <table border="1" bordercolor="#d9d9d9" style="border-collapse: collapse;width: 100%;">
                                                 <tbody>
-                                                <tr>
-                                                    <td style="border-radius: 24px; padding: 4px 8px;">Base</td>
-                                                    <td style="border-radius: 0 24px 0 0; padding: 4px 8px;">
+                                                <tr style="width: 100%;">
+                                                    <td style="border-radius: 24px; padding: 4px 8px; width: 100%">Base</td>
+                                                    <td style="border-radius: 0 24px 0 0; padding: 4px 8px; width: 100%">
                                                         <%= Intl.NumberFormat().format(detail_fee.fixed.fee).replaceAll(",", "'") %> VND
                                                     </td>
                                                 </tr>
                                                 <%if (detail_fee?.lunch) { %>
-                                                    <tr>
-                                                        <td style="padding: 4px 8px">Lunch</td>
-                                                        <td style="padding: 4px 8px">
+                                                    <tr style="width: 100%">
+                                                        <td style="padding: 4px 8px; width: 100%">Lunch</td>
+                                                        <td style="padding: 4px 8px; width: 100%">
                                                             <%= Intl.NumberFormat().format(detail_fee.lunch.fee).replaceAll(",", "'") %> VND
                                                         </td>
                                                     </tr>
@@ -115,18 +101,18 @@
 
                                                 <%if (detail_fee?.bus) { %>
                                                 <tr>
-                                                    <td style="padding: 4px 8px">Shuttle bus</td>
-                                                    <td style="padding: 4px 8px">
+                                                    <td style="padding: 4px 8px; width: 100%">Shuttle bus</td>
+                                                    <td style="padding: 4px 8px; width: 100%">
                                                         <%= Intl.NumberFormat().format(detail_fee.bus.fee).replaceAll(",", "'") %> VND
                                                     </td>
                                                 </tr>
                                                 <% } %>
 
                                                 <%if (detail_fee?.jerseys) { %>
-                                                    <tr style="vertical-align: top;">
-                                                        <td style="padding: 4px 8px">
-                                                            <div style="display: block;">Jerseys</div>
-                                                            <div style="display: block; font-size:80%; padding-left:12px">
+                                                    <tr style="vertical-align: top; width: 100%">
+                                                        <td style="padding: 4px 8px; width: 100%">
+                                                            <div style="display: block; width: 100%">Jerseys</div>
+                                                            <div style="display: block; font-size:80%; padding-left:12px; width: 100%">
                                                                 <%if (detail_fee?.jerseys?.black_count) { %>
                                                                     <div style="display: block; margin-bottom: 8px">Black x
                                                                         <%= detail_fee?.jerseys?.black_count %>
@@ -137,7 +123,7 @@
                                                                 <% } %>
 
                                                                 <%if (detail_fee?.jerseys?.white_count) { %>
-                                                                    <div style="display: block;">White x  <%= detail_fee?.jerseys?.white_count %>
+                                                                    <div style="display: block; width: 100%">White x  <%= detail_fee?.jerseys?.white_count %>
                                                                         (
                                                                             <%= detail_fee?.jerseys?.white_str %>
                                                                         )
@@ -145,17 +131,17 @@
                                                                 <% } %>
                                                             </div>
                                                         </td>
-                                                        <td style="padding: 4px 8px"><%= Intl.NumberFormat().format(detail_fee.jerseys.fee).replaceAll(',', "'") %> VND</td>
+                                                        <td style="padding: 4px 8px; width: 100%"><%= Intl.NumberFormat().format(detail_fee.jerseys.fee).replaceAll(',', "'") %> VND</td>
                                                     </tr>
                                                 <% } %>
 
                                                 <%if (detail_fee?.shorts) { %>
-                                                    <tr style="vertical-align: top;">
-                                                        <td style="padding: 4px 8px">
-                                                            <div style="display: block;">Shorts</div>
-                                                            <div style="display: block; font-size:80%; padding-left:12px">
+                                                    <tr style="vertical-align: top; width: 100%">
+                                                        <td style="padding: 4px 8px; width: 100%">
+                                                            <div style="display: block; width: 100%">Shorts</div>
+                                                            <div style="display: block; font-size:80%; padding-left:12px; width: 100%">
                                                                 <%if (detail_fee?.shorts?.black_count) { %>
-                                                                    <div style="display: block; margin-bottom: 8px">Black x <%= detail_fee?.shorts?.black_count %>
+                                                                    <div style="display: block; margin-bottom: 8px; width: 100%">Black x <%= detail_fee?.shorts?.black_count %>
                                                                         (
                                                                             <%= detail_fee?.shorts?.black_str %>
                                                                         )
@@ -163,7 +149,7 @@
                                                                 <% } %>
 
                                                                 <%if (detail_fee?.shorts?.white_count) { %>
-                                                                    <div style="display: block;">White x <%= detail_fee?.shorts?.white_count %>
+                                                                    <div style="display: block; width: 100%">White x <%= detail_fee?.shorts?.white_count %>
                                                                         (
                                                                             <%= detail_fee?.shorts?.white_str %>
                                                                         )
@@ -171,13 +157,13 @@
                                                                 <% } %>
                                                             </div>
                                                         </td>
-                                                        <td style="padding: 4px 8px"><%= Intl.NumberFormat().format(detail_fee.shorts.fee).replaceAll(',', "'") %> VND</td>
+                                                        <td style="padding: 4px 8px; width: 100%"><%= Intl.NumberFormat().format(detail_fee.shorts.fee).replaceAll(',', "'") %> VND</td>
                                                     </tr>
                                                 <% } %>
                                                 <%if (detail_fee?.disc) { %>
-                                                    <tr style="vertical-align: top;">
-                                                        <td style="padding: 4px 8px">Disc x <%= detail_fee.disc.count %></td>
-                                                        <td style="padding: 4px 8px"><%= Intl.NumberFormat().format(detail_fee.disc.fee).replaceAll(',', "'") %> VND</td>
+                                                    <tr style="vertical-align: top; width: 100%">
+                                                        <td style="padding: 4px 8px; width: 100%">Disc x <%= detail_fee.disc.count %></td>
+                                                        <td style="padding: 4px 8px; width: 100%"><%= Intl.NumberFormat().format(detail_fee.disc.fee).replaceAll(',', "'") %> VND</td>
                                                     </tr>
                                                 <% } %>
                                                 </tbody>
