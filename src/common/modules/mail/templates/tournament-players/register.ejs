@@ -93,7 +93,7 @@
                                                 <%if (detail_fee?.lunch) { %>
                                                     <tr style="width: 100%">
                                                         <td style="padding: 4px 8px; width: 100%">Lunch</td>
-                                                        <td style="padding: 4px 8px; width: 100%">
+                                                        <td style="padding: 4px 8px; width: 100%;white-space: nowrap;">
                                                             <%= Intl.NumberFormat().format(detail_fee.lunch.fee).replaceAll(",", "'") %> VND
                                                         </td>
                                                     </tr>
@@ -102,7 +102,7 @@
                                                 <%if (detail_fee?.bus) { %>
                                                 <tr>
                                                     <td style="padding: 4px 8px; width: 100%">Shuttle bus</td>
-                                                    <td style="padding: 4px 8px; width: 100%">
+                                                    <td style="padding: 4px 8px; width: 100%;white-space: nowrap;">
                                                         <%= Intl.NumberFormat().format(detail_fee.bus.fee).replaceAll(",", "'") %> VND
                                                     </td>
                                                 </tr>
@@ -131,7 +131,7 @@
                                                                 <% } %>
                                                             </div>
                                                         </td>
-                                                        <td style="padding: 4px 8px; width: 100%"><%= Intl.NumberFormat().format(detail_fee.jerseys.fee).replaceAll(',', "'") %> VND</td>
+                                                        <td style="padding: 4px 8px; width: 100%;white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.jerseys.fee).replaceAll(',', "'") %> VND</td>
                                                     </tr>
                                                 <% } %>
 
@@ -157,13 +157,13 @@
                                                                 <% } %>
                                                             </div>
                                                         </td>
-                                                        <td style="padding: 4px 8px; width: 100%"><%= Intl.NumberFormat().format(detail_fee.shorts.fee).replaceAll(',', "'") %> VND</td>
+                                                        <td style="padding: 4px 8px; width: 100%;white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.shorts.fee).replaceAll(',', "'") %> VND</td>
                                                     </tr>
                                                 <% } %>
                                                 <%if (detail_fee?.disc) { %>
                                                     <tr style="vertical-align: top; width: 100%">
                                                         <td style="padding: 4px 8px; width: 100%">Disc x <%= detail_fee.disc.count %></td>
-                                                        <td style="padding: 4px 8px; width: 100%"><%= Intl.NumberFormat().format(detail_fee.disc.fee).replaceAll(',', "'") %> VND</td>
+                                                        <td style="padding: 4px 8px; width: 100%;white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.disc.fee).replaceAll(',', "'") %> VND</td>
                                                     </tr>
                                                 <% } %>
                                                 </tbody>
