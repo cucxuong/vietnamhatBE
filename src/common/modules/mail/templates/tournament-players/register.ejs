@@ -177,7 +177,7 @@
                                                 <%if (detail_fee?.disc) { %>
                                                     <tr style="vertical-align: top;">
                                                         <td style="padding: 4px 8px">Disc x <%= detail_fee.disc.count %></td>
-                                                        <td style="padding: 4px 8px"><%= detail_fee.disc.fee %> VND</td>
+                                                        <td style="padding: 4px 8px"><%= Intl.NumberFormat().format(detail_fee.disc.fee).replaceAll(',', "'") %> VND</td>
                                                     </tr>
                                                 <% } %>
                                                 </tbody>
