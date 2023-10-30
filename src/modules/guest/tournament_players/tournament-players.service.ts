@@ -56,6 +56,10 @@ export class TournamentPlayerService {
     };
 
     Object.keys(addition).forEach((key: any) => {
+      if (key === 'isVegan' || key === 'allergies') {
+       return;
+      }
+
       const tournamentAddition = tournamentAdditions.find(
         (tourAdd: any) => tourAdd.value === key,
         null,
@@ -70,6 +74,8 @@ export class TournamentPlayerService {
           : Array.isArray(addition[key])
           ? addition[key].length
           : addition[key];
+
+      console.log(userNum, tourFee, key);
 
       if (userNum > 0) {
         if (key === 'jerseys' || key === 'shorts') {
