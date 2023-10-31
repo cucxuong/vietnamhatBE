@@ -34,7 +34,7 @@ export class VietnamHat2023Service {
         const tournament = await this.tournamentService.getDetailInfo(tournamentId!);
 
         return players.map((player: any) => {
-            const { totalFee } = this.tournamentPlayerService.calculateDetailFee(player, tournament);
+            const {totalFee} = this.tournamentPlayerService.calculateDetailFee(player, tournament);
 
             return {
                 ...player.toJSON(),
@@ -51,7 +51,13 @@ export class VietnamHat2023Service {
 
             const tournament = await this.tournamentService.getDetailInfo(player.tournament);
 
-            const {totalFee, totalForeign, detailFee} = this.tournamentPlayerService.calculateDetailFee(player, tournament);
+            const {
+                totalFee,
+                totalForeign,
+                detailFee,
+                currency,
+                isVietnam
+            } = this.tournamentPlayerService.calculateDetailFee(player, tournament);
 
             let subject = '';
             if (this.config.get<string>('APP_ENV') !== 'production') {
@@ -59,16 +65,18 @@ export class VietnamHat2023Service {
             }
             subject += '[VNHat 2023] Payment Received Confirmation'
 
-            await this.mailService.sendMail({
+            this.mailService.sendMail({
                 to: player.email,
-                subject: ``,
+                subject: subject,
                 template: './tournament-players/payment_received',
                 context: {
+                    is_vietnam: isVietnam,
                     player_name: player.full_name,
                     player_code: player.player_code,
                     total_fee: Intl.NumberFormat().format(totalFee).replaceAll(',', "'"),
                     total_foreign: Intl.NumberFormat().format(totalForeign).replaceAll(',', "'"),
                     detail_fee: detailFee,
+                    currency: currency
 
                 }
             });

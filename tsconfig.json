@@ -19,6 +19,6 @@
     "noFallthroughCasesInSwitch": true
   },
   "typeRoots": [
-      "./typing-stubs"
+    "./src/typing-stubs"
   ]
 }

@@ -61,7 +61,10 @@
                                                             <td style="padding: 6px 4.5%;">
                                                                 Player fee: <span
                                                                         style="font-size: 14px; font-weight: bold;"><%= total_fee %> VND
-                                                                                            ≈ <%= total_foreign %> <%= currency %></span>
+                                                                    <% if (!is_vietnam) { %>
+                                                                        ≈ <%= total_foreign %> <%= currency %>
+                                                                </span>
+                                                                <% } %>
                                                             </td>
                                                         </tr>
                                                         <tr>
