@@ -69,7 +69,7 @@ export class VietnamHat2023Controller {
     }
 
     @Post('update-payment')
-    async updatePayment(@Request() request: Request) {
+    async updatePayment(@Req() request: Request) {
         let country = request.session?.country_code ?? null;
 
         if (!country) {
