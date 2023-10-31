@@ -19,7 +19,7 @@ export class VietnamHat2023Controller {
             throw new UnprocessableEntityException('Invalid Request');
         }
 
-        return await this.service.getPlayerList({country: country === 'all' ? null : country});
+        return await this.service.getPlayerList({country: country === 'All' ? null : country});
     }
 
     @Post('authorize')
@@ -30,27 +30,27 @@ export class VietnamHat2023Controller {
         let country = '';
 
         switch (code) {
-            case 'iGn4vlQuwW': {
+            case 'vnVN8484': {
                 country = 'Vietnam';
                 break;
             }
-            case 'pGsiFKUrVA': {
+            case 'khKH5656': {
                 country = 'Cambodia';
                 break;
             }
-            case 'S7yZrwmPd0': {
+            case 'msMS2323': {
                 country = 'Malaysia';
                 break;
             }
-            case 'ShQuijeWxG': {
+            case 'phPH1212': {
                 country = 'Philippines';
                 break;
             }
-            case 'MOgdbPGHtQ': {
+            case 'sgSG9090': {
                 country = 'Singapore';
                 break;
             }
-            case 'goohtgPfzs': {
+            case 'VietNamHat2023': {
                 country = 'All';
                 break;
             }
@@ -69,7 +69,14 @@ export class VietnamHat2023Controller {
     }
 
     @Post('update-payment')
-    async updatePayment(@Body() body: { player_code: string }) {
+    async updatePayment(@Request() request: Request) {
+        let country = request.session?.country_code ?? null;
+
+        if (!country) {
+            throw new UnprocessableEntityException('Invalid Request');
+        }
+
+        const body = request.body;
         if (!body.player_code) {
             throw new UnprocessableEntityException('Missing param');
         }

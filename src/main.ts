@@ -9,9 +9,16 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule);
     const configService = app.get(ConfigService);
 
+    const currentEnv = configService.get<string>('APP_ENV') ?? '';
+
+    let origins = [configService.get<string>('FE_ORIGIN') ?? '*'];
+    if (currentEnv !== 'production') {
+        origins = [...origins, 'http://localhost:3001']
+    }
+
     // app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
     app.enableCors({
-        origin: [configService.get<string>('FE_ORIGIN') ?? '*'],
+        origin: origins,
         credentials: true,
     });
     app.use(cookieParser());
