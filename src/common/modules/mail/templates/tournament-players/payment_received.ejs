@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[VNHat 2023] Payment Received Confirmation</title>
+</head>
+
+<body>
+<div>
+    <table role="presentation" style="border-collapse:collapse;width:100%;background-color:#efefef">
+        <tbody>
+        <tr>
+            <td style="padding:16px">
+                <table role="presentation"
+                       style="border-collapse:collapse;font-family:Roboto,Arial,Helvetica,sans-serif;hyphens:none;overflow-wrap:break-word;word-wrap:break-word;word-break:break-word;width:100%;max-width:700px;min-width:280px;text-align:left">
+                    <tbody>
+                    <tr>
+                        <td style="padding:0">
+                            <table role="presentation"
+                                   style="width:100%;border-spacing:0;table-layout:fixed;border-collapse:separate">
+                                <tbody>
+                                <tr>
+                                    <td dir="ltr">
+                                        <table role="presentation"
+                                               style="border-collapse:collapse;font-family:Roboto,Arial,Helvetica,sans-serif;font-size:16px;line-height:24px;letter-spacing:0.1px;table-layout:fixed;width:100%;overflow-wrap:break-word">
+                                            <tbody>
+                                            <tr>
+                                                <td style="vertical-align:top;padding:12px">
+                                                    <div>Dear <%= player_name %> </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align:top;padding:12px">
+                                                    <div>We are happy to let you know that we have
+                                                        received your full payment for the 18th
+                                                        Vietnam Black and White Hat 2023, and
+                                                        your slot has been secured.
+                                                    </div>
+
+                                                    <!-- Thêm cái này -->
+                                                    <table
+                                                            style="width: 100%;background: #262626; color:#ffffff; border-radius: 16px; font-size:80%; margin: 12px 0;border-spacing:0;table-layout:fixed;border-collapse:separate">
+                                                        <tbody>
+                                                        <tr style="vertical-align: top;">
+                                                            <td style="padding: 4.5% 4.5% 6px;">
+                                                                Your
+                                                                registration code: <span
+                                                                        style="font-size: 14px; font-weight: bold;"><%= player_code %></span>
+                                                            </td>
+                                                            <td rowspan="2"
+                                                                style="padding: 4.5% 4.5% 0 0; text-align: right;">
+                                                                <div
+                                                                        style="display:inline-block;color: aquamarine; border: 2px solid currentColor; padding: 4px 8px; font-size: 20px; white-space: nowrap; width: 48px; text-align: center;">
+                                                                    PAID
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 6px 4.5%;">
+                                                                Player fee: <span
+                                                                        style="font-size: 14px; font-weight: bold;"><%= total_fee %> VND
+                                                                    <% if (!is_vietnam) { %>
+                                                                        ≈ <%= total_foreign %> <%= currency %>
+                                                                </span>
+                                                                <% } %>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2"
+                                                                style="padding: 0 4.5% 4.5%;">
+                                                                <table border="1"
+                                                                       borderColor="#d9d9d9"
+                                                                       style="width: 100%;border-collapse: collapse; ">
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td
+                                                                                style="padding: 3px 12px;">
+                                                                            Base
+                                                                        </td>
+                                                                        <td
+                                                                                style="padding: 3px 12px;">
+                                                                            <%= Intl.NumberFormat().format(detail_fee.fixed.fee).replaceAll(",", "'") %>
+                                                                            VND
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <% if (detail_fee?.lunch) { %>
+                                                                        <tr>
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                Lunch
+                                                                            </td>
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                <%= Intl.NumberFormat().format(detail_fee.lunch.fee).replaceAll(",", "'") %>
+                                                                                VND
+                                                                            </td>
+                                                                        </tr>
+                                                                    <% } %>
+
+                                                                    <% if (detail_fee?.bus) { %>
+                                                                        <tr>
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                Shuttle bus
+                                                                            </td>
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                <%= Intl.NumberFormat().format(detail_fee.bus.fee).replaceAll(",", "'") %>
+                                                                                VND
+                                                                            </td>
+                                                                        </tr>
+                                                                    <% } %>
+
+                                                                    <% if (detail_fee?.jerseys) { %>
+                                                                        <tr
+                                                                                style="vertical-align: top;">
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                <div>Jerseys
+                                                                                </div>
+                                                                                <div
+                                                                                        style="padding: 3px 12px;">
+                                                                                    <% if (detail_fee?.jerseys?.black_count) { %>
+                                                                                        <div>Black x
+                                                                                            <%= detail_fee?.jerseys?.black_count %>
+                                                                                            (
+                                                                                            <%= detail_fee?.jerseys?.black_str %>
+                                                                                            )
+                                                                                        </div>
+                                                                                    <% } %>
+
+                                                                                    <% if (detail_fee?.jerseys?.white_count) { %>
+                                                                                        <div>White
+                                                                                            x <%= detail_fee?.jerseys?.white_count %>
+                                                                                            (
+                                                                                            <%= detail_fee?.jerseys?.white_str %>
+                                                                                            )
+                                                                                        </div>
+                                                                                    <% } %>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                <%= Intl.NumberFormat().format(detail_fee.jerseys.fee).replaceAll(',', "'") %>
+                                                                                VND
+                                                                            </td>
+                                                                        </tr>
+                                                                    <% } %>
+
+                                                                    <% if (detail_fee?.shorts) { %>
+                                                                        <tr
+                                                                                style="vertical-align: top;">
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                <div>Shorts
+                                                                                </div>
+                                                                                <div
+                                                                                        style="padding: 3px 12px; display: block;">
+                                                                                    <% if (detail_fee?.shorts?.black_count) { %>
+                                                                                        <div
+                                                                                                style="display: block;">
+                                                                                            Black
+                                                                                            x <%= detail_fee?.shorts?.black_count %>
+                                                                                            (
+                                                                                            <%= detail_fee?.shorts?.black_str %>
+                                                                                            )
+                                                                                        </div>
+                                                                                    <% } %>
+
+                                                                                    <% if (detail_fee?.shorts?.white_count) { %>
+                                                                                        <div
+                                                                                                style="display: block;">
+                                                                                            White
+                                                                                            x <%= detail_fee?.shorts?.white_count %>
+                                                                                            (
+                                                                                            <%= detail_fee?.shorts?.white_str %>
+                                                                                            )
+                                                                                        </div>
+                                                                                    <% } %>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                <%= Intl.NumberFormat().format(detail_fee.shorts.fee).replaceAll(',', "'") %>
+                                                                                VND
+                                                                            </td>
+                                                                        </tr>
+                                                                    <% } %>
+
+                                                                    <% if (detail_fee?.disc) { %>
+                                                                        <tr
+                                                                                style="vertical-align: top;">
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                <div>Disc x
+                                                                                    <%= detail_fee.disc.count %>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                <%= Intl.NumberFormat().format(detail_fee.disc.fee).replaceAll(',', "'") %>
+                                                                                VND
+                                                                            </td>
+                                                                        </tr>
+                                                                    <% } %>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div>Thank you for your prompt payment!</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align:top;padding:12px">
+                                                    <div>Just a quick note, The <strong>Viet Nam
+                                                            Black & White HAT 2023</strong> is held
+                                                        with as below:
+                                                    </div>
+                                                    <table style="font-weight:500">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td style="padding: 0 12px;">📆
+                                                                Date:
+                                                            </td>
+                                                            <td>16-17 December 2023</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 0 12px;">🕜
+                                                                Time:
+                                                            </td>
+                                                            <td>7:00 AM - 5:00 PM each day
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 0 12px;">🟩
+                                                                Location:
+                                                            </td>
+                                                            <td>Hochiminh City, Vietnam
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align:top;padding:12px">
+                                                    <div>So, mark your calendar and get ready to
+                                                        unleash your beast skills at the 18th
+                                                        Vietnam Black and White HAT 2023.
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align:top;padding:12px">
+                                                    <div>If you have any questions or concerns,
+                                                        please don’t be shy to contact us via:
+                                                    </div>
+                                                    <table>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td style="padding: 0 12px;">Email:
+                                                            </td>
+                                                            <td><a href="mailto:vietnamhat.ultimate@gmail.com"
+                                                                   target="_blank">vietnamhat.ultimate@gmail.com</a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 0 12px;">
+                                                                Phone/WhatsApp:
+                                                            </td>
+                                                            <td><a href="tel:+84903059569"
+                                                                   target="_blank">+84 90 305
+                                                                    95 69</a> (Mr. Vũ Anh Vũ)
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 0 12px;">Fanpage
+                                                                Vietnam HAT:
+                                                            </td>
+                                                            <td><a href="https://www.facebook.com/VietNamHatVNH/"
+                                                                   target="_blank">https://www.facebook.com/VietNamHatVNH/</a>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align:top;padding:12px">
+                                                    <div>Thank you and best regards,</div>
+                                                    <div>Vietnam Hat's Organizers.</div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>
