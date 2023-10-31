@@ -21,6 +21,9 @@ export class Player {
 
   @Prop({ required: true })
   year_of_birth: string;
+
+  @Prop({ required: true })
+  status: string;
 }
 
 export const PlayerSchema = SchemaFactory.createForClass(Player);

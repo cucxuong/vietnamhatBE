@@ -33,6 +33,6 @@ fi
 
 docker run -itd -p 127.0.0.1:$EXPOSE_PORT:3000 --name $CONTAINER_NAME --network nvnhan-network --network-alias $NETWORK_NAME $IMAGE_NAME:$DATE
 
-git reset --hard HEAD -F
+git reset --hard HEAD
 
 docker system prune -a -f
