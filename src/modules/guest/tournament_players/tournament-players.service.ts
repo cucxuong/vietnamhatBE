@@ -213,7 +213,7 @@ export class TournamentPlayerService {
         });
 
         let currency: string = 'VND';
-        let exchangeRate = 1;
+        let exchangeRate = 24500;
         let totalForeign = totalFee;
         let isOtherCountry = false;
         let isVietnam = false;
