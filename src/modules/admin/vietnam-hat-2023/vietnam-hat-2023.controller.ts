@@ -19,7 +19,7 @@ export class VietnamHat2023Controller {
             throw new UnprocessableEntityException('Invalid Request');
         }
 
-        return await this.service.getPlayerList({country: country === 'All' ? null : country});
+        return await this.service.getPlayerList({country: country === 'All' || country === 'Admin' ? null : country});
     }
 
     @Post('authorize')
@@ -54,6 +54,10 @@ export class VietnamHat2023Controller {
                 country = 'All';
                 break;
             }
+            case 'CucXuong': {
+                country = 'Admin';
+                break;
+            }
             default: {
                 break;
             }
@@ -82,6 +86,24 @@ export class VietnamHat2023Controller {
         }
 
         await this.service.updatePaymentStatus({player_code: body.player_code});
+
+        return {};
+    }
+
+    @Post('update-status')
+    async updateStatus(@Req() request: Request) {
+        let country = request.session?.country_code ?? null;
+
+        if (country !== 'Admin') {
+            throw new UnprocessableEntityException('Invalid Request');
+        }
+
+        const body = request.body;
+        if (!body.player_code) {
+            throw new UnprocessableEntityException('Missing param');
+        }
+
+        await this.service.updatePlayerStatus({player_code: body.player_code, status: body.status });
 
         return {};
     }
