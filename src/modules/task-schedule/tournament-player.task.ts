@@ -30,6 +30,7 @@ export class TournamentPlayerTask {
     const day7Before = startOfDay(subDays(startOfDay(new Date()), 7));
 
     const reminderPlayers: TournamentPlayerDocument[] = await this.tournamentPlayerModel.find({
+      tournament: this.configService.get<string>('VIETNAM_HAT_2023_TOURNAMENT_ID'),
       status: 'pending',
       created_at: {
         $lt: day7Before,
@@ -85,6 +86,7 @@ export class TournamentPlayerTask {
   async tournamentPlayerExpired() {
     const day8Before = startOfDay(subDays(startOfDay(new Date()), 8));
     const filter = {
+      tournament: this.configService.get<string>('VIETNAM_HAT_2023_TOURNAMENT_ID'),
       status: 'pending',
       created_at: {
         $lt: day8Before,
