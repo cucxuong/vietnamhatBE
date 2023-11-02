@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[VNHat 2023] Payment Received Confirmation</title>
+    <title>[VNHat 2023] Payment Reminder</title>
 </head>
 
 <body>
@@ -33,43 +33,34 @@
                                             </tr>
                                             <tr>
                                                 <td style="vertical-align:top;padding:12px">
-                                                    <div>We are happy to let you know that we have
-                                                        received your full payment for the 18th
-                                                        Vietnam Black and White Hat 2023, and
-                                                        your slot has been secured.
+                                                    <div>We hope you’re doing well!</div>
+                                                    <div>We wanted to remind you that we haven’t
+                                                        received your payment yet since your
+                                                        registered date <%= registration_date %>.
                                                     </div>
 
                                                     <!-- Thêm cái này -->
                                                     <table
-                                                            style="width: 100%;background: #262626; color:#ffffff; border-radius: 16px; font-size:80%; margin: 12px 0;border-spacing:0;table-layout:fixed;border-collapse:separate">
+                                                            style="width: 100%;background: #262626; color:#ffffff; border-radius: 16px; font-size:80%; margin: 12px 0;">
                                                         <tbody>
-                                                        <tr style="vertical-align: top;">
-                                                            <td style="padding: 4.5% 4.5% 6px;">
-                                                                Your
+                                                        <tr>
+                                                            <td style="padding: 4.5% 4.5% 6px;">Your
                                                                 registration code: <span
-                                                                        style="font-size: 14px; font-weight: bold;"><%= player_code %></span>
-                                                            </td>
-                                                            <td rowspan="2"
-                                                                style="padding: 4.5% 4.5% 0 0; text-align: right;">
-                                                                <div
-                                                                        style="display:inline-block;color: aquamarine; border: 2px solid currentColor; padding: 4px 8px; font-size: 20px; white-space: nowrap; width: 48px; text-align: center;">
-                                                                    PAID
-                                                                </div>
+                                                                        style="font-size: 16px; font-weight: bold;"><%= player_code %></span>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td style="padding: 6px 4.5%;">
                                                                 Player fee: <span
-                                                                        style="font-size: 14px; font-weight: bold;"><%= total_fee %> VND
+                                                                        style="font-size: 16px; font-weight: bold;"><%= Intl.NumberFormat().format(total_fee).replaceAll(",", "'") %> VND
                                                                     <% if (!is_vietnam) { %>
-                                                                        ≈ <%= total_foreign %> <%= currency %>
+                                                                        ≈ <%= Intl.NumberFormat().format(total_foreign).replaceAll(",", "'") %> <%= currency %>
                                                                     <% } %>
                                                                 </span>
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td colspan="2"
-                                                                style="padding: 0 4.5% 4.5%;">
+                                                            <td style="padding: 0 4.5% 4.5%;">
                                                                 <table border="1"
                                                                        borderColor="#d9d9d9"
                                                                        style="width: 100%;border-collapse: collapse; ">
@@ -85,7 +76,6 @@
                                                                             VND
                                                                         </td>
                                                                     </tr>
-
                                                                     <% if (detail_fee?.lunch) { %>
                                                                         <tr>
                                                                             <td
@@ -131,7 +121,6 @@
                                                                                             )
                                                                                         </div>
                                                                                     <% } %>
-
                                                                                     <% if (detail_fee?.jerseys?.white_count) { %>
                                                                                         <div>White
                                                                                             x <%= detail_fee?.jerseys?.white_count %>
@@ -212,53 +201,31 @@
                                                         </tr>
                                                         </tbody>
                                                     </table>
-                                                    <div>Thank you for your prompt payment!</div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="vertical-align:top;padding:12px">
-                                                    <div>Just a quick note, The <strong>Viet Nam
-                                                            Black & White HAT 2023</strong> is held
-                                                        with as below:
-                                                    </div>
-                                                    <table style="font-weight:500">
-                                                        <tbody>
-                                                        <tr>
-                                                            <td style="padding: 0 12px;">📆
-                                                                Date:
-                                                            </td>
-                                                            <td>16-17 December 2023</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="padding: 0 12px;">🕜
-                                                                Time:
-                                                            </td>
-                                                            <td>7:00 AM - 5:00 PM each day
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="padding: 0 12px;">🟩
-                                                                Location:
-                                                            </td>
-                                                            <td>Hochiminh City, Vietnam
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="vertical-align:top;padding:12px">
-                                                    <div>So, mark your calendar and get ready to
-                                                        unleash your beast skills at the 18th
-                                                        Vietnam Black and White HAT 2023.
+
+                                                    <div>If you haven’t paid yet, please follow the
+                                                        instructions mentioned in the “Register
+                                                        Info” mail to finish the
+                                                        payment and secure your slot at the 18th
+                                                        Vietnam Black and White Hat 2023.
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td style="vertical-align:top;padding:12px">
-                                                    <div>If you have any questions or concerns,
-                                                        please don’t be shy to contact us via:
+                                                    <div>If you have already paid but still received
+                                                        this mail, please let us know by replying to
+                                                        this email with payment
+                                                        evidence so we can check our side again. We
+                                                        apologize for any inconvenience we may have
+                                                        caused.
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align:top;padding:12px">
+                                                    <div>If you have any concerns or matters of
+                                                        urgency, please don’t hesitate to reach out
+                                                        to us via:
                                                     </div>
                                                     <table>
                                                         <tbody>
@@ -288,6 +255,13 @@
                                                         </tr>
                                                         </tbody>
                                                     </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align:top;padding:12px">
+                                                    <div>We’re looking forward to seeing you at the
+                                                        18th Vietnam Black and White HAT 2023!
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <tr>
