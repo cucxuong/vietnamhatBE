@@ -46,7 +46,7 @@ export class VietnamHat2023Service {
     async updatePaymentStatus({player_code}: { player_code: string }) {
         const player: any = await this.tournamentPlayerModel.findOne({player_code});
 
-        if (player && player.status !== 'paid') {
+        if (player && player.status == 'pending') {
             await this.tournamentPlayerModel.findByIdAndUpdate(player.id, {status: 'paid'});
 
             const tournament = await this.tournamentService.getDetailInfo(player.tournament);
@@ -63,7 +63,7 @@ export class VietnamHat2023Service {
             if (this.config.get<string>('APP_ENV') !== 'production') {
                 subject += `[${this.config.get<string>("APP_ENV")}] `;
             }
-            subject += '[VNHat 2023] Payment Received Confirmation'
+            subject += '[VNHat 2023] Payment Received Confirmation';
 
             this.mailService.sendMail({
                 to: player.email,

@@ -14,12 +14,6 @@ if [[ $BRANCH_NAME == 'main' ]]; then
     EXPOSE_PORT=3000
 fi
 
-echo $BRANCH_NAME:
-echo $NETWORK_NAME;
-echo $IMAGE_NAME;
-echo $CONTAINER_NAME:
-echo $EXPOSE_PORT:
-
 git pull origin $BRANCH_NAME
 
 docker build -t $IMAGE_NAME:$DATE .
