@@ -23,8 +23,4 @@ import {TournamentPlayersModule} from "../guest/tournament_players/tournament-pl
   providers: [TournamentPlayerTask]
 })
 
-export class SchedulerModule implements OnModuleInit {
-  async onModuleInit() {
-    mongoose.set('debug', true);
-  }
-}
+export class SchedulerModule {}

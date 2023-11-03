@@ -8,6 +8,7 @@ import { Tournament, TournamentSchema } from 'src/schemas/tournament.schema';
 import { TournamentPlayerController } from './tournament-players.controller';
 import { TournamentPlayerService } from './tournament-players.service';
 import { TournamentsModule } from "../tournaments/tournaments.module";
+import { ConfigModule } from "@nestjs/config";
 
 @Module({
   imports: [
@@ -22,9 +23,11 @@ import { TournamentsModule } from "../tournaments/tournaments.module";
       },
     ]),
     TournamentsModule,
+    ConfigModule,
   ],
   controllers: [TournamentPlayerController],
   providers: [TournamentPlayerService],
   exports: [TournamentPlayerService],
 })
-export class TournamentPlayersModule {}
+export class TournamentPlayersModule {
+}

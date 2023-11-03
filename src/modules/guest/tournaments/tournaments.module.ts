@@ -3,6 +3,7 @@ import { TournamentController } from './tournaments.controller';
 import { TournamentService } from './tournaments.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Tournament, TournamentSchema } from 'src/schemas/tournament.schema';
+import { TournamentPlayer, TournamentPlayerSchema } from "../../../schemas/tournament-player.schema";
 
 @Module({
   imports: [
@@ -11,10 +12,15 @@ import { Tournament, TournamentSchema } from 'src/schemas/tournament.schema';
         name: Tournament.name,
         schema: TournamentSchema,
       },
+      {
+        name: TournamentPlayer.name,
+        schema: TournamentPlayerSchema,
+      }
     ]),
   ],
   controllers: [TournamentController],
   providers: [TournamentService],
   exports: [TournamentService],
 })
-export class TournamentsModule {}
+export class TournamentsModule {
+}
