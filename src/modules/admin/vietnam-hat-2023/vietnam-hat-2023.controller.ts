@@ -3,6 +3,8 @@ import {VietnamHat2023Service} from './vietnam-hat-2023.service';
 import {ResponseInterceptor} from '../../../common/interceptors/response.interceptor';
 import {Request} from "express";
 import {ResponseMessage} from "../../../common/decorators/response_message.decorator";
+import { TOURNAMENT_PLAYER_STATUS } from "../../../utils/tournament.player.const";
+import { COUNTRY } from "../../../utils/vietnam.hat.2023.const";
 
 @Controller('vietnam-hat-2023')
 @UseInterceptors(ResponseInterceptor)
@@ -85,7 +87,11 @@ export class VietnamHat2023Controller {
             throw new UnprocessableEntityException('Missing param');
         }
 
-        await this.service.updatePaymentStatus({player_code: body.player_code});
+        if (body.status === TOURNAMENT_PLAYER_STATUS.HALF_PAID && country !== COUNTRY.VIETNAM) {
+            throw new UnprocessableEntityException('Invalid Param');
+        }
+
+        await this.service.updatePaymentStatus({player_code: body.player_code, status: body.status ?? TOURNAMENT_PLAYER_STATUS.PAID});
 
         return {};
     }
