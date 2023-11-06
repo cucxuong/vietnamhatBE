@@ -79,26 +79,26 @@ export class TournamentPlayerTask {
     }
   }
 
-  @Cron('1 * * * *', {
-    name: "VNHAT_Player_Payment_Expired",
-    timeZone: 'Asia/Ho_Chi_Minh'
-  })
-  async tournamentPlayerExpired() {
-    const day8Before = startOfDay(subDays(startOfDay(new Date()), 8));
-    const filter = {
-      tournament: this.configService.get<string>('VIETNAM_HAT_2023_TOURNAMENT_ID'),
-      status: 'pending',
-      created_at: {
-        $lt: day8Before,
-      }
-    };
-
-    const expiredPlayers: TournamentPlayerDocument[] = await this.tournamentPlayerModel.find(filter).exec();
-
-    if (expiredPlayers.length) {
-      await this.tournamentPlayerModel.updateMany(filter, {
-        status: 'expired',
-      });
-    }
-  }
+  // @Cron('1 * * * *', {
+  //   name: "VNHAT_Player_Payment_Expired",
+  //   timeZone: 'Asia/Ho_Chi_Minh'
+  // })
+  // async tournamentPlayerExpired() {
+  //   const day8Before = startOfDay(subDays(startOfDay(new Date()), 8));
+  //   const filter = {
+  //     tournament: this.configService.get<string>('VIETNAM_HAT_2023_TOURNAMENT_ID'),
+  //     status: 'pending',
+  //     created_at: {
+  //       $lt: day8Before,
+  //     }
+  //   };
+  //
+  //   const expiredPlayers: TournamentPlayerDocument[] = await this.tournamentPlayerModel.find(filter).exec();
+  //
+  //   if (expiredPlayers.length) {
+  //     await this.tournamentPlayerModel.updateMany(filter, {
+  //       status: 'expired',
+  //     });
+  //   }
+  // }
 }
