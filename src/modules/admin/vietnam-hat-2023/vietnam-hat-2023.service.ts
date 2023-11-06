@@ -9,6 +9,7 @@ import {TournamentService} from "../../guest/tournaments/tournaments.service";
 import {PlayerDocument} from "../players/schemas/player.schema";
 import {MailService} from "../../../common/modules/mail/mail.service";
 import {TournamentPlayerService} from "../../guest/tournament_players/tournament-players.service";
+import { TOURNAMENT_PLAYER_STATUS } from "../../../utils/tournament.player.const";
 
 export class VietnamHat2023Service {
   constructor(
@@ -43,11 +44,11 @@ export class VietnamHat2023Service {
     });
   }
 
-  async updatePaymentStatus({player_code}: { player_code: string }) {
+  async updatePaymentStatus({player_code, status = TOURNAMENT_PLAYER_STATUS.PAID}: { player_code: string, status: TOURNAMENT_PLAYER_STATUS }) {
     const player: any = await this.tournamentPlayerModel.findOne({player_code});
 
     if (player && player.status == 'pending') {
-      await this.tournamentPlayerModel.findByIdAndUpdate(player.id, {status: 'paid'});
+      await this.tournamentPlayerModel.findByIdAndUpdate(player.id, {status});
 
       const tournament = await this.tournamentService.getDetailInfo(player.tournament);
 
@@ -76,7 +77,8 @@ export class VietnamHat2023Service {
           total_fee: Intl.NumberFormat().format(totalFee).replaceAll(',', "'"),
           total_foreign: Intl.NumberFormat().format(totalForeign).replaceAll(',', "'"),
           detail_fee: detailFee,
-          currency: currency
+          currency: currency,
+          status_label: status.toUpperCase(),
 
         }
       });
