@@ -1,13 +1,14 @@
-import {Injectable, Logger, Scope} from "@nestjs/common";
-import {InjectModel} from "@nestjs/mongoose";
-import {TournamentPlayer, TournamentPlayerDocument} from "../../schemas/tournament-player.schema";
-import mongoose, {Model, mongo} from "mongoose";
-import {Cron} from "@nestjs/schedule";
-import {format, parseISO, startOfDay, subDays} from "date-fns";
-import {MailService} from "../../common/modules/mail/mail.service";
-import {TournamentService} from "../guest/tournaments/tournaments.service";
-import {ConfigService} from "@nestjs/config";
-import {TournamentPlayerService} from "../guest/tournament_players/tournament-players.service";
+import { Injectable, Logger, Scope } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { TournamentPlayer, TournamentPlayerDocument } from "../../schemas/tournament-player.schema";
+import mongoose, { Model, mongo } from "mongoose";
+import { Cron } from "@nestjs/schedule";
+import { compareAsc, endOfDay, format, parseISO, startOfDay, subDays } from "date-fns";
+import { MailService } from "../../common/modules/mail/mail.service";
+import { TournamentService } from "../guest/tournaments/tournaments.service";
+import { ConfigService } from "@nestjs/config";
+import { TournamentPlayerService } from "../guest/tournament_players/tournament-players.service";
+import { TOURNAMENT_PLAYER_STATUS } from "../../utils/tournament.player.const";
 
 @Injectable()
 export class TournamentPlayerTask {
@@ -21,20 +22,33 @@ export class TournamentPlayerTask {
   ) {
   }
 
-  @Cron('0 0 * * *', {
+  @Cron('*/5 * * * * *', {
     name: "VNHAT_Player_Payment_Reminder",
     timeZone: 'Asia/Ho_Chi_Minh'
   })
   async tournamentPlayerPaymentReminder() {
     console.log('====== REMINDER PAYMENT =======');
-    const day7Before = startOfDay(subDays(startOfDay(new Date()), 7));
+    let condition: any[] = [];
+    let day7Before = subDays(new Date(), 7);
+
+    while (compareAsc(day7Before, parseISO('2023-10-30T00:00:00')) !== -1) {
+      condition = [
+        ...condition,
+        {
+          created_at: {
+            $lte: startOfDay(day7Before),
+            $gt: endOfDay(day7Before),
+          },
+        }
+      ];
+
+      day7Before = subDays(day7Before, 7);
+    }
 
     const reminderPlayers: TournamentPlayerDocument[] = await this.tournamentPlayerModel.find({
       tournament: this.configService.get<string>('VIETNAM_HAT_2023_TOURNAMENT_ID'),
-      status: 'pending',
-      created_at: {
-        $lt: day7Before,
-      }
+      status: TOURNAMENT_PLAYER_STATUS.PENDING,
+      $or: condition
     }).exec();
 
     console.log(reminderPlayers);
@@ -78,27 +92,4 @@ export class TournamentPlayerTask {
       }
     }
   }
-
-  // @Cron('1 * * * *', {
-  //   name: "VNHAT_Player_Payment_Expired",
-  //   timeZone: 'Asia/Ho_Chi_Minh'
-  // })
-  // async tournamentPlayerExpired() {
-  //   const day8Before = startOfDay(subDays(startOfDay(new Date()), 8));
-  //   const filter = {
-  //     tournament: this.configService.get<string>('VIETNAM_HAT_2023_TOURNAMENT_ID'),
-  //     status: 'pending',
-  //     created_at: {
-  //       $lt: day8Before,
-  //     }
-  //   };
-  //
-  //   const expiredPlayers: TournamentPlayerDocument[] = await this.tournamentPlayerModel.find(filter).exec();
-  //
-  //   if (expiredPlayers.length) {
-  //     await this.tournamentPlayerModel.updateMany(filter, {
-  //       status: 'expired',
-  //     });
-  //   }
-  // }
 }

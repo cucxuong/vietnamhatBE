@@ -1,4 +1,4 @@
-import {Module} from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import {ConfigModule, ConfigService} from '@nestjs/config';
 import {RouterModule} from '@nestjs/core';
 import {MongooseModule} from '@nestjs/mongoose';
@@ -11,6 +11,7 @@ import {TournamentsModule} from './modules/admin/tournaments/tournaments.module'
 import {MailModule} from './common/modules/mail/mail.module';
 import {VietnamHat2023Module} from './modules/admin/vietnam-hat-2023/vietnam-hat-2023.module';
 import {SchedulerModule} from "./modules/task-schedule/sheduler.module";
+import mongoose from "mongoose";
 
 @Module({
   imports: [
@@ -42,5 +43,9 @@ import {SchedulerModule} from "./modules/task-schedule/sheduler.module";
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
+export class AppModule implements OnModuleInit{
+  onModuleInit(): any {
+    mongoose.set('debug', true);
+  }
+
 }
