@@ -22,7 +22,7 @@ export class TournamentPlayerTask {
   ) {
   }
 
-  @Cron('*/5 * * * * *', {
+  @Cron('0 0 * * *', {
     name: "VNHAT_Player_Payment_Reminder",
     timeZone: 'Asia/Ho_Chi_Minh'
   })
