@@ -135,6 +135,33 @@
                                                     </tr>
                                                 <% } %>
 
+                                                <%if (detail_fee?.new_jerseys) { %>
+                                                    <tr style="vertical-align: top; width: 100%">
+                                                        <td style="padding: 4px 8px">
+                                                            <div style="display: block; width: 100%">Jerseys</div>
+                                                            <div style="display: block; font-size:80%; padding-left:12px; width: 100%">
+                                                                <%if (detail_fee?.new_jerseys?.black_count) { %>
+                                                                    <div style="display: block; margin-bottom: 8px">Black x
+                                                                        <%= detail_fee?.new_jerseys?.black_count %>
+                                                                        (
+                                                                            <%= detail_fee?.new_jerseys?.black_str %>
+                                                                        )
+                                                                    </div>
+                                                                <% } %>
+
+                                                                <%if (detail_fee?.new_jerseys?.white_count) { %>
+                                                                    <div style="display: block; width: 100%">White x  <%= detail_fee?.new_jerseys?.white_count %>
+                                                                        (
+                                                                            <%= detail_fee?.new_jerseys?.white_str %>
+                                                                        )
+                                                                    </div>
+                                                                <% } %>
+                                                            </div>
+                                                        </td>
+                                                        <td style="padding: 4px 8px; white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.new_jerseys.fee).replaceAll(',', "'") %> VND</td>
+                                                    </tr>
+                                                <% } %>
+
                                                 <%if (detail_fee?.shorts) { %>
                                                     <tr style="vertical-align: top; width: 100%">
                                                         <td style="padding: 4px 8px;">
@@ -160,10 +187,17 @@
                                                         <td style="padding: 4px 8px;white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.shorts.fee).replaceAll(',', "'") %> VND</td>
                                                     </tr>
                                                 <% } %>
+
                                                 <%if (detail_fee?.disc) { %>
                                                     <tr style="vertical-align: top; width: 100%">
                                                         <td style="padding: 4px 8px;">Disc x <%= detail_fee.disc.count %></td>
                                                         <td style="padding: 4px 8px;white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.disc.fee).replaceAll(',', "'") %> VND</td>
+                                                    </tr>
+                                                <% } %>
+                                                 <%if (detail_fee?.new_disc) { %>
+                                                    <tr style="vertical-align: top; width: 100%">
+                                                        <td style="padding: 4px 8px;">Disc x <%= detail_fee.new_disc.count %></td>
+                                                        <td style="padding: 4px 8px;white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.new_disc.fee).replaceAll(',', "'") %> VND</td>
                                                     </tr>
                                                 <% } %>
                                                 </tbody>

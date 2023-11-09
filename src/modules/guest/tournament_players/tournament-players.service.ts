@@ -4,6 +4,7 @@ import { TournamentPlayer, TournamentPlayerDocument, } from 'src/schemas/tournam
 import { CreateTournamentPlayerDto } from './dto/create-tournament-player.dto';
 import { MailService } from 'src/common/modules/mail/mail.service';
 import { TournamentService } from '../tournaments/tournaments.service';
+import { ConfigService } from "@nestjs/config";
 
 export class TournamentPlayerService {
   constructor(
@@ -11,6 +12,7 @@ export class TournamentPlayerService {
     private readonly tournamentPlayerModel: Model<TournamentPlayerDocument>,
     private readonly tournamentService: TournamentService,
     private mailService: MailService,
+    private readonly configService: ConfigService,
   ) {
   }
 
@@ -57,10 +59,16 @@ export class TournamentPlayerService {
       detailFee,
     } = this.calculateDetailFee(player, tournament);
 
+     let subject = '';
+        if (this.configService.get<string>('APP_ENV') !== 'production') {
+          subject += `[${this.configService.get<string>("APP_ENV")}] `;
+        }
+        subject += '[Vietnam HAT 2023] Register Info';
+
 
     this.mailService.sendMail({
       to: player.email,
-      subject: `[Vietnam HAT 2023] Register Info`,
+      subject,
       template: './tournament-players/register',
       context: {
         full_name: player.full_name,
@@ -128,7 +136,7 @@ export class TournamentPlayerService {
             : addition[key];
 
       if (userNum > 0) {
-        if (key === 'jerseys' || key === 'shorts') {
+        if (key === 'jerseys' || key === 'shorts' || key === 'new_jerseys') {
           let blackList = {};
           let blackCount = 0;
           let whiteList = {};
