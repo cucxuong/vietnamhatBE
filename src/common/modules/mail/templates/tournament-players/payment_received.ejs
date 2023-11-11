@@ -150,6 +150,42 @@
                                                                         </tr>
                                                                     <% } %>
 
+                                                                     <% if (detail_fee?.new_jerseys) { %>
+                                                                        <tr
+                                                                                style="vertical-align: top;">
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                <div>Jerseys
+                                                                                </div>
+                                                                                <div
+                                                                                        style="padding: 3px 12px;">
+                                                                                    <% if (detail_fee?.new_jerseys?.black_count) { %>
+                                                                                        <div>Black x
+                                                                                            <%= detail_fee?.new_jerseys?.black_count %>
+                                                                                            (
+                                                                                            <%= detail_fee?.new_jerseys?.black_str %>
+                                                                                            )
+                                                                                        </div>
+                                                                                    <% } %>
+
+                                                                                    <% if (detail_fee?.new_jerseys?.white_count) { %>
+                                                                                        <div>White
+                                                                                            x <%= detail_fee?.new_jerseys?.white_count %>
+                                                                                            (
+                                                                                            <%= detail_fee?.new_jerseys?.white_str %>
+                                                                                            )
+                                                                                        </div>
+                                                                                    <% } %>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                <%= Intl.NumberFormat().format(detail_fee.new_jerseys.fee).replaceAll(',', "'") %>
+                                                                                VND
+                                                                            </td>
+                                                                        </tr>
+                                                                    <% } %>
+
                                                                     <% if (detail_fee?.shorts) { %>
                                                                         <tr
                                                                                 style="vertical-align: top;">
@@ -202,6 +238,22 @@
                                                                             <td
                                                                                     style="padding: 3px 12px;">
                                                                                 <%= Intl.NumberFormat().format(detail_fee.disc.fee).replaceAll(',', "'") %>
+                                                                                VND
+                                                                            </td>
+                                                                        </tr>
+                                                                    <% } %>
+                                                                    <% if (detail_fee?.new_disc) { %>
+                                                                        <tr
+                                                                                style="vertical-align: top;">
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                <div>Disc x
+                                                                                    <%= detail_fee.new_disc.count %>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                <%= Intl.NumberFormat().format(detail_fee.new_disc.fee).replaceAll(',', "'") %>
                                                                                 VND
                                                                             </td>
                                                                         </tr>

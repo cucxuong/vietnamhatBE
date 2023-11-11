@@ -36,8 +36,8 @@ export class TournamentPlayerTask {
         ...condition,
         {
           created_at: {
-            $lte: startOfDay(day7Before),
-            $gt: endOfDay(day7Before),
+            $gte: startOfDay(day7Before),
+            $lte: endOfDay(day7Before),
           },
         }
       ];

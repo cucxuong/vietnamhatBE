@@ -35,7 +35,7 @@ export class TournamentService {
     return players.reduce((result: int, player: any) => {
       const {addition} = JSON.parse(player.selected_options);
 
-      result += parseInt(addition?.disc) ?? 0;
+      result += parseInt(addition?.disc ?? 0) + parseInt(addition?.new_disc ?? 0);
 
       return result;
     }, 0);
