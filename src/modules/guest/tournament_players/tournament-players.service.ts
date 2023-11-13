@@ -103,6 +103,72 @@ export class TournamentPlayerService {
     return player;
   }
 
+  async send(code: string) {
+    const player = await this.tournamentPlayerModel.findOne({ player_code: code });
+
+    if (player === null || player === undefined) {
+      return;
+    }
+    const tournamentId = this.configService.get<string>('VIETNAM_HAT_2023_TOURNAMENT_ID');
+    const tournament = await this.tournamentService.getDetailInfo(tournamentId!);
+
+     const {
+      totalFee,
+      currency,
+      exchangeRate,
+      totalForeign,
+      isOtherCountry,
+      isVietnam,
+      isPhilippines,
+      isMalaysia,
+      isSingapore,
+      isCambodia,
+      isStudent,
+      detailFee,
+    } = this.calculateDetailFee(player, tournament);
+
+     let subject = '';
+        if (this.configService.get<string>('APP_ENV') !== 'production') {
+          subject += `[${this.configService.get<string>("APP_ENV")}] `;
+        }
+        subject += '[Vietnam HAT 2023] Register Info';
+
+
+    this.mailService.sendMail({
+      to: player.email,
+      subject,
+      template: './tournament-players/register_send',
+      context: {
+        full_name: player.full_name,
+        player_code: player.player_code,
+        total_fee: Intl.NumberFormat().format(totalFee).replaceAll(',', "'"),
+        currency: currency,
+        exchange_rate: Intl.NumberFormat()
+          .format(exchangeRate)
+          .replaceAll(',', "'"),
+        total_foreign: Intl.NumberFormat()
+          .format(totalForeign)
+          .replaceAll(',', "'"),
+        staying_country: player.current_country,
+        other_country: isOtherCountry,
+        is_vietnam: isVietnam,
+        is_philippines: isPhilippines,
+        is_malaysia: isMalaysia,
+        is_singapore: isSingapore,
+        is_cambodia: isCambodia,
+        is_student: isStudent,
+        detail_fee: detailFee,
+      },
+      attachments: [
+        {
+          filename: 'logo.png',
+          path: `${__dirname}/../../../common/modules/mail/templates/images/logo.png`,
+          cid: 'logo',
+        },
+      ],
+    });
+  }
+
   calculateDetailFee(player: any, tournament: any) {
     const {addition, info} = JSON.parse(player.selected_options);
 
@@ -265,6 +331,7 @@ export class TournamentPlayerService {
         currency = 'USD';
         exchangeRate = 24500;
         isOtherCountry = true;
+        totalForeign = Math.ceil(totalFee / exchangeRate);
         break;
       }
     }
