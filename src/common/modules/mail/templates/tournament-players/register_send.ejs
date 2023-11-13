@@ -15,17 +15,17 @@
         <tr>
             <td style="padding:24px 0 16px 0">
                 <p>
-                    Our apologize for the incorect Total price in your last "Register Info" email we had sent to you.<br>
-                    You have ordered Jerseys and Disc but the final price is not correct.<br>
-                    It is our horrible mistake.
+                    Sincerely apologize for the incorrect total price that was provided in the "Register Info" email we
+                    sent to you. We made a mistake in calculating the final price for the Jerseys and Disc you ordered.
+                </p>
+                <p>
+                    We deeply regret this error and assure you that we have now corrected the information as below. We
+                    apologize for any inconvenience caused.
                 </p>
 
                 <p>
-                    The information below are correct by now.<br>
-                    We are so sorry for this inconvenience.
+                    We kindly request your assistance in confirming your registration once again.
                 </p>
-
-                <p>Please help us to confirm your registration again.</p>
             </td>
         </tr>
         </tbody>
@@ -136,93 +136,95 @@
                                                 <% } %>
 
                                                 <% if (detail_fee?.jerseys) { %>
-                                                <tr style="vertical-align: top; width: 100%">
-                                                    <td style="padding: 4px 8px">
-                                                        <div style="display: block; width: 100%">Jerseys</div>
-                                                        <div style="display: block; font-size:80%; padding-left:12px; width: 100%">
-                                                            <% if (detail_fee?.jerseys?.black_count) { %>
-                                                                <div style="display: block; margin-bottom: 8px">Black x
-                                                                    <%= detail_fee?.jerseys?.black_count %>
-                                                                    (
-                                                                    <%= detail_fee?.jerseys?.black_str %>
-                                                                    )
-                                                                </div>
-                                                            <% } %>
+                                                    <tr style="vertical-align: top; width: 100%">
+                                                        <td style="padding: 4px 8px">
+                                                            <div style="display: block; width: 100%">Jerseys</div>
+                                                            <div style="display: block; font-size:80%; padding-left:12px; width: 100%">
+                                                                <% if (detail_fee?.jerseys?.black_count) { %>
+                                                                    <div style="display: block; margin-bottom: 8px">
+                                                                        Black x
+                                                                        <%= detail_fee?.jerseys?.black_count %>
+                                                                        (
+                                                                        <%= detail_fee?.jerseys?.black_str %>
+                                                                        )
+                                                                    </div>
+                                                                <% } %>
 
-                                                            <% if (detail_fee?.jerseys?.white_count) { %>
-                                                                <div style="display: block; width: 100%">White
-                                                                    x <%= detail_fee?.jerseys?.white_count %>
-                                                                    (
-                                                                    <%= detail_fee?.jerseys?.white_str %>
-                                                                    )
-                                                                </div>
-                                                            <% } %>
-                                                        </div>
-                                                    </td>
-                                                    <td style="padding: 4px 8px; white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.jerseys.fee).replaceAll(',', "'") %>
-                                                        VND
-                                                    </td>
-                                                </tr>
+                                                                <% if (detail_fee?.jerseys?.white_count) { %>
+                                                                    <div style="display: block; width: 100%">White
+                                                                        x <%= detail_fee?.jerseys?.white_count %>
+                                                                        (
+                                                                        <%= detail_fee?.jerseys?.white_str %>
+                                                                        )
+                                                                    </div>
+                                                                <% } %>
+                                                            </div>
+                                                        </td>
+                                                        <td style="padding: 4px 8px; white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.jerseys.fee).replaceAll(',', "'") %>
+                                                            VND
+                                                        </td>
+                                                    </tr>
                                                 <% } %>
 
                                                 <% if (detail_fee?.new_jerseys) { %>
-                                                <tr style="vertical-align: top; width: 100%">
-                                                    <td style="padding: 4px 8px">
-                                                        <div style="display: block; width: 100%">Jerseys</div>
-                                                        <div style="display: block; font-size:80%; padding-left:12px; width: 100%">
-                                                            <% if (detail_fee?.new_jerseys?.black_count) { %>
-                                                                <div style="display: block; margin-bottom: 8px">Black x
-                                                                    <%= detail_fee?.new_jerseys?.black_count %>
-                                                                    (
-                                                                    <%= detail_fee?.new_jerseys?.black_str %>
-                                                                    )
-                                                                </div>
-                                                            <% } %>
+                                                    <tr style="vertical-align: top; width: 100%">
+                                                        <td style="padding: 4px 8px">
+                                                            <div style="display: block; width: 100%">Jerseys</div>
+                                                            <div style="display: block; font-size:80%; padding-left:12px; width: 100%">
+                                                                <% if (detail_fee?.new_jerseys?.black_count) { %>
+                                                                    <div style="display: block; margin-bottom: 8px">
+                                                                        Black x
+                                                                        <%= detail_fee?.new_jerseys?.black_count %>
+                                                                        (
+                                                                        <%= detail_fee?.new_jerseys?.black_str %>
+                                                                        )
+                                                                    </div>
+                                                                <% } %>
 
-                                                            <% if (detail_fee?.new_jerseys?.white_count) { %>
-                                                                <div style="display: block; width: 100%">White
-                                                                    x <%= detail_fee?.new_jerseys?.white_count %>
-                                                                    (
-                                                                    <%= detail_fee?.new_jerseys?.white_str %>
-                                                                    )
-                                                                </div>
-                                                            <% } %>
-                                                        </div>
-                                                    </td>
-                                                    <td style="padding: 4px 8px; white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.new_jerseys.fee).replaceAll(',', "'") %>
-                                                        VND
-                                                    </td>
-                                                </tr>
+                                                                <% if (detail_fee?.new_jerseys?.white_count) { %>
+                                                                    <div style="display: block; width: 100%">White
+                                                                        x <%= detail_fee?.new_jerseys?.white_count %>
+                                                                        (
+                                                                        <%= detail_fee?.new_jerseys?.white_str %>
+                                                                        )
+                                                                    </div>
+                                                                <% } %>
+                                                            </div>
+                                                        </td>
+                                                        <td style="padding: 4px 8px; white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.new_jerseys.fee).replaceAll(',', "'") %>
+                                                            VND
+                                                        </td>
+                                                    </tr>
                                                 <% } %>
 
                                                 <% if (detail_fee?.shorts) { %>
-                                                <tr style="vertical-align: top; width: 100%">
-                                                    <td style="padding: 4px 8px;">
-                                                        <div style="display: block; width: 100%">Shorts</div>
-                                                        <div style="display: block; font-size:80%; padding-left:12px; width: 100%">
-                                                            <% if (detail_fee?.shorts?.black_count) { %>
-                                                                <div style="display: block; margin-bottom: 8px; width: 100%">
-                                                                    Black x <%= detail_fee?.shorts?.black_count %>
-                                                                    (
-                                                                    <%= detail_fee?.shorts?.black_str %>
-                                                                    )
-                                                                </div>
-                                                            <% } %>
+                                                    <tr style="vertical-align: top; width: 100%">
+                                                        <td style="padding: 4px 8px;">
+                                                            <div style="display: block; width: 100%">Shorts</div>
+                                                            <div style="display: block; font-size:80%; padding-left:12px; width: 100%">
+                                                                <% if (detail_fee?.shorts?.black_count) { %>
+                                                                    <div style="display: block; margin-bottom: 8px; width: 100%">
+                                                                        Black x <%= detail_fee?.shorts?.black_count %>
+                                                                        (
+                                                                        <%= detail_fee?.shorts?.black_str %>
+                                                                        )
+                                                                    </div>
+                                                                <% } %>
 
-                                                            <% if (detail_fee?.shorts?.white_count) { %>
-                                                                <div style="display: block; width: 100%">White
-                                                                    x <%= detail_fee?.shorts?.white_count %>
-                                                                    (
-                                                                    <%= detail_fee?.shorts?.white_str %>
-                                                                    )
-                                                                </div>
-                                                            <% } %>
-                                                        </div>
-                                                    </td>
-                                                    <td style="padding: 4px 8px;white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.shorts.fee).replaceAll(',', "'") %>
-                                                        VND
-                                                    </td>
-                                                </tr>
+                                                                <% if (detail_fee?.shorts?.white_count) { %>
+                                                                    <div style="display: block; width: 100%">White
+                                                                        x <%= detail_fee?.shorts?.white_count %>
+                                                                        (
+                                                                        <%= detail_fee?.shorts?.white_str %>
+                                                                        )
+                                                                    </div>
+                                                                <% } %>
+                                                            </div>
+                                                        </td>
+                                                        <td style="padding: 4px 8px;white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.shorts.fee).replaceAll(',', "'") %>
+                                                            VND
+                                                        </td>
+                                                    </tr>
                                                 <% } %>
 
                                                 <% if (detail_fee?.disc) { %>
@@ -259,115 +261,115 @@
                         <tbody>
                         <!-- For players in Vietnam, Malaysia, Singapore, Cambodia, Philippines -->
                         <% if (!other_country) { %>
-                        <tr>
-                            <td style="padding: 12px 4.5% 0;">
-                                <div style="padding: 12px 0;">Payment menthods:
-                                </div>
+                            <tr>
+                                <td style="padding: 12px 4.5% 0;">
+                                    <div style="padding: 12px 0;">Payment menthods:
+                                    </div>
 
-                                <div style="padding: 0 4.5%;">
-                                    <% if (is_vietnam) { %>
-                                        <table>
-                                            <tbody>
-                                            <tr style="vertical-align: top;">
-                                                <td>Bank transfer:
-                                                </td>
-                                                <td>Techcombank <br>
-                                                    9903059569
-                                                    <br>
-                                                    Vu Anh Vu<br>
-                                                    Payment narrative: <%= player_code %> - VNHAT2023 payment
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    <% } %>
+                                    <div style="padding: 0 4.5%;">
+                                        <% if (is_vietnam) { %>
+                                            <table>
+                                                <tbody>
+                                                <tr style="vertical-align: top;">
+                                                    <td>Bank transfer:
+                                                    </td>
+                                                    <td>Techcombank <br>
+                                                        9903059569
+                                                        <br>
+                                                        Vu Anh Vu<br>
+                                                        Payment narrative: <%= player_code %> - VNHAT2023 payment
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        <% } %>
 
-                                    <% if (is_philippines) { %>
-                                        <table>
-                                            <tbody>
-                                            <tr style="vertical-align: top;">
-                                                <td>Bank transfer:
-                                                </td>
-                                                <td>PNB <br>
-                                                    408410075948
-                                                    <br>
-                                                    Ngo, Lien T.<br>
-                                                    Payment narrative: <%= player_code %> - VNHAT2023 payment
-                                                </td>
-                                            </tr>
-                                            <tr style="vertical-align: top;">
-                                                <td>Gcash:
-                                                </td>
-                                                <td>0992 252 7750
-                                                    <br>
-                                                    Lien N.<br>
-                                                    Payment narrative: <%= player_code %> - VNHAT2023 payment
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    <% } %>
+                                        <% if (is_philippines) { %>
+                                            <table>
+                                                <tbody>
+                                                <tr style="vertical-align: top;">
+                                                    <td>Bank transfer:
+                                                    </td>
+                                                    <td>PNB <br>
+                                                        408410075948
+                                                        <br>
+                                                        Ngo, Lien T.<br>
+                                                        Payment narrative: <%= player_code %> - VNHAT2023 payment
+                                                    </td>
+                                                </tr>
+                                                <tr style="vertical-align: top;">
+                                                    <td>Gcash:
+                                                    </td>
+                                                    <td>0992 252 7750
+                                                        <br>
+                                                        Lien N.<br>
+                                                        Payment narrative: <%= player_code %> - VNHAT2023 payment
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        <% } %>
 
-                                    <% if (is_singapore) { %>
-                                        <table>
-                                            <tbody>
-                                            <tr style="vertical-align: top;">
-                                                <td>Paynow:
-                                                </td>
-                                                <td>+65 90021198
-                                                    <br>
-                                                    Finn Koh<br>
-                                                    Payment narrative: <%= player_code %> - VNHAT2023 payment
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    <% } %>
+                                        <% if (is_singapore) { %>
+                                            <table>
+                                                <tbody>
+                                                <tr style="vertical-align: top;">
+                                                    <td>Paynow:
+                                                    </td>
+                                                    <td>+65 90021198
+                                                        <br>
+                                                        Finn Koh<br>
+                                                        Payment narrative: <%= player_code %> - VNHAT2023 payment
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        <% } %>
 
-                                    <% if (is_cambodia) { %>
-                                        <table>
-                                            <tbody>
-                                            <tr style="vertical-align: top;">
-                                                <td>Bank transfer:
-                                                </td>
-                                                <td>ABA <br>
-                                                    002 182 907 <br>
-                                                    Koh Jie Yu<br>
-                                                    Payment narrative: <%= player_code %> - VNHAT2023 payment
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    <% } %>
+                                        <% if (is_cambodia) { %>
+                                            <table>
+                                                <tbody>
+                                                <tr style="vertical-align: top;">
+                                                    <td>Bank transfer:
+                                                    </td>
+                                                    <td>ABA <br>
+                                                        002 182 907 <br>
+                                                        Koh Jie Yu<br>
+                                                        Payment narrative: <%= player_code %> - VNHAT2023 payment
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        <% } %>
 
-                                    <% if (is_malaysia) { %>
-                                        <table>
-                                            <tbody>
-                                            <tr style="vertical-align: top;">
-                                                <td>Bank transfer:
-                                                </td>
-                                                <td>Uob <br>
-                                                    1653 021 548 <br>
-                                                    Lee Han king<br>
-                                                    Payment narrative: <%= player_code %> - VNHAT2023 payment
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    <% } %>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align:top;padding:12px 4.5%">
-                                <div>
-                                    To guarantee your slot, please make the full payment within 7 days from your
-                                    registered date. It
-                                    would help us to prioritize the players and thoroughly prepare for you and the
-                                    tournament.
-                                </div>
-                            </td>
-                        </tr>
+                                        <% if (is_malaysia) { %>
+                                            <table>
+                                                <tbody>
+                                                <tr style="vertical-align: top;">
+                                                    <td>Bank transfer:
+                                                    </td>
+                                                    <td>Uob <br>
+                                                        1653 021 548 <br>
+                                                        Lee Han king<br>
+                                                        Payment narrative: <%= player_code %> - VNHAT2023 payment
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        <% } %>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="vertical-align:top;padding:12px 4.5%">
+                                    <div>
+                                        To guarantee your slot, please make the full payment within 7 days from your
+                                        registered date. It
+                                        would help us to prioritize the players and thoroughly prepare for you and the
+                                        tournament.
+                                    </div>
+                                </td>
+                            </tr>
                         <% } else { %>
 
                             <!-- For players NOT in Vietnam, Malaysia, Singapore, Cambodia, Philippines -->
