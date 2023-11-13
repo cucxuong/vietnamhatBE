@@ -10,6 +10,26 @@
 
 <body>
 <div>
+    <table role="presentation" style="border-collapse:collapse;width:100%;background-color: white">
+        <tbody>
+        <tr>
+            <td style="padding:24px 0 16px 0">
+                <p>
+                    Our apologize for the wrong information in your last "Register Info" email we had sent to you.<br>
+                    You have ordered Jerseys and Disc but the final price is not correct.<br>
+                    It is our horrible mistake.
+                </p>
+
+                <p>
+                    The information below are correct by now.<br>
+                    We are so sorry for this inconvenience.
+                </p>
+
+                <p>Please help us to confirm your registration again.</p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
     <table role="presentation" style="border-collapse:collapse;width:100%;background-color:#efefef">
         <tbody>
         <tr>
@@ -82,122 +102,145 @@
                                                 </tbody>
                                             </table>
 
-                                            <table border="1" bordercolor="#d9d9d9" style="border-collapse: collapse;width: 100%;">
+                                            <table border="1" bordercolor="#d9d9d9"
+                                                   style="border-collapse: collapse;width: 100%;">
                                                 <tbody>
                                                 <tr style="width: 100%;">
-                                                    <td style="border-radius: 24px; padding: 4px 8px;">Base (field, medic & first aid, beverage & electrolytes, fruits & snacks, gift)</td>
+                                                    <td style="border-radius: 24px; padding: 4px 8px;">Base (field,
+                                                        medic & first aid, beverage & electrolytes, fruits & snacks,
+                                                        gift)
+                                                    </td>
                                                     <td style="border-radius: 0 24px 0 0; padding: 4px 8px;">
-                                                        <%= Intl.NumberFormat().format(detail_fee.fixed.fee).replaceAll(",", "'") %> VND
+                                                        <%= Intl.NumberFormat().format(detail_fee.fixed.fee).replaceAll(",", "'") %>
+                                                        VND
                                                     </td>
                                                 </tr>
-                                                <%if (detail_fee?.lunch) { %>
+                                                <% if (detail_fee?.lunch) { %>
                                                     <tr style="width: 100%">
                                                         <td style="padding: 4px 8px;">Lunch</td>
                                                         <td style="padding: 4px 8px; white-space: nowrap;">
-                                                            <%= Intl.NumberFormat().format(detail_fee.lunch.fee).replaceAll(",", "'") %> VND
+                                                            <%= Intl.NumberFormat().format(detail_fee.lunch.fee).replaceAll(",", "'") %>
+                                                            VND
                                                         </td>
                                                     </tr>
                                                 <% } %>
 
-                                                <%if (detail_fee?.bus) { %>
-                                                <tr>
-                                                    <td style="padding: 4px 8px;">Shuttle bus</td>
-                                                    <td style="padding: 4px 8px;white-space: nowrap;">
-                                                        <%= Intl.NumberFormat().format(detail_fee.bus.fee).replaceAll(",", "'") %> VND
+                                                <% if (detail_fee?.bus) { %>
+                                                    <tr>
+                                                        <td style="padding: 4px 8px;">Shuttle bus</td>
+                                                        <td style="padding: 4px 8px;white-space: nowrap;">
+                                                            <%= Intl.NumberFormat().format(detail_fee.bus.fee).replaceAll(",", "'") %>
+                                                            VND
+                                                        </td>
+                                                    </tr>
+                                                <% } %>
+
+                                                <% if (detail_fee?.jerseys) { %>
+                                                <tr style="vertical-align: top; width: 100%">
+                                                    <td style="padding: 4px 8px">
+                                                        <div style="display: block; width: 100%">Jerseys</div>
+                                                        <div style="display: block; font-size:80%; padding-left:12px; width: 100%">
+                                                            <% if (detail_fee?.jerseys?.black_count) { %>
+                                                                <div style="display: block; margin-bottom: 8px">Black x
+                                                                    <%= detail_fee?.jerseys?.black_count %>
+                                                                    (
+                                                                    <%= detail_fee?.jerseys?.black_str %>
+                                                                    )
+                                                                </div>
+                                                            <% } %>
+
+                                                            <% if (detail_fee?.jerseys?.white_count) { %>
+                                                                <div style="display: block; width: 100%">White
+                                                                    x <%= detail_fee?.jerseys?.white_count %>
+                                                                    (
+                                                                    <%= detail_fee?.jerseys?.white_str %>
+                                                                    )
+                                                                </div>
+                                                            <% } %>
+                                                        </div>
+                                                    </td>
+                                                    <td style="padding: 4px 8px; white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.jerseys.fee).replaceAll(',', "'") %>
+                                                        VND
                                                     </td>
                                                 </tr>
                                                 <% } %>
 
-                                                <%if (detail_fee?.jerseys) { %>
-                                                    <tr style="vertical-align: top; width: 100%">
-                                                        <td style="padding: 4px 8px">
-                                                            <div style="display: block; width: 100%">Jerseys</div>
-                                                            <div style="display: block; font-size:80%; padding-left:12px; width: 100%">
-                                                                <%if (detail_fee?.jerseys?.black_count) { %>
-                                                                    <div style="display: block; margin-bottom: 8px">Black x
-                                                                        <%= detail_fee?.jerseys?.black_count %>
-                                                                        (
-                                                                            <%= detail_fee?.jerseys?.black_str %>
-                                                                        )
-                                                                    </div>
-                                                                <% } %>
+                                                <% if (detail_fee?.new_jerseys) { %>
+                                                <tr style="vertical-align: top; width: 100%">
+                                                    <td style="padding: 4px 8px">
+                                                        <div style="display: block; width: 100%">Jerseys</div>
+                                                        <div style="display: block; font-size:80%; padding-left:12px; width: 100%">
+                                                            <% if (detail_fee?.new_jerseys?.black_count) { %>
+                                                                <div style="display: block; margin-bottom: 8px">Black x
+                                                                    <%= detail_fee?.new_jerseys?.black_count %>
+                                                                    (
+                                                                    <%= detail_fee?.new_jerseys?.black_str %>
+                                                                    )
+                                                                </div>
+                                                            <% } %>
 
-                                                                <%if (detail_fee?.jerseys?.white_count) { %>
-                                                                    <div style="display: block; width: 100%">White x  <%= detail_fee?.jerseys?.white_count %>
-                                                                        (
-                                                                            <%= detail_fee?.jerseys?.white_str %>
-                                                                        )
-                                                                    </div>
-                                                                <% } %>
-                                                            </div>
+                                                            <% if (detail_fee?.new_jerseys?.white_count) { %>
+                                                                <div style="display: block; width: 100%">White
+                                                                    x <%= detail_fee?.new_jerseys?.white_count %>
+                                                                    (
+                                                                    <%= detail_fee?.new_jerseys?.white_str %>
+                                                                    )
+                                                                </div>
+                                                            <% } %>
+                                                        </div>
+                                                    </td>
+                                                    <td style="padding: 4px 8px; white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.new_jerseys.fee).replaceAll(',', "'") %>
+                                                        VND
+                                                    </td>
+                                                </tr>
+                                                <% } %>
+
+                                                <% if (detail_fee?.shorts) { %>
+                                                <tr style="vertical-align: top; width: 100%">
+                                                    <td style="padding: 4px 8px;">
+                                                        <div style="display: block; width: 100%">Shorts</div>
+                                                        <div style="display: block; font-size:80%; padding-left:12px; width: 100%">
+                                                            <% if (detail_fee?.shorts?.black_count) { %>
+                                                                <div style="display: block; margin-bottom: 8px; width: 100%">
+                                                                    Black x <%= detail_fee?.shorts?.black_count %>
+                                                                    (
+                                                                    <%= detail_fee?.shorts?.black_str %>
+                                                                    )
+                                                                </div>
+                                                            <% } %>
+
+                                                            <% if (detail_fee?.shorts?.white_count) { %>
+                                                                <div style="display: block; width: 100%">White
+                                                                    x <%= detail_fee?.shorts?.white_count %>
+                                                                    (
+                                                                    <%= detail_fee?.shorts?.white_str %>
+                                                                    )
+                                                                </div>
+                                                            <% } %>
+                                                        </div>
+                                                    </td>
+                                                    <td style="padding: 4px 8px;white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.shorts.fee).replaceAll(',', "'") %>
+                                                        VND
+                                                    </td>
+                                                </tr>
+                                                <% } %>
+
+                                                <% if (detail_fee?.disc) { %>
+                                                    <tr style="vertical-align: top; width: 100%">
+                                                        <td style="padding: 4px 8px;">Disc
+                                                            x <%= detail_fee.disc.count %></td>
+                                                        <td style="padding: 4px 8px;white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.disc.fee).replaceAll(',', "'") %>
+                                                            VND
                                                         </td>
-                                                        <td style="padding: 4px 8px; white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.jerseys.fee).replaceAll(',', "'") %> VND</td>
                                                     </tr>
                                                 <% } %>
-
-                                                <%if (detail_fee?.new_jerseys) { %>
+                                                <% if (detail_fee?.new_disc) { %>
                                                     <tr style="vertical-align: top; width: 100%">
-                                                        <td style="padding: 4px 8px">
-                                                            <div style="display: block; width: 100%">Jerseys</div>
-                                                            <div style="display: block; font-size:80%; padding-left:12px; width: 100%">
-                                                                <%if (detail_fee?.new_jerseys?.black_count) { %>
-                                                                    <div style="display: block; margin-bottom: 8px">Black x
-                                                                        <%= detail_fee?.new_jerseys?.black_count %>
-                                                                        (
-                                                                            <%= detail_fee?.new_jerseys?.black_str %>
-                                                                        )
-                                                                    </div>
-                                                                <% } %>
-
-                                                                <%if (detail_fee?.new_jerseys?.white_count) { %>
-                                                                    <div style="display: block; width: 100%">White x  <%= detail_fee?.new_jerseys?.white_count %>
-                                                                        (
-                                                                            <%= detail_fee?.new_jerseys?.white_str %>
-                                                                        )
-                                                                    </div>
-                                                                <% } %>
-                                                            </div>
+                                                        <td style="padding: 4px 8px;">Disc
+                                                            x <%= detail_fee.new_disc.count %></td>
+                                                        <td style="padding: 4px 8px;white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.new_disc.fee).replaceAll(',', "'") %>
+                                                            VND
                                                         </td>
-                                                        <td style="padding: 4px 8px; white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.new_jerseys.fee).replaceAll(',', "'") %> VND</td>
-                                                    </tr>
-                                                <% } %>
-
-                                                <%if (detail_fee?.shorts) { %>
-                                                    <tr style="vertical-align: top; width: 100%">
-                                                        <td style="padding: 4px 8px;">
-                                                            <div style="display: block; width: 100%">Shorts</div>
-                                                            <div style="display: block; font-size:80%; padding-left:12px; width: 100%">
-                                                                <%if (detail_fee?.shorts?.black_count) { %>
-                                                                    <div style="display: block; margin-bottom: 8px; width: 100%">Black x <%= detail_fee?.shorts?.black_count %>
-                                                                        (
-                                                                            <%= detail_fee?.shorts?.black_str %>
-                                                                        )
-                                                                    </div>
-                                                                <% } %>
-
-                                                                <%if (detail_fee?.shorts?.white_count) { %>
-                                                                    <div style="display: block; width: 100%">White x <%= detail_fee?.shorts?.white_count %>
-                                                                        (
-                                                                            <%= detail_fee?.shorts?.white_str %>
-                                                                        )
-                                                                    </div>
-                                                                <% } %>
-                                                            </div>
-                                                        </td>
-                                                        <td style="padding: 4px 8px;white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.shorts.fee).replaceAll(',', "'") %> VND</td>
-                                                    </tr>
-                                                <% } %>
-
-                                                <%if (detail_fee?.disc) { %>
-                                                    <tr style="vertical-align: top; width: 100%">
-                                                        <td style="padding: 4px 8px;">Disc x <%= detail_fee.disc.count %></td>
-                                                        <td style="padding: 4px 8px;white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.disc.fee).replaceAll(',', "'") %> VND</td>
-                                                    </tr>
-                                                <% } %>
-                                                 <%if (detail_fee?.new_disc) { %>
-                                                    <tr style="vertical-align: top; width: 100%">
-                                                        <td style="padding: 4px 8px;">Disc x <%= detail_fee.new_disc.count %></td>
-                                                        <td style="padding: 4px 8px;white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.new_disc.fee).replaceAll(',', "'") %> VND</td>
                                                     </tr>
                                                 <% } %>
                                                 </tbody>
@@ -215,116 +258,116 @@
                             style="border-collapse:collapse;font-family:Roboto,Arial,Helvetica,sans-serif;hyphens:none;overflow-wrap:break-word;word-wrap:break-word;word-break:break-word;width:100%;margin:auto;max-width:700px;min-width:280px;text-align:left; font-size:14px">
                         <tbody>
                         <!-- For players in Vietnam, Malaysia, Singapore, Cambodia, Philippines -->
-                        <%if (!other_country) { %>
-                            <tr>
-                                <td style="padding: 12px 4.5% 0;">
-                                    <div style="padding: 12px 0;">Payment menthods:
-                                    </div>
+                        <% if (!other_country) { %>
+                        <tr>
+                            <td style="padding: 12px 4.5% 0;">
+                                <div style="padding: 12px 0;">Payment menthods:
+                                </div>
 
-                                    <div style="padding: 0 4.5%;">
-                                        <%if (is_vietnam) { %>
-                                            <table>
-                                                <tbody>
-                                                <tr style="vertical-align: top;">
-                                                    <td>Bank transfer:
-                                                    </td>
-                                                    <td>Techcombank <br>
-                                                        9903059569
-                                                        <br>
-                                                        Vu Anh Vu<br>
-                                                        Payment narrative:  <%= player_code %> - VNHAT2023 payment
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        <% } %>
+                                <div style="padding: 0 4.5%;">
+                                    <% if (is_vietnam) { %>
+                                        <table>
+                                            <tbody>
+                                            <tr style="vertical-align: top;">
+                                                <td>Bank transfer:
+                                                </td>
+                                                <td>Techcombank <br>
+                                                    9903059569
+                                                    <br>
+                                                    Vu Anh Vu<br>
+                                                    Payment narrative: <%= player_code %> - VNHAT2023 payment
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    <% } %>
 
-                                        <%if (is_philippines) { %>
-                                            <table>
-                                                <tbody>
-                                                <tr style="vertical-align: top;">
-                                                    <td>Bank transfer:
-                                                    </td>
-                                                    <td>PNB <br>
-                                                        408410075948
-                                                        <br>
-                                                        Ngo, Lien T.<br>
-                                                        Payment narrative:  <%= player_code %> - VNHAT2023 payment
-                                                    </td>
-                                                </tr>
-                                                <tr style="vertical-align: top;">
-                                                    <td>Gcash:
-                                                    </td>
-                                                    <td>0992 252 7750
-                                                        <br>
-                                                        Lien N.<br>
-                                                        Payment narrative:  <%= player_code %> - VNHAT2023 payment
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        <% } %>
+                                    <% if (is_philippines) { %>
+                                        <table>
+                                            <tbody>
+                                            <tr style="vertical-align: top;">
+                                                <td>Bank transfer:
+                                                </td>
+                                                <td>PNB <br>
+                                                    408410075948
+                                                    <br>
+                                                    Ngo, Lien T.<br>
+                                                    Payment narrative: <%= player_code %> - VNHAT2023 payment
+                                                </td>
+                                            </tr>
+                                            <tr style="vertical-align: top;">
+                                                <td>Gcash:
+                                                </td>
+                                                <td>0992 252 7750
+                                                    <br>
+                                                    Lien N.<br>
+                                                    Payment narrative: <%= player_code %> - VNHAT2023 payment
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    <% } %>
 
-                                        <%if (is_singapore) { %>
-                                            <table>
-                                                <tbody>
-                                                <tr style="vertical-align: top;">
-                                                    <td>Paynow:
-                                                    </td>
-                                                    <td>+65 90021198
-                                                        <br>
-                                                        Finn Koh<br>
-                                                        Payment narrative:  <%= player_code %> - VNHAT2023 payment
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        <% } %>
+                                    <% if (is_singapore) { %>
+                                        <table>
+                                            <tbody>
+                                            <tr style="vertical-align: top;">
+                                                <td>Paynow:
+                                                </td>
+                                                <td>+65 90021198
+                                                    <br>
+                                                    Finn Koh<br>
+                                                    Payment narrative: <%= player_code %> - VNHAT2023 payment
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    <% } %>
 
-                                        <%if (is_cambodia) { %>
-                                            <table>
-                                                <tbody>
-                                                <tr style="vertical-align: top;">
-                                                    <td>Bank transfer:
-                                                    </td>
-                                                    <td>ABA <br>
-                                                        002 182 907 <br>
-                                                        Koh Jie Yu<br>
-                                                        Payment narrative:  <%= player_code %> - VNHAT2023 payment
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        <% } %>
+                                    <% if (is_cambodia) { %>
+                                        <table>
+                                            <tbody>
+                                            <tr style="vertical-align: top;">
+                                                <td>Bank transfer:
+                                                </td>
+                                                <td>ABA <br>
+                                                    002 182 907 <br>
+                                                    Koh Jie Yu<br>
+                                                    Payment narrative: <%= player_code %> - VNHAT2023 payment
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    <% } %>
 
-                                        <%if (is_malaysia) { %>
-                                            <table>
-                                                <tbody>
-                                                <tr style="vertical-align: top;">
-                                                    <td>Bank transfer:
-                                                    </td>
-                                                    <td>Uob <br>
-                                                        1653 021 548 <br>
-                                                        Lee Han king<br>
-                                                        Payment narrative:  <%= player_code %> - VNHAT2023 payment
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        <% } %>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="vertical-align:top;padding:12px 4.5%">
-                                    <div>
-                                        To guarantee your slot, please make the full payment within 7 days from your
-                                        registered date. It
-                                        would help us to prioritize the players and thoroughly prepare for you and the
-                                        tournament.
-                                    </div>
-                                </td>
-                            </tr>
+                                    <% if (is_malaysia) { %>
+                                        <table>
+                                            <tbody>
+                                            <tr style="vertical-align: top;">
+                                                <td>Bank transfer:
+                                                </td>
+                                                <td>Uob <br>
+                                                    1653 021 548 <br>
+                                                    Lee Han king<br>
+                                                    Payment narrative: <%= player_code %> - VNHAT2023 payment
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    <% } %>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align:top;padding:12px 4.5%">
+                                <div>
+                                    To guarantee your slot, please make the full payment within 7 days from your
+                                    registered date. It
+                                    would help us to prioritize the players and thoroughly prepare for you and the
+                                    tournament.
+                                </div>
+                            </td>
+                        </tr>
                         <% } else { %>
 
                             <!-- For players NOT in Vietnam, Malaysia, Singapore, Cambodia, Philippines -->
@@ -338,7 +381,7 @@
                         <% } %>
 
                         <!-- For Vietnamese players -->
-                        <%if (is_vietnam) { %>
+                        <% if (is_vietnam) { %>
                             <tr>
                                 <td style="vertical-align:top;padding:12px 4.5%">
                                     <div>If you unfortunately cannot attend the tournament, please inform us at
@@ -361,11 +404,12 @@
                             </tr>
                         <% } %>
 
-                        <%if (is_student) { %>
+                        <% if (is_student) { %>
                             <!-- For student players -->
                             <tr>
                                 <td style="vertical-align:top;padding:12px 4.5%">
-                                    <div>For students, in case of the lack of finance, you can pay 50% fee before D-Day then
+                                    <div>For students, in case of the lack of finance, you can pay 50% fee before D-Day
+                                        then
                                         pay the rest
                                         till 16.02.2024
                                     </div>
