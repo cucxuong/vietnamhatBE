@@ -1,10 +1,10 @@
-import { Body, Controller, Post, Res, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Post, Res, UseInterceptors } from '@nestjs/common';
 import { ResponseMessage } from 'src/common/decorators/response_message.decorator';
 import { ResponseInterceptor } from 'src/common/interceptors/response.interceptor';
 import { CreateUserDto } from '../admin/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
-import { Response } from "express";
+import { Response } from 'express';
 
 @Controller('auth')
 @UseInterceptors(ResponseInterceptor)
@@ -26,12 +26,12 @@ export class AuthController {
     const user = await this.authService.signIn(authDto);
 
     response.cookie('access_token', user.accessToken, {
-      sameSite: "none",
+      sameSite: 'none',
       secure: true,
       domain: user.domain,
     });
     response.cookie('refresh_token', user.refreshToken, {
-      sameSite: "none",
+      sameSite: 'none',
       secure: true,
       domain: user.domain,
     });

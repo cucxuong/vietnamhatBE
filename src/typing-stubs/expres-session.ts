@@ -1,7 +1,7 @@
-import "express-session";
+import 'express-session';
 
-declare module "express-session" {
-    interface SessionData {
-        country_code: string;
-    }
+declare module 'express-session' {
+  interface SessionData {
+    country_code: string;
+  }
 }
