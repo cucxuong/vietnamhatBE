@@ -6,6 +6,7 @@ import * as cookieParser from 'cookie-parser';
 import * as dotenv from 'dotenv';
 import * as basicAuth from 'express-basic-auth';
 import * as session from 'express-session';
+import helmet from 'helmet';
 import { AppModule } from './app.module';
 import { ConfigService } from './modules/common/config/config.service';
 
@@ -47,6 +48,28 @@ async function bootstrap() {
   if (currentEnv !== 'production') {
     origins = [...origins, 'http://localhost:3001'];
   }
+
+  app.use(
+    helmet({
+      crossOriginEmbedderPolicy: false,
+      contentSecurityPolicy: {
+        directives: {
+          imgSrc: [
+            `'self'`,
+            'data:',
+            'https: data:',
+            'apollo-server-landing-page.cdn.apollographql.com',
+          ],
+          scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
+          manifestSrc: [
+            `'self'`,
+            'apollo-server-landing-page.cdn.apollographql.com',
+          ],
+          frameSrc: [`'self'`, 'sandbox.embed.apollographql.com'],
+        },
+      },
+    }),
+  );
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.enableCors({
