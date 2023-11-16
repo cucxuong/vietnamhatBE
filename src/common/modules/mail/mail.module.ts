@@ -1,10 +1,10 @@
-import { Global, Module } from '@nestjs/common';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
+import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
+import { Global, Module } from '@nestjs/common';
 import { join } from 'path';
+import { ConfigModule } from 'src/modules/common/config/config.module';
+import { ConfigService } from 'src/modules/common/config/config.service';
 import { MailService } from './mail.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { EjsAdapter } from "@nestjs-modules/mailer/dist/adapters/ejs.adapter";
 
 @Global()
 @Module({
@@ -14,12 +14,12 @@ import { EjsAdapter } from "@nestjs-modules/mailer/dist/adapters/ejs.adapter";
       useFactory: async (config: ConfigService) => ({
         transport: {
           service: 'gmail',
-          host: config.get<string>('MAIL_HOST'),
-          port: config.get<number>('MAIL_PORT'),
+          host: config.get().mail.host,
+          port: config.get().mail.port,
           secure: true,
           auth: {
-            user: config.get<string>('MAIL_USERNAME'),
-            pass: config.get<string>('MAIL_PASSWORD'),
+            user: config.get().mail.username,
+            pass: config.get().mail.password,
           },
         },
         defaults: {
