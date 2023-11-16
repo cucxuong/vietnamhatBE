@@ -2,7 +2,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-  UnauthorizedException
+  UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
@@ -20,7 +20,8 @@ import { TokenPayload } from './utils/type';
 export class AuthService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<User>,
-    @InjectModel(RefreshToken.name) private readonly refreshTokenModel: Model<RefreshToken>,
+    @InjectModel(RefreshToken.name)
+    private readonly refreshTokenModel: Model<RefreshToken>,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
   ) {}
@@ -61,6 +62,58 @@ export class AuthService {
       access_token: accessToken,
       refresh_token: refreshToken,
     });
+  }
+
+  async refreshToken({ token }: { token: string }) {
+    try {
+      const oldPayload: TokenPayload = await this.jwtService.verifyAsync(
+        token,
+        {
+          secret: this.configService.get().jwt.refresh_secret_key,
+        },
+      );
+
+      const user = await this.userModel.findById(oldPayload.id);
+
+      if (!user) {
+        throw new BadRequestException('Invalid Token');
+      }
+
+      const oldRefreshToken = await this.refreshTokenModel.findOne({
+        refresh_token: token,
+        user,
+      });
+
+      if (!oldRefreshToken) {
+        throw new BadRequestException('Invalid Token');
+      }
+
+      const newPayload: Omit<TokenPayload, 'type'> = {
+        id: user.id,
+        email: user.email,
+      };
+
+      const accessToken = await this.genAccessToken(newPayload);
+      const newRefreshToken = await this.genRefreshToken(newPayload);
+
+      await this.refreshTokenModel.create({
+        access_token: accessToken,
+        refresh_token: newRefreshToken,
+        user: user,
+      });
+
+      await this.refreshTokenModel.findByIdAndDelete(oldRefreshToken.id);
+
+      return new LoginData({
+        id: user._id.toString(),
+        name: user.name,
+        email: user.email,
+        access_token: accessToken,
+        refresh_token: newRefreshToken,
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
   async genAccessToken(payload: Omit<TokenPayload, 'type'>) {
