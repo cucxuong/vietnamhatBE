@@ -1,9 +1,11 @@
 import { Body, Controller, Post, UseInterceptors } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { ResponseInterceptor } from 'src/common/interceptors/response.interceptor';
 import { AuthService } from './auth.service';
 import { LoginDto, RefreshTokenDto } from './dto/auth.dto';
 import { LoginData } from './res/login.res';
 
+@ApiTags('Auth')
 @Controller('auth')
 @UseInterceptors(ResponseInterceptor)
 export class AuthController {
