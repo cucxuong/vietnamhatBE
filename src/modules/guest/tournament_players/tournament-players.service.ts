@@ -1,10 +1,13 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { TournamentPlayer, TournamentPlayerDocument, } from 'src/schemas/tournament-player.schema';
-import { CreateTournamentPlayerDto } from './dto/create-tournament-player.dto';
 import { MailService } from 'src/common/modules/mail/mail.service';
+import { ConfigService } from 'src/modules/common/config/config.service';
+import {
+  TournamentPlayer,
+  TournamentPlayerDocument,
+} from 'src/schemas/tournament-player.schema';
 import { TournamentService } from '../tournaments/tournaments.service';
-import { ConfigService } from "@nestjs/config";
+import { CreateTournamentPlayerDto } from './dto/create-tournament-player.dto';
 
 export class TournamentPlayerService {
   constructor(
@@ -13,8 +16,7 @@ export class TournamentPlayerService {
     private readonly tournamentService: TournamentService,
     private mailService: MailService,
     private readonly configService: ConfigService,
-  ) {
-  }
+  ) {}
 
   async create(
     createDto: CreateTournamentPlayerDto,
@@ -59,12 +61,11 @@ export class TournamentPlayerService {
       detailFee,
     } = this.calculateDetailFee(player, tournament);
 
-     let subject = '';
-        if (this.configService.get<string>('APP_ENV') !== 'production') {
-          subject += `[${this.configService.get<string>("APP_ENV")}] `;
-        }
-        subject += '[Vietnam HAT 2023] Register Info';
-
+    let subject = '';
+    if (this.configService.get().app.env !== 'production') {
+      subject += `[${this.configService.get().app.env}] `;
+    }
+    subject += '[Vietnam HAT 2023] Register Info';
 
     this.mailService.sendMail({
       to: player.email,
@@ -104,15 +105,19 @@ export class TournamentPlayerService {
   }
 
   async send(code: string) {
-    const player = await this.tournamentPlayerModel.findOne({ player_code: code });
+    const player = await this.tournamentPlayerModel.findOne({
+      player_code: code,
+    });
 
     if (player === null || player === undefined) {
       return;
     }
-    const tournamentId = this.configService.get<string>('VIETNAM_HAT_2023_TOURNAMENT_ID');
-    const tournament = await this.tournamentService.getDetailInfo(tournamentId!);
+    const tournamentId = this.configService.get().fe.vietnam_hat_tournament_id;
+    const tournament = await this.tournamentService.getDetailInfo(
+      tournamentId!,
+    );
 
-     const {
+    const {
       totalFee,
       currency,
       exchangeRate,
@@ -127,12 +132,11 @@ export class TournamentPlayerService {
       detailFee,
     } = this.calculateDetailFee(player, tournament);
 
-     let subject = '';
-        if (this.configService.get<string>('APP_ENV') !== 'production') {
-          subject += `[${this.configService.get<string>("APP_ENV")}] `;
-        }
-        subject += '[Vietnam HAT 2023] Register Info';
-
+    let subject = '';
+    if (this.configService.get().app.env !== 'production') {
+      subject += `[${this.configService.get().app.env}] `;
+    }
+    subject += '[Vietnam HAT 2023] Register Info';
 
     this.mailService.sendMail({
       to: player.email,
@@ -170,15 +174,14 @@ export class TournamentPlayerService {
   }
 
   calculateDetailFee(player: any, tournament: any) {
-    const {addition, info} = JSON.parse(player.selected_options);
-
+    const { addition, info } = JSON.parse(player.selected_options);
 
     const tournamentOptions = JSON.parse(tournament.options!);
     const tournamentAdditions = tournamentOptions.additions;
 
     let totalFee: number = 700000;
     let detailFee = {
-      fixed: {fee: 700000},
+      fixed: { fee: 700000 },
     };
 
     Object.keys(addition).forEach((key: any) => {
@@ -198,8 +201,8 @@ export class TournamentPlayerService {
         addition[key] === true
           ? 1
           : Array.isArray(addition[key])
-            ? addition[key].length
-            : addition[key];
+          ? addition[key].length
+          : addition[key];
 
       if (userNum > 0) {
         if (key === 'jerseys' || key === 'shorts' || key === 'new_jerseys') {
@@ -216,7 +219,7 @@ export class TournamentPlayerService {
               blackList = {
                 ...blackList,
                 [itemMap.size]:
-                // @ts-ignore
+                  // @ts-ignore
                   itemMap.size in blackList ? blackList[itemMap.size] + 1 : 1,
               };
             });
@@ -229,7 +232,7 @@ export class TournamentPlayerService {
               whiteList = {
                 ...whiteList,
                 [itemMap.size]:
-                // @ts-ignore
+                  // @ts-ignore
                   itemMap.size in whiteList ? whiteList[itemMap.size] + 1 : 1,
               };
             });
@@ -348,7 +351,7 @@ export class TournamentPlayerService {
       isStudent,
       detailFee,
       totalFee,
-      isCambodia
+      isCambodia,
     };
   }
 }
