@@ -1,10 +1,10 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { MailService } from 'src/common/modules/mail/mail.service';
 import { ConfigService } from 'src/modules/common/config/config.service';
+import { MailService } from 'src/modules/common/mail/mail.service';
 import {
-  TournamentPlayer,
-  TournamentPlayerDocument,
+    TournamentPlayer,
+    TournamentPlayerDocument,
 } from 'src/schemas/tournament-player.schema';
 import { TournamentService } from '../tournaments/tournaments.service';
 import { CreateTournamentPlayerDto } from './dto/create-tournament-player.dto';

@@ -1,5 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseInterceptors } from '@nestjs/common';
-import { ResponseMessage } from 'src/common/decorators/response_message.decorator';
+import { Body, Controller, Param, Post, UseInterceptors } from '@nestjs/common';
 import { ResponseInterceptor } from 'src/common/interceptors/response.interceptor';
 import { CreateTournamentPlayerDto } from './dto/create-tournament-player.dto';
 import { TournamentPlayerService } from './tournament-players.service';
@@ -12,7 +11,6 @@ export class TournamentPlayerController {
   ) {}
 
   @Post()
-  @ResponseMessage('Register Tournament Successfully')
   async create(@Body() createTournamentPlayerDto: CreateTournamentPlayerDto) {
     return await this.tournamentPlayerService.create(createTournamentPlayerDto);
   }
