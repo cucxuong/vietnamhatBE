@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Tournament, TournamentDocument } from 'src/schemas/tournament.schema';
-import { CreateTournamentDto } from './dto/create-tournament.dto';
-import { UpdateTournamentDto } from './dto/update-tournament.dto';
+import { CreateTournamentDto, UpdateTournamentDto } from './dto/tounament.dto';
+import { Tournament, TournamentDocument } from './schema/tournament.schema';
 
 @Injectable()
 export class TournamentsService {
@@ -21,11 +20,11 @@ export class TournamentsService {
   }
 
   async findAll(): Promise<TournamentDocument[]> {
-    return this.tournamentModel.find();
+    return await this.tournamentModel.find();
   }
 
-  findOne(id: string) {
-    return this.tournamentModel.findById(id);
+  async findOne(id: string): Promise<TournamentDocument | null> {
+    return await this.tournamentModel.findById(id);
   }
 
   async update(

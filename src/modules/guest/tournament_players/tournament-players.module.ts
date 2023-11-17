@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { Tournament, TournamentSchema } from 'src/modules/admin/tournament/schema/tournament.schema';
 import { ConfigModule } from 'src/modules/common/config/config.module';
 import {
   TournamentPlayer,
   TournamentPlayerSchema,
 } from 'src/schemas/tournament-player.schema';
-import { Tournament, TournamentSchema } from 'src/schemas/tournament.schema';
 import { TournamentsModule } from '../tournaments/tournaments.module';
 import { TournamentPlayerController } from './tournament-players.controller';
 import { TournamentPlayerService } from './tournament-players.service';

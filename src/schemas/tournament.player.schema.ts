@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
-import { Tournament } from './tournament.schema';
+import { Tournament } from 'src/modules/admin/tournament/schema/tournament.schema';
 
 export type TournamentPlayerDocument = HydratedDocument<TournamentPlayer>;
 
