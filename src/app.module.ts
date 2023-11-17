@@ -3,9 +3,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MailModule } from './common/modules/mail/mail.module';
 import { ConfigModule } from './modules/common/config/config.module';
 import { ConfigService } from './modules/common/config/config.service';
+import { MailModule } from './modules/common/mail/mail.module';
 import { GuestModule } from './modules/guest/guest.module';
 // import { AdminModule } from './modules/admin/admin.module';
 

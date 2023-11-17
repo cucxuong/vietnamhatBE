@@ -1,12 +1,12 @@
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ConfigService } from 'src/modules/common/config/config.service';
-import { MailService } from '../../../common/modules/mail/mail.service';
 import {
-  TournamentPlayer,
-  TournamentPlayerDocument,
+    TournamentPlayer,
+    TournamentPlayerDocument,
 } from '../../../schemas/tournament-player.schema';
 import { TOURNAMENT_PLAYER_STATUS } from '../../../utils/tournament.player.const';
+import { MailService } from '../../common/mail/mail.service';
 import { TournamentPlayerService } from '../../guest/tournament_players/tournament-players.service';
 import { TournamentService } from '../../guest/tournaments/tournaments.service';
 

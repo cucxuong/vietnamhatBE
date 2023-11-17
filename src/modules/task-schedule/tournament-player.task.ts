@@ -2,21 +2,21 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Cron } from '@nestjs/schedule';
 import {
-  compareAsc,
-  endOfDay,
-  format,
-  parseISO,
-  startOfDay,
-  subDays,
+    compareAsc,
+    endOfDay,
+    format,
+    parseISO,
+    startOfDay,
+    subDays,
 } from 'date-fns';
 import { Model } from 'mongoose';
-import { MailService } from '../../common/modules/mail/mail.service';
 import {
-  TournamentPlayer,
-  TournamentPlayerDocument,
+    TournamentPlayer,
+    TournamentPlayerDocument,
 } from '../../schemas/tournament-player.schema';
 import { TOURNAMENT_PLAYER_STATUS } from '../../utils/tournament.player.const';
 import { ConfigService } from '../common/config/config.service';
+import { MailService } from '../common/mail/mail.service';
 import { TournamentPlayerService } from '../guest/tournament_players/tournament-players.service';
 import { TournamentService } from '../guest/tournaments/tournaments.service';
 
