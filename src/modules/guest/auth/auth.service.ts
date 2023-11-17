@@ -14,7 +14,7 @@ import { LoginDto } from './dto/auth.dto';
 import { LoginData } from './res/login.res';
 import { RefreshToken } from './schema/refresh.token.schema';
 import { TokenType } from './utils/const';
-import { TokenPayload } from './utils/type';
+import { AuthedUser, TokenPayload } from './utils/type';
 
 @Injectable()
 export class AuthService {
@@ -62,6 +62,19 @@ export class AuthService {
       access_token: accessToken,
       refresh_token: refreshToken,
     });
+  }
+
+  async logout(user: AuthedUser, token: string): Promise<void> {
+    const refreshItem = await this.refreshTokenModel.findOne({
+      user: user.id,
+      access_token: token,
+    });
+
+    if (!refreshItem) {
+      throw new BadRequestException('Invalid Token');
+    }
+
+    await this.refreshTokenModel.findByIdAndDelete(refreshItem.id);
   }
 
   async refreshToken({ token }: { token: string }) {
@@ -134,9 +147,7 @@ export class AuthService {
   }
 
   async validateUser({ id, email }: TokenPayload): Promise<User> {
-    const user = await this.userModel.findOne({
-      id,
-    });
+    const user = await this.userModel.findById(id);
 
     if (!user || user.email !== email) {
       throw new UnauthorizedException();
