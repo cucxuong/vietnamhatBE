@@ -1,9 +1,15 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import {
+  Tournament,
+  TournamentSchema,
+} from 'src/modules/admin/tournament/schema/tournament.schema';
+import {
+  TournamentPlayer,
+  TournamentPlayerSchema,
+} from 'src/schemas/tournament-player.schema';
 import { TournamentController } from './tournaments.controller';
 import { TournamentService } from './tournaments.service';
-import { MongooseModule } from '@nestjs/mongoose';
-import { Tournament, TournamentSchema } from 'src/schemas/tournament.schema';
-import { TournamentPlayer, TournamentPlayerSchema } from "../../../schemas/tournament-player.schema";
 
 @Module({
   imports: [
@@ -15,12 +21,11 @@ import { TournamentPlayer, TournamentPlayerSchema } from "../../../schemas/tourn
       {
         name: TournamentPlayer.name,
         schema: TournamentPlayerSchema,
-      }
+      },
     ]),
   ],
   controllers: [TournamentController],
   providers: [TournamentService],
   exports: [TournamentService],
 })
-export class TournamentsModule {
-}
+export class TournamentsModule {}
