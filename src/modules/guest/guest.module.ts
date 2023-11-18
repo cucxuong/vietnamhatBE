@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
-import { TournamentPlayersModule } from './tournament_players/tournament-players.module';
-import { TournamentsModule } from './tournaments/tournaments.module';
 import { AuthModule } from './auth/auth.module';
+import { PlayerModule } from './player/player.module';
 
 @Module({
-  imports: [AuthModule, TournamentsModule, TournamentPlayersModule],
+  imports: [AuthModule, PlayerModule],
   controllers: [],
   providers: [],
 })
