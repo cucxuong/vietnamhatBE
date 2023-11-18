@@ -1,0 +1,195 @@
+import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsBoolean,
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsPositive,
+  IsString,
+  Min,
+} from 'class-validator';
+import { STANDARD_COLOR } from 'src/common/utils/const';
+import { Gender } from 'src/modules/admin/player/utils/type';
+
+export class BooleanService {
+  @ApiProperty({ required: true })
+  @IsBoolean()
+  @IsNotEmpty()
+  value: boolean;
+
+  @ApiProperty({ required: true })
+  @IsNumber()
+  @IsNotEmpty()
+  @IsPositive()
+  price: number;
+}
+
+export class ClothesService {
+  @ApiProperty({ required: true, type: 'enum', enum: STANDARD_COLOR })
+  @IsEnum(STANDARD_COLOR)
+  @IsNotEmpty()
+  color: STANDARD_COLOR;
+
+  @ApiProperty({ required: true })
+  @IsNumber()
+  @IsNotEmpty()
+  @IsPositive()
+  quantity: number;
+
+  @ApiProperty({ required: true })
+  @IsNumber()
+  @IsNotEmpty()
+  @Min(0)
+  size: number;
+
+  @ApiProperty({ required: true })
+  @IsNumber()
+  @IsNotEmpty()
+  @IsPositive()
+  price: number;
+}
+
+export class QuantityService {
+  @ApiProperty({ required: true })
+  @IsNumber()
+  @IsNotEmpty()
+  @IsPositive()
+  quantity: number;
+
+  @ApiProperty({ required: true })
+  @IsNumber()
+  @IsNotEmpty()
+  @IsPositive()
+  price: number;
+}
+
+export class PlayerSKill {
+  @ApiProperty({ required: true })
+  @IsNumber()
+  @IsNotEmpty()
+  @IsPositive()
+  play_exp: number;
+
+  @ApiProperty({ required: true })
+  @IsNumber()
+  @IsNotEmpty()
+  @IsPositive()
+  years: number;
+
+  @ApiProperty({ required: true })
+  @IsNumber()
+  @IsNotEmpty()
+  @IsPositive()
+  throwing: number;
+
+  @ApiProperty({ required: true })
+  @IsNumber()
+  @IsNotEmpty()
+  @IsPositive()
+  catching: number;
+
+  @ApiProperty({ required: true })
+  @IsNumber()
+  @IsNotEmpty()
+  @IsPositive()
+  cutting: number;
+
+  @ApiProperty({ required: true })
+  @IsNumber()
+  @IsNotEmpty()
+  @IsPositive()
+  defense: number;
+
+  @ApiProperty({ required: true })
+  @IsNumber()
+  @IsNotEmpty()
+  @IsPositive()
+  fitness: number;
+
+  @ApiProperty({ required: true })
+  @IsNumber()
+  @IsNotEmpty()
+  @IsPositive()
+  captain: number;
+
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  team?: string;
+}
+
+export class PlayerService {
+  @ApiProperty({ required: true })
+  base: BooleanService;
+
+  @ApiProperty({ required: true })
+  lunch: BooleanService;
+
+  @ApiProperty({ required: false })
+  is_vegan?: boolean;
+
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  allergies?: string;
+
+  @ApiProperty({ required: true })
+  bus: BooleanService;
+
+  @ApiProperty({ required: true, isArray: true, type: [ClothesService] })
+  jerseys: ClothesService[];
+
+  @ApiProperty({ required: true, isArray: true, type: [ClothesService] })
+  shorts: ClothesService[];
+
+  @ApiProperty({ required: true })
+  disc: QuantityService;
+}
+
+export class CreatePlayerDto {
+  @ApiProperty({ required: true })
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @ApiProperty({ required: true })
+  @IsString()
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
+
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  nickname: string;
+
+  @ApiProperty({ required: true })
+  @IsString()
+  @IsNotEmpty()
+  yob: string;
+
+  @ApiProperty({ required: true, enum: Gender, type: 'enum' })
+  @IsString()
+  @IsOptional()
+  gender: Gender;
+
+  @ApiProperty({ required: true })
+  @IsString()
+  @IsNotEmpty()
+  country: string;
+
+  @ApiProperty({ required: true })
+  @IsBoolean()
+  @IsNotEmpty()
+  is_student: boolean;
+
+  @ApiProperty({ required: true })
+  @IsNotEmpty()
+  skills: PlayerSKill;
+
+  @ApiProperty({ required: true })
+  @IsNotEmpty()
+  services: PlayerService;
+}

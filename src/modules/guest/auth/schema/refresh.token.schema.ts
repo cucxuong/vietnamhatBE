@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose from 'mongoose';
+import mongoose, { HydratedDocument } from 'mongoose';
 import { User } from 'src/modules/admin/users/schemas/user.schema';
+
+export type RefreshTokenDocument = HydratedDocument<RefreshToken>;
 
 @Schema({
   collection: 'refresh_tokens',
