@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { STANDARD_COLOR } from 'src/common/utils/const';
-import { Gender } from '../utils/type';
+import { ClothesSize, StandardColor } from '../../tournament/utils/type';
+import { Gender, PlayerStatus } from '../utils/type';
 
 export class BooleanService {
   @Prop({ required: true })
@@ -12,14 +12,14 @@ export class BooleanService {
 }
 
 export class ClothesService {
-  @Prop({ required: true, type: 'enum', enum: STANDARD_COLOR })
-  color: STANDARD_COLOR;
+  @Prop({ required: true, type: 'enum', enum: StandardColor })
+  color: StandardColor;
 
   @Prop({ required: true })
   quantity: number;
 
-  @Prop({ required: true })
-  size: number;
+  @Prop({ required: true, type: 'enum', enum: ClothesSize })
+  size: ClothesSize;
 
   @Prop({ required: true })
   price: number;
@@ -112,6 +112,12 @@ export class Player {
 
   @Prop({ required: true })
   is_student: boolean;
+
+  @Prop({ required: true })
+  code: string;
+
+  @Prop({ required: true, type: 'string', enum: PlayerStatus })
+  status: PlayerStatus;
 
   @Prop({ required: true })
   skills: PlayerSKill;
