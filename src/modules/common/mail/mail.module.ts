@@ -5,10 +5,12 @@ import { join } from 'path';
 import { ConfigModule } from 'src/modules/common/config/config.module';
 import { ConfigService } from 'src/modules/common/config/config.service';
 import { MailService } from './mail.service';
+import { PlayerMailService } from './services/player.mail.service';
 
 @Global()
 @Module({
   imports: [
+    ConfigModule,
     MailerModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (config: ConfigService) => ({
@@ -36,7 +38,7 @@ import { MailService } from './mail.service';
       inject: [ConfigService],
     }),
   ],
-  providers: [MailService],
-  exports: [MailService],
+  providers: [MailService, PlayerMailService],
+  exports: [MailService, PlayerMailService],
 })
 export class MailModule {}

@@ -1,36 +1,30 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import {
+  IsArray,
   IsBoolean,
   IsEmail,
   IsEnum,
   IsNotEmpty,
+  IsNotEmptyObject,
   IsNumber,
+  IsObject,
   IsOptional,
   IsPositive,
   IsString,
-  Min,
+  ValidateNested,
 } from 'class-validator';
-import { STANDARD_COLOR } from 'src/common/utils/const';
 import { Gender } from 'src/modules/admin/player/utils/type';
-
-export class BooleanService {
-  @ApiProperty({ required: true })
-  @IsBoolean()
-  @IsNotEmpty()
-  value: boolean;
-
-  @ApiProperty({ required: true })
-  @IsNumber()
-  @IsNotEmpty()
-  @IsPositive()
-  price: number;
-}
+import {
+  ClothesSize,
+  StandardColor,
+} from 'src/modules/admin/tournament/utils/type';
 
 export class ClothesService {
-  @ApiProperty({ required: true, type: 'enum', enum: STANDARD_COLOR })
-  @IsEnum(STANDARD_COLOR)
+  @ApiProperty({ required: true, type: 'enum', enum: StandardColor })
+  @IsEnum(StandardColor)
   @IsNotEmpty()
-  color: STANDARD_COLOR;
+  color: StandardColor;
 
   @ApiProperty({ required: true })
   @IsNumber()
@@ -38,17 +32,10 @@ export class ClothesService {
   @IsPositive()
   quantity: number;
 
-  @ApiProperty({ required: true })
-  @IsNumber()
+  @ApiProperty({ required: true, type: 'enum', enum: ClothesSize })
+  @IsEnum(ClothesSize)
   @IsNotEmpty()
-  @Min(0)
-  size: number;
-
-  @ApiProperty({ required: true })
-  @IsNumber()
-  @IsNotEmpty()
-  @IsPositive()
-  price: number;
+  size: ClothesSize;
 }
 
 export class QuantityService {
@@ -122,10 +109,8 @@ export class PlayerSKill {
 
 export class PlayerService {
   @ApiProperty({ required: true })
-  base: BooleanService;
-
-  @ApiProperty({ required: true })
-  lunch: BooleanService;
+  @IsBoolean()
+  lunch: boolean;
 
   @ApiProperty({ required: false })
   is_vegan?: boolean;
@@ -136,16 +121,23 @@ export class PlayerService {
   allergies?: string;
 
   @ApiProperty({ required: true })
-  bus: BooleanService;
+  bus: boolean;
 
-  @ApiProperty({ required: true, isArray: true, type: [ClothesService] })
+  @ApiProperty({ required: true, isArray: true, type: () => [ClothesService] })
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => ClothesService)
   jerseys: ClothesService[];
 
-  @ApiProperty({ required: true, isArray: true, type: [ClothesService] })
+  @ApiProperty({ required: true, isArray: true, type: ClothesService })
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => ClothesService)
   shorts: ClothesService[];
 
   @ApiProperty({ required: true })
-  disc: QuantityService;
+  @IsNumber()
+  disc: number;
 }
 
 export class CreatePlayerDto {
@@ -186,10 +178,16 @@ export class CreatePlayerDto {
   is_student: boolean;
 
   @ApiProperty({ required: true })
-  @IsNotEmpty()
+  @ValidateNested()
+  @IsObject()
+  @IsNotEmptyObject()
+  @Type(() => PlayerSKill)
   skills: PlayerSKill;
 
   @ApiProperty({ required: true })
-  @IsNotEmpty()
+  @ValidateNested()
+  @IsObject()
+  @IsNotEmptyObject()
+  @Type(() => PlayerService)
   services: PlayerService;
 }

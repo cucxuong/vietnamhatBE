@@ -66,15 +66,15 @@
                                                         <div>Your player fee is
                                                             <% if(is_vietnam) { %>
                                                                 <div style="font-weight: bold; display: inline;">
-                                                                    <%= total_fee %> VND
+                                                                    <%= total_fee %>
                                                                 </div>
                                                             <% } else { %>
                                                                 <div style="font-weight: bold; display: inline;">
-                                                                    <%= total_fee %> VND
-                                                                    ≈ <%= total_foreign %> <%= currency %>
+                                                                    <%= total_fee %>
+                                                                    ≈ <%= total_foreign %>
                                                                 </div>
                                                                 <br>(with exchange rate: 1 <%= currency %>
-                                                                = <%= exchange_rate %> VND)
+                                                                = <%= exchange_rate %>)
                                                             <% } %>
                                                         </div>
                                                     </td>
@@ -87,117 +87,84 @@
                                                 <tr style="width: 100%;">
                                                     <td style="border-radius: 24px; padding: 4px 8px;">Base (field, medic & first aid, beverage & electrolytes, fruits & snacks, gift)</td>
                                                     <td style="border-radius: 0 24px 0 0; padding: 4px 8px;">
-                                                        <%= Intl.NumberFormat().format(detail_fee.fixed.fee).replaceAll(",", "'") %> VND
+                                                        <%= base_price %>
                                                     </td>
                                                 </tr>
-                                                <%if (detail_fee?.lunch) { %>
+                                                <%if (lunch !== '') { %>
                                                     <tr style="width: 100%">
                                                         <td style="padding: 4px 8px;">Lunch</td>
                                                         <td style="padding: 4px 8px; white-space: nowrap;">
-                                                            <%= Intl.NumberFormat().format(detail_fee.lunch.fee).replaceAll(",", "'") %> VND
+                                                            <%= lunch %>
                                                         </td>
                                                     </tr>
                                                 <% } %>
 
-                                                <%if (detail_fee?.bus) { %>
+                                                <%if (bus !== '') { %>
                                                 <tr>
                                                     <td style="padding: 4px 8px;">Shuttle bus</td>
                                                     <td style="padding: 4px 8px;white-space: nowrap;">
-                                                        <%= Intl.NumberFormat().format(detail_fee.bus.fee).replaceAll(",", "'") %> VND
+                                                        <%= bus %>
                                                     </td>
                                                 </tr>
                                                 <% } %>
 
-                                                <%if (detail_fee?.jerseys) { %>
+                                                <%if (jerseys_price !== '') { %>
                                                     <tr style="vertical-align: top; width: 100%">
                                                         <td style="padding: 4px 8px">
                                                             <div style="display: block; width: 100%">Jerseys</div>
                                                             <div style="display: block; font-size:80%; padding-left:12px; width: 100%">
-                                                                <%if (detail_fee?.jerseys?.black_count) { %>
+                                                                <%if (jerseys_black_count) { %>
                                                                     <div style="display: block; margin-bottom: 8px">Black x
-                                                                        <%= detail_fee?.jerseys?.black_count %>
+                                                                        <%= jerseys_black_count %>
                                                                         (
-                                                                            <%= detail_fee?.jerseys?.black_str %>
+                                                                            <%= jerseys_black_str %>
                                                                         )
                                                                     </div>
                                                                 <% } %>
 
-                                                                <%if (detail_fee?.jerseys?.white_count) { %>
-                                                                    <div style="display: block; width: 100%">White x  <%= detail_fee?.jerseys?.white_count %>
+                                                                <%if (jerseys_white_count) { %>
+                                                                    <div style="display: block; width: 100%">White x  <%= jerseys_white_count %>
                                                                         (
-                                                                            <%= detail_fee?.jerseys?.white_str %>
+                                                                            <%= jerseys_white_str %>
                                                                         )
                                                                     </div>
                                                                 <% } %>
                                                             </div>
                                                         </td>
-                                                        <td style="padding: 4px 8px; white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.jerseys.fee).replaceAll(',', "'") %> VND</td>
+                                                        <td style="padding: 4px 8px; white-space: nowrap;"><%= jerseys_price %></td>
                                                     </tr>
                                                 <% } %>
 
-                                                <%if (detail_fee?.new_jerseys) { %>
-                                                    <tr style="vertical-align: top; width: 100%">
-                                                        <td style="padding: 4px 8px">
-                                                            <div style="display: block; width: 100%">Jerseys</div>
-                                                            <div style="display: block; font-size:80%; padding-left:12px; width: 100%">
-                                                                <%if (detail_fee?.new_jerseys?.black_count) { %>
-                                                                    <div style="display: block; margin-bottom: 8px">Black x
-                                                                        <%= detail_fee?.new_jerseys?.black_count %>
-                                                                        (
-                                                                            <%= detail_fee?.new_jerseys?.black_str %>
-                                                                        )
-                                                                    </div>
-                                                                <% } %>
-
-                                                                <%if (detail_fee?.new_jerseys?.white_count) { %>
-                                                                    <div style="display: block; width: 100%">White x  <%= detail_fee?.new_jerseys?.white_count %>
-                                                                        (
-                                                                            <%= detail_fee?.new_jerseys?.white_str %>
-                                                                        )
-                                                                    </div>
-                                                                <% } %>
-                                                            </div>
-                                                        </td>
-                                                        <td style="padding: 4px 8px; white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.new_jerseys.fee).replaceAll(',', "'") %> VND</td>
-                                                    </tr>
-                                                <% } %>
-
-                                                <%if (detail_fee?.shorts) { %>
+                                                <%if (shorts_price !== '') { %>
                                                     <tr style="vertical-align: top; width: 100%">
                                                         <td style="padding: 4px 8px;">
                                                             <div style="display: block; width: 100%">Shorts</div>
                                                             <div style="display: block; font-size:80%; padding-left:12px; width: 100%">
-                                                                <%if (detail_fee?.shorts?.black_count) { %>
-                                                                    <div style="display: block; margin-bottom: 8px; width: 100%">Black x <%= detail_fee?.shorts?.black_count %>
+                                                                <%if (shorts_black_count) { %>
+                                                                    <div style="display: block; margin-bottom: 8px; width: 100%">Black x <%= shorts_black_count %>
                                                                         (
-                                                                            <%= detail_fee?.shorts?.black_str %>
+                                                                            <%= shorts_black_str %>
                                                                         )
                                                                     </div>
                                                                 <% } %>
 
-                                                                <%if (detail_fee?.shorts?.white_count) { %>
-                                                                    <div style="display: block; width: 100%">White x <%= detail_fee?.shorts?.white_count %>
+                                                                <%if (shorts_white_count) { %>
+                                                                    <div style="display: block; width: 100%">White x <%= shorts_white_count %>
                                                                         (
-                                                                            <%= detail_fee?.shorts?.white_str %>
+                                                                            <%= shorts_white_str %>
                                                                         )
                                                                     </div>
                                                                 <% } %>
                                                             </div>
                                                         </td>
-                                                        <td style="padding: 4px 8px;white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.shorts.fee).replaceAll(',', "'") %> VND</td>
+                                                        <td style="padding: 4px 8px;white-space: nowrap;"><%= shorts_price %></td>
                                                     </tr>
                                                 <% } %>
 
-                                                <%if (detail_fee?.disc) { %>
+                                                <%if (disc_count) { %>
                                                     <tr style="vertical-align: top; width: 100%">
-                                                        <td style="padding: 4px 8px;">Disc x <%= detail_fee.disc.count %></td>
-                                                        <td style="padding: 4px 8px;white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.disc.fee).replaceAll(',', "'") %> VND</td>
-                                                    </tr>
-                                                <% } %>
-                                                 <%if (detail_fee?.new_disc) { %>
-                                                    <tr style="vertical-align: top; width: 100%">
-                                                        <td style="padding: 4px 8px;">Disc x <%= detail_fee.new_disc.count %></td>
-                                                        <td style="padding: 4px 8px;white-space: nowrap;"><%= Intl.NumberFormat().format(detail_fee.new_disc.fee).replaceAll(',', "'") %> VND</td>
+                                                        <td style="padding: 4px 8px;">Disc x <%=  %></td>
+                                                        <td style="padding: 4px 8px;white-space: nowrap;"><%= disc_price %></td>
                                                     </tr>
                                                 <% } %>
                                                 </tbody>
