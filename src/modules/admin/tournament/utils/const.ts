@@ -6,3 +6,5 @@ export const ServicePrice = {
   short: 200000,
   disc: 250000,
 };
+
+export const MAX_DISCS = 110;
