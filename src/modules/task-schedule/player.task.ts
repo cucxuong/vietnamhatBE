@@ -17,7 +17,7 @@ export class PlayerTaskService {
     private readonly playerMailService: PlayerMailService,
   ) {}
 
-  @Cron('*/5 * * * * *', {
+  @Cron('0 0 * * *', {
     name: 'VNHAT_Player_Payment_Reminder',
     timeZone: 'Asia/Ho_Chi_Minh',
   })
