@@ -124,6 +124,10 @@ export class Player {
 
   @Prop({ required: true })
   services: PlayerService;
+
+  created_at: Date;
+
+  updated_at: Date;
 }
 
 export type PlayerDocument = HydratedDocument<Player>;

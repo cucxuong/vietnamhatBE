@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[VNHat 2023] Payment Reminder</title>
+</head>
+
+<body>
+<div>
+    <table role="presentation" style="border-collapse:collapse;width:100%;background-color:#efefef">
+        <tbody>
+        <tr>
+            <td style="padding:16px">
+                <table role="presentation"
+                       style="border-collapse:collapse;font-family:Roboto,Arial,Helvetica,sans-serif;hyphens:none;overflow-wrap:break-word;word-wrap:break-word;word-break:break-word;width:100%;max-width:700px;min-width:280px;text-align:left">
+                    <tbody>
+                    <tr>
+                        <td style="padding:0">
+                            <table role="presentation"
+                                   style="width:100%;border-spacing:0;table-layout:fixed;border-collapse:separate">
+                                <tbody>
+                                <tr>
+                                    <td dir="ltr">
+                                        <table role="presentation"
+                                               style="border-collapse:collapse;font-family:Roboto,Arial,Helvetica,sans-serif;font-size:16px;line-height:24px;letter-spacing:0.1px;table-layout:fixed;width:100%;overflow-wrap:break-word">
+                                            <tbody>
+                                            <tr>
+                                                <td style="vertical-align:top;padding:12px">
+                                                    <div>Dear <%= full_name %> </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align:top;padding:12px">
+                                                    <div>We hope you’re doing well!</div>
+                                                    <div>We wanted to remind you that we haven’t
+                                                        received your payment yet since your
+                                                        registered date <%= registration_date %>.
+                                                    </div>
+
+                                                    <!-- Thêm cái này -->
+                                                    <table
+                                                            style="width: 100%;background: #262626; color:#ffffff; border-radius: 16px; font-size:80%; margin: 12px 0;">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td style="padding: 4.5% 4.5% 6px;">Your
+                                                                registration code: <span
+                                                                        style="font-size: 16px; font-weight: bold;"><%= player_code %></span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 6px 4.5%;">
+                                                                Player fee: <span
+                                                                        style="font-size: 16px; font-weight: bold;"><%= total_fee %>
+                                                                    <% if (!is_vietnam) { %>
+                                                                        ≈ <%= total_foreign %>
+                                                                    <% } %>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 0 4.5% 4.5%;">
+                                                                <table border="1"
+                                                                       borderColor="#d9d9d9"
+                                                                       style="width: 100%;border-collapse: collapse; ">
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td
+                                                                                style="padding: 3px 12px;">
+                                                                            Base
+                                                                        </td>
+                                                                        <td
+                                                                                style="padding: 3px 12px;">
+                                                                            <%= base_price %>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <% if (lunch !== '') { %>
+                                                                        <tr>
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                Lunch
+                                                                            </td>
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                <%= lunch %>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <% } %>
+
+                                                                    <%if (bus !=='' ) { %>
+                                                                        <tr>
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                Shuttle bus
+                                                                            </td>
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                <%= bus %>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <% } %>
+
+                                                                    <%if (jerseys_price !=='' ) { %>
+                                                                        <tr
+                                                                                style="vertical-align: top;">
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                <div>Jerseys
+                                                                                </div>
+                                                                                <div
+                                                                                        style="padding: 3px 12px;">
+                                                                                    <%if (jerseys_black_count) { %>
+                                                                                        <div>Black x
+                                                                                            <%= jerseys_black_count %>
+                                                                                            (
+                                                                                            <%= jerseys_black_str %>
+                                                                                            )
+                                                                                        </div>
+                                                                                    <% } %>
+                                                                                    <%if (jerseys_white_count) { %>
+                                                                                        <div>White
+                                                                                            x <%= jerseys_white_count %>
+                                                                                            (
+                                                                                            <%= jerseys_white_str %>
+                                                                                            )
+                                                                                        </div>
+                                                                                    <% } %>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                <%= jerseys_price %>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <% } %>
+
+                                                                    <%if (shorts_price !=='' ) { %>
+                                                                        <tr
+                                                                                style="vertical-align: top;">
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                <div>Shorts
+                                                                                </div>
+                                                                                <div
+                                                                                        style="padding: 3px 12px; display: block;">
+                                                                                    <% if (shorts_black_count) { %>
+                                                                                        <div
+                                                                                                style="display: block;">
+                                                                                            Black
+                                                                                            x <%= shorts_black_count %>
+                                                                                            (
+                                                                                            <%= shorts_black_str %>
+                                                                                            )
+                                                                                        </div>
+                                                                                    <% } %>
+
+                                                                                    <% if (shorts_white_count) { %>
+                                                                                        <div
+                                                                                                style="display: block;">
+                                                                                            White
+                                                                                            x <%= shorts_white_count %>
+                                                                                            (
+                                                                                            <%= shorts_white_str %>
+                                                                                            )
+                                                                                        </div>
+                                                                                    <% } %>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                <%= shorts_price %>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <% } %>
+
+                                                                    <% if (disc_count) { %>
+                                                                        <tr
+                                                                                style="vertical-align: top;">
+                                                                            <td
+                                                                                    style="padding: 3px 12px;">
+                                                                                <div>Disc x
+                                                                                    <%= disc_count %>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td style="padding: 3px 12px;">
+                                                                                <%= disc_price %>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <% } %>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                    <div>If you haven’t paid yet, please follow the
+                                                        instructions mentioned in the “Register
+                                                        Info” mail to finish the
+                                                        payment and secure your slot at the 18th
+                                                        Vietnam Black and White Hat 2023.
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align:top;padding:12px">
+                                                    <div>If you have already paid but still received
+                                                        this mail, please let us know by replying to
+                                                        this email with payment
+                                                        evidence so we can check our side again. We
+                                                        apologize for any inconvenience we may have
+                                                        caused.
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align:top;padding:12px">
+                                                    <div>If you have any concerns or matters of
+                                                        urgency, please don’t hesitate to reach out
+                                                        to us via:
+                                                    </div>
+                                                    <table>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td style="padding: 0 12px;">Email:
+                                                            </td>
+                                                            <td><a href="mailto:vietnamhat.ultimate@gmail.com"
+                                                                   target="_blank">vietnamhat.ultimate@gmail.com</a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 0 12px;">
+                                                                Phone/WhatsApp:
+                                                            </td>
+                                                            <td><a href="tel:+84903059569"
+                                                                   target="_blank">+84 90 305
+                                                                    95 69</a> (Mr. Vũ Anh Vũ)
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 0 12px;">Fanpage
+                                                                Vietnam HAT:
+                                                            </td>
+                                                            <td><a href="https://www.facebook.com/VietNamHatVNH/"
+                                                                   target="_blank">https://www.facebook.com/VietNamHatVNH/</a>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align:top;padding:12px">
+                                                    <div>We’re looking forward to seeing you at the
+                                                        18th Vietnam Black and White HAT 2023!
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align:top;padding:12px">
+                                                    <div>Thank you and best regards,</div>
+                                                    <div>Vietnam Hat's Organizers.</div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>

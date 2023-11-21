@@ -8,6 +8,7 @@ import { ConfigModule } from './modules/common/config/config.module';
 import { ConfigService } from './modules/common/config/config.service';
 import { MailModule } from './modules/common/mail/mail.module';
 import { GuestModule } from './modules/guest/guest.module';
+import { SchedulerModule } from './modules/task-schedule/sheduler.module';
 // import { AdminModule } from './modules/admin/admin.module';
 
 @Module({
@@ -21,7 +22,7 @@ import { GuestModule } from './modules/guest/guest.module';
     }),
 
     // User Global Define
-    // SchedulerModule,
+    SchedulerModule,
     MailModule,
 
     // User define Modules
