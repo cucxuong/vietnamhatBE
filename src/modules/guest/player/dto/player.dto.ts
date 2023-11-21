@@ -121,6 +121,7 @@ export class PlayerService {
   allergies?: string;
 
   @ApiProperty({ required: true })
+  @IsBoolean()
   bus: boolean;
 
   @ApiProperty({ required: true, isArray: true, type: () => [ClothesService] })

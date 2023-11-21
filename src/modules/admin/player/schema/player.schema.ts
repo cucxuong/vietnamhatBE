@@ -33,7 +33,7 @@ export class QuantityService {
   price: number;
 }
 
-export class PlayerSKill {
+export class PlayerSkill {
   @Prop({ required: true })
   play_exp: number;
 
@@ -120,10 +120,14 @@ export class Player {
   status: PlayerStatus;
 
   @Prop({ required: true })
-  skills: PlayerSKill;
+  skills: PlayerSkill;
 
   @Prop({ required: true })
   services: PlayerService;
+
+  created_at: Date;
+
+  updated_at: Date;
 }
 
 export type PlayerDocument = HydratedDocument<Player>;
