@@ -6,4 +6,6 @@ export enum Gender {
 export enum PlayerStatus {
   Pending = 'pending',
   Paid = 'paid',
+  Confirmed = 'confirmed',
+  Halfpaid = 'half-paid',
 }
