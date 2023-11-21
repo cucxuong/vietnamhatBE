@@ -144,9 +144,10 @@ export const calculateClothesFee = (
   data
     .filter((item) => item.color === StandardColor.Black)
     .map((item) => {
-      if (blackClothes.length === 0) {
-        blackClothes.push(item);
-      } else {
+      const blackCheck = blackClothes.filter(
+        (checkItem) => checkItem.size === item.size,
+      ).length;
+      if (blackCheck) {
         blackClothes = blackClothes.map((blackItem) => {
           if (blackItem.size === item.size) {
             return {
@@ -156,16 +157,19 @@ export const calculateClothesFee = (
           }
           return blackItem;
         });
+      } else {
+        blackClothes.push(item);
       }
     });
 
   let whiteClothes: ClothesDetailFee[] = [];
   data
-    .filter((item) => item.color === StandardColor.Black)
+    .filter((item) => item.color === StandardColor.White)
     .map((item) => {
-      if (whiteClothes.length === 0) {
-        whiteClothes.push(item);
-      } else {
+       const whiteCheck = whiteClothes.filter(
+        (checkItem) => checkItem.size === item.size,
+      ).length;
+      if (whiteCheck) {
         whiteClothes = whiteClothes.map((whiteItem) => {
           if (whiteItem.size === item.size) {
             return {
@@ -175,6 +179,8 @@ export const calculateClothesFee = (
           }
           return whiteItem;
         });
+      } else {
+        whiteClothes.push(item);
       }
     });
 

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { ClothesDetailFee } from 'src/modules/admin/player/entity/player.fee.entity';
 import {
   Player,
   PlayerDocument,
@@ -39,11 +40,17 @@ export class PlayerService {
       services: {
         ...body.services,
         base: { value: true, price: ServicePrice.base },
-        lunch: { value: body.services.lunch, price: ServicePrice.lunch },
-        bus: { value: body.services.bus, price: ServicePrice.bus },
+        lunch: {
+          value: body.services.lunch ?? false,
+          price: ServicePrice.lunch,
+        },
+        bus: { value: body.services.bus ?? false, price: ServicePrice.bus },
         disc: { quantity: body.services.disc, price: ServicePrice.disc },
-        jerseys: this.calculateClothes(body.services.jerseys),
-        shorts: this.calculateClothes(body.services.shorts),
+        jerseys: this.calculateClothes(
+          body.services.jerseys,
+          ServicePrice.jerseys,
+        ),
+        shorts: this.calculateClothes(body.services.shorts, ServicePrice.short),
       },
     };
 
@@ -54,27 +61,41 @@ export class PlayerService {
     return player;
   }
 
-  calculateClothes(data: ClothesService[]) {
-    const clothes: any = {};
+  calculateClothes(data: ClothesService[], price: number): ClothesDetailFee[] {
+    let clothes: ClothesDetailFee[] = [];
 
     data.map((item: ClothesService) => {
-      const jerseyKey = `${item.color}-${item.size}`;
+      const checkClothes = clothes.filter(
+        (checkItem) =>
+          checkItem.size === item.size && checkItem.color === item.color,
+      ).length;
 
-      if (clothes.hasOwnProperty(jerseyKey)) {
-        clothes[jerseyKey] = {
-          color: item.color,
-          size: item.size,
-          quantity: item.quantity + clothes[jerseyKey]['quantity'],
-        };
+      if (checkClothes) {
+        clothes = clothes.map((clothesItem) => {
+          if (
+            clothesItem.size === item.size &&
+            clothesItem.color === item.color
+          ) {
+            return {
+              color: clothesItem.color,
+              size: clothesItem.size,
+              quantity: item.quantity + clothesItem.quantity,
+              price,
+            };
+          }
+
+          return clothesItem;
+        });
       } else {
-        clothes[jerseyKey] = {
-          color: item.color,
+        clothes.push({
           size: item.size,
+          color: item.color,
           quantity: item.quantity,
-        };
+          price,
+        });
       }
     });
 
-    return Object.values(clothes);
+    return clothes;
   }
 }

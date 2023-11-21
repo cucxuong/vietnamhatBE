@@ -11,7 +11,6 @@ export class PlayerController {
 
   @Post('register')
   async register(@Body() body: CreatePlayerDto): Promise<PlayerDocument> {
-    console.log(body);
     return this.playerService.store(body);
   }
 }
