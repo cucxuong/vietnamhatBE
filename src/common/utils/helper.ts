@@ -1,2 +1,2 @@
 export const formatCurrency = (fee: number, currency = ''): string =>
-  Intl.NumberFormat().format(fee).replaceAll(',', "'") + currency;
+  Intl.NumberFormat().format(fee).replaceAll(',', "'") + ' ' + currency;
