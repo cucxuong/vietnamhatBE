@@ -1,13 +1,16 @@
 import {
-    Injectable,
-    NotFoundException,
-    UnprocessableEntityException,
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { PlayerMailService } from 'src/modules/common/mail/services/player.mail.service';
 import { Country } from '../country/utils/type';
-import { Player, PlayerDocument } from './schema/player.schema';
+import { PlayerFee } from './entity/player.fee.entity';
+import { PlayerData } from './response/player.res';
+import { Player } from './schema/player.schema';
+import { calculateDetailFee } from './utils/helper';
 import { PlayerStatus } from './utils/type';
 
 @Injectable()
@@ -22,10 +25,20 @@ export class PlayerService {
     country,
   }: {
     country: Country | null;
-  }): Promise<PlayerDocument[]> {
+  }): Promise<PlayerData[]> {
     const conditions = country ? { country } : {};
 
-    return await this.playerModel.find(conditions).exec();
+    const players = await this.playerModel.find(conditions).exec();
+
+    return players.map((player) => {
+      const detailFee: PlayerFee = calculateDetailFee(player);
+      console.log(player.toJSON());
+
+      return new PlayerData({
+        ...player.toJSON(),
+        total_fee: detailFee.totalFee,
+      });
+    });
   }
 
   async updatePlayerStatus({
