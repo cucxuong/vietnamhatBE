@@ -1,14 +1,13 @@
-import { Injectable, Logger, Scope } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
-import { TournamentPlayer, TournamentPlayerDocument } from "../../schemas/tournament-player.schema";
-import mongoose, { Model, mongo } from "mongoose";
-import { Cron } from "@nestjs/schedule";
-import { compareAsc, endOfDay, format, parseISO, startOfDay, subDays } from "date-fns";
-import { MailService } from "../../common/modules/mail/mail.service";
-import { TournamentService } from "../guest/tournaments/tournaments.service";
+import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { TournamentPlayerService } from "../guest/tournament_players/tournament-players.service";
+import { InjectModel } from "@nestjs/mongoose";
+import { compareAsc, endOfDay, format, parseISO, startOfDay, subDays } from "date-fns";
+import { Model } from "mongoose";
+import { MailService } from "../../common/modules/mail/mail.service";
+import { TournamentPlayer, TournamentPlayerDocument } from "../../schemas/tournament-player.schema";
 import { TOURNAMENT_PLAYER_STATUS } from "../../utils/tournament.player.const";
+import { TournamentPlayerService } from "../guest/tournament_players/tournament-players.service";
+import { TournamentService } from "../guest/tournaments/tournaments.service";
 
 @Injectable()
 export class TournamentPlayerTask {
@@ -22,10 +21,10 @@ export class TournamentPlayerTask {
   ) {
   }
 
-  @Cron('0 0 * * *', {
-    name: "VNHAT_Player_Payment_Reminder",
-    timeZone: 'Asia/Ho_Chi_Minh'
-  })
+  // @Cron('0 0 * * *', {
+  //   name: "VNHAT_Player_Payment_Reminder",
+  //   timeZone: 'Asia/Ho_Chi_Minh'
+  // })
   async tournamentPlayerPaymentReminder() {
     console.log('====== REMINDER PAYMENT =======');
     let condition: any[] = [];
