@@ -196,7 +196,7 @@ export class TournamentPlayerService {
         null,
       );
 
-      const tourFee = tournamentAddition
+      let tourFee = tournamentAddition
         ? tournamentAddition?.unit_fee ?? tournamentAddition?.fee ?? 0
         : 0;
       const userNum =
@@ -262,7 +262,7 @@ export class TournamentPlayerService {
             return result;
           }, '');
 
-          const tourClothFee =
+          tourFee =
             player.current_country === 'Vietnam' &&
             info?.is_student &&
             key !== 'shorts'
@@ -276,11 +276,11 @@ export class TournamentPlayerService {
               black_count: blackCount,
               white_str: whiteStr,
               white_count: whiteCount,
-              fee: tourClothFee * userNum,
+              fee: tourFee * userNum,
             },
           };
         } else if (key === 'new_disc') {
-          const tourDiscFee =
+          tourFee =
             player.current_country === 'Vietnam' && info?.is_student
               ? 200000
               : 250000;
@@ -288,7 +288,7 @@ export class TournamentPlayerService {
             ...detailFee,
             [key]: {
               count: userNum,
-              fee: tourDiscFee * userNum,
+              fee: tourFee * userNum,
             },
           };
         } else {
