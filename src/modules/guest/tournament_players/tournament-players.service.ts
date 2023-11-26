@@ -263,7 +263,9 @@ export class TournamentPlayerService {
           }, '');
 
           const tourClothFee =
-            player.current_country === 'Vietnam' && info?.is_student
+            player.current_country === 'Vietnam' &&
+            info?.is_student &&
+            key !== 'shorts'
               ? 170000
               : 200000;
 
