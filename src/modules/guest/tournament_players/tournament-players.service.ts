@@ -95,7 +95,7 @@ export class TournamentPlayerService {
       attachments: [
         {
           filename: 'logo.png',
-          path: `${__dirname}/../../../common/modules/mail/templates/images/logo.png`,
+          path: `${__dirname}/../../modules/common/mail/templates/images/logo.png`,
           cid: 'logo',
         },
       ],
@@ -166,7 +166,7 @@ export class TournamentPlayerService {
       attachments: [
         {
           filename: 'logo.png',
-          path: `${__dirname}/../../../common/modules/mail/templates/images/logo.png`,
+          path: `${__dirname}/../../modules/common/mail/templates/images/logo.png`,
           cid: 'logo',
         },
       ],
