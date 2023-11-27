@@ -19,7 +19,7 @@ import { MailService } from './mail.service';
           secure: true,
           auth: {
             user: config.get().mail.username,
-            pass: config.get().mail.username,
+            pass: config.get().mail.password,
           },
         },
         defaults: {
