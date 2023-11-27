@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import {
   compareAsc,
@@ -10,12 +9,13 @@ import {
   subDays,
 } from 'date-fns';
 import { Model } from 'mongoose';
-import { MailService } from '../../common/modules/mail/mail.service';
 import {
   TournamentPlayer,
   TournamentPlayerDocument,
 } from '../../schemas/tournament-player.schema';
 import { TOURNAMENT_PLAYER_STATUS } from '../../utils/tournament.player.const';
+import { ConfigService } from '../common/config/config.service';
+import { MailService } from '../common/mail/mail.service';
 import { TournamentPlayerService } from '../guest/tournament_players/tournament-players.service';
 import { TournamentService } from '../guest/tournaments/tournaments.service';
 
@@ -56,9 +56,7 @@ export class TournamentPlayerTask {
     const reminderPlayers: TournamentPlayerDocument[] =
       await this.tournamentPlayerModel
         .find({
-          tournament: this.configService.get<string>(
-            'VIETNAM_HAT_2023_TOURNAMENT_ID',
-          ),
+          tournament: this.configService.get().vnhat2023.tournament_id,
           status: TOURNAMENT_PLAYER_STATUS.PENDING,
           $or: condition,
         })
@@ -68,7 +66,7 @@ export class TournamentPlayerTask {
 
     if (reminderPlayers.length) {
       const tournament = await this.tournamentService.getDetailInfo(
-        this.configService.get<string>('VIETNAM_HAT_2023_TOURNAMENT_ID')!,
+        this.configService.get().vnhat2023.tournament_id,
       );
 
       for (const player of reminderPlayers) {
@@ -76,8 +74,8 @@ export class TournamentPlayerTask {
           this.tournamentPlayerService.calculateDetailFee(player, tournament);
 
         let subject = '';
-        if (this.configService.get<string>('APP_ENV') !== 'production') {
-          subject += `[${this.configService.get<string>('APP_ENV')}] `;
+        if (this.configService.get().app.env !== 'production') {
+          subject += `[${this.configService.get().app.env}] `;
         }
         subject += '[VNHat 2023] Payment Reminder';
 

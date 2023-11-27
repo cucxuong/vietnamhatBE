@@ -36,6 +36,9 @@ export class TournamentPlayer {
   @Prop({ required: true })
   status: string;
 
+  @Prop({ required: false })
+  note: string;
+
   @Prop({
     required: true,
     type: mongoose.Schema.Types.ObjectId,

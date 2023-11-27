@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as argon2 from 'argon2';
 import { CreateUserDto } from '../admin/users/dto/create-user.dto';
 import { UsersService } from '../admin/users/users.service';
+import { ConfigService } from '../common/config/config.service';
 import { AuthDto } from './dto/auth.dto';
 
 @Injectable()
@@ -49,7 +49,7 @@ export class AuthService {
     const tokens = await this.getTokens(user.id, user.email);
     await this.updateRefreshToken(user.id, tokens.refreshToken);
 
-    return { ...tokens, domain: this.configService.get<string>('FE_DOMAIN') };
+    return { ...tokens, domain: this.configService.get().fronend.domain };
   }
 
   async logout(userId: string) {
@@ -76,7 +76,7 @@ export class AuthService {
           email,
         },
         {
-          secret: this.configService.get<string>('JWT_SECRET_KEY'),
+          secret: this.configService.get().auth.access_secret_key,
           expiresIn: '1h',
         },
       ),
@@ -86,7 +86,7 @@ export class AuthService {
           email,
         },
         {
-          secret: this.configService.get<string>('JWT_SECRET_KEY'),
+          secret: this.configService.get().auth.refresh_secret_key,
           expiresIn: '7d',
         },
       ),
