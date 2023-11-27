@@ -1,40 +1,44 @@
-import {NestFactory} from '@nestjs/core';
-import {useContainer} from 'class-validator';
-import {AppModule} from './app.module';
+import { NestFactory } from '@nestjs/core';
+import { useContainer } from 'class-validator';
 import * as cookieParser from 'cookie-parser';
+import * as dotenv from 'dotenv';
 import * as session from 'express-session';
-import {ConfigService} from "@nestjs/config";
+import { AppModule } from './app.module';
+import { ConfigService } from './modules/common/config/config.service';
+
+dotenv.config();
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
-    const configService = app.get(ConfigService);
+  const configService = new ConfigService();
+  configService.loadFromEnv();
 
-    const currentEnv = configService.get<string>('APP_ENV') ?? '';
+  const app = await NestFactory.create(AppModule);
 
-    let origins = [configService.get<string>('FE_ORIGIN') ?? '*'];
-    if (currentEnv !== 'production') {
-        origins = [...origins, 'http://localhost:3001']
-    }
+  const currentEnv = configService.get().app.env ?? '';
 
-    // app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-    app.enableCors({
-        origin: origins,
-        credentials: true,
-    });
-    app.use(cookieParser());
+  let origins = [configService.get().fronend.origin ?? ''];
+  if (currentEnv !== 'production') {
+    origins = [...origins, 'http://localhost:3001'];
+  }
 
-    app.use(
-        session({
-            secret: configService.get<string>('SESSION_KEY') ?? 'session_secret_key',
-            resave: false,
-            saveUninitialized: false,
-        }),
-    );
+  // app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+  app.enableCors({
+    origin: origins,
+    credentials: true,
+  });
+  app.use(cookieParser());
 
+  app.use(
+    session({
+      secret: configService.get().app.session_key ?? '',
+      resave: false,
+      saveUninitialized: false,
+    }),
+  );
 
-    useContainer(app.select(AppModule), {fallbackOnErrors: true});
+  useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
-    await app.listen(3000);
+  await app.listen(configService.get().app.port);
 }
 
 bootstrap();

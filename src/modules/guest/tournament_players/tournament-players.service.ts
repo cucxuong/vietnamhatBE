@@ -1,7 +1,7 @@
-import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { MailService } from 'src/common/modules/mail/mail.service';
+import { ConfigService } from 'src/modules/common/config/config.service';
+import { MailService } from 'src/modules/common/mail/mail.service';
 import {
   TournamentPlayer,
   TournamentPlayerDocument,
@@ -62,8 +62,8 @@ export class TournamentPlayerService {
     } = this.calculateDetailFee(player, tournament);
 
     let subject = '';
-    if (this.configService.get<string>('APP_ENV') !== 'production') {
-      subject += `[${this.configService.get<string>('APP_ENV')}] `;
+    if (this.configService.get().app.env !== 'production') {
+      subject += `[${this.configService.get().app.env}] `;
     }
     subject += '[Vietnam HAT 2023] Register Info';
 
@@ -112,9 +112,7 @@ export class TournamentPlayerService {
     if (player === null || player === undefined) {
       return;
     }
-    const tournamentId = this.configService.get<string>(
-      'VIETNAM_HAT_2023_TOURNAMENT_ID',
-    );
+    const tournamentId = this.configService.get().vnhat2023.tournament_id;
     const tournament = await this.tournamentService.getDetailInfo(
       tournamentId!,
     );
@@ -135,8 +133,8 @@ export class TournamentPlayerService {
     } = this.calculateDetailFee(player, tournament);
 
     let subject = '';
-    if (this.configService.get<string>('APP_ENV') !== 'production') {
-      subject += `[${this.configService.get<string>('APP_ENV')}] `;
+    if (this.configService.get().app.env !== 'production') {
+      subject += `[${this.configService.get().app.env}] `;
     }
     subject += '[Vietnam HAT 2023] Register Info';
 
