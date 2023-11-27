@@ -3,7 +3,7 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
-    "assets": ["common/modules/mail/templates/**/*"],
+    "assets": ["modules/common/mail/templates/**/*"],
     "watchAssets": true,
     "deleteOutDir": true
   }
