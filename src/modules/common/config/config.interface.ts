@@ -16,7 +16,9 @@ export interface DatabaseConfig {
 
 export interface AuthConfig {
   access_secret_key: string;
+  access_expire_time: string;
   refresh_secret_key: string;
+  refresh_expire_time: string;
 }
 
 export interface MailConfig {

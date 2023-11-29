@@ -7,7 +7,6 @@ import { AppService } from './app.service';
 import { AdminModule } from './modules/admin/admin.module';
 import { TournamentsModule } from './modules/admin/tournaments/tournaments.module';
 import { VietnamHat2023Module } from './modules/admin/vietnam-hat-2023/vietnam-hat-2023.module';
-import { AuthModule } from './modules/auth/auth.module';
 import { CommonModule } from './modules/common/common.module';
 import { ConfigModule } from './modules/common/config/config.module';
 import { ConfigService } from './modules/common/config/config.service';
@@ -31,7 +30,6 @@ import { SchedulerModule } from './modules/task-schedule/sheduler.module';
     CommonModule,
     GuestModule,
     AdminModule,
-    AuthModule,
     RouterModule.register([
       {
         path: '/admin',
