@@ -141,7 +141,7 @@ export class TournamentPlayerService {
     this.mailService.sendMail({
       to: player.email,
       subject,
-      template: './tournament-players/register_send',
+      template: './tournament-players/register',
       context: {
         full_name: player.full_name,
         player_code: player.player_code,
