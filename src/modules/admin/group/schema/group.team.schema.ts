@@ -1,13 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 import { Team } from '../../team/schema/team.schema';
+import { Group } from './group.schema';
 
-export type GroupDocument = HydratedDocument<Group>;
+export type GroupTeamDocument = HydratedDocument<GroupTeam>;
 
 @Schema({
+  collection: 'group_teams',
   timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
 })
-export class Group {
+export class GroupTeam {
   @Prop({
     required: true,
     type: mongoose.Schema.Types.ObjectId,
@@ -41,4 +43,4 @@ export class Group {
   lose_match_count: number;
 }
 
-export const GroupSchema = SchemaFactory.createForClass(Group);
+export const GroupTeamSchema = SchemaFactory.createForClass(GroupTeam);
