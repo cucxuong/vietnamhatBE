@@ -6,11 +6,12 @@ import { ConfigModule } from 'src/modules/common/config/config.module';
 import { ConfigService } from 'src/modules/common/config/config.service';
 import { RefreshTokenModule } from '../refresh_token/refresh.token.module';
 import {
-    RefreshToken,
-    RefreshTokenSchema,
+  RefreshToken,
+  RefreshTokenSchema,
 } from '../refresh_token/schema/refresh.token.schema';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { JwtStrategy } from './guard/jwt.strategy';
 
 @Module({
   imports: [
@@ -35,6 +36,6 @@ import { AuthService } from './auth.service';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, JwtStrategy],
 })
 export class AuthModule {}

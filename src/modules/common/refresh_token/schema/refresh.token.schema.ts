@@ -4,7 +4,7 @@ import { User } from 'src/modules/admin/users/schemas/user.schema';
 
 export type RefreshTokenDocument = HydratedDocument<RefreshToken>;
 
-@Schema({})
+@Schema({ collection: 'refresh_tokens' })
 export class RefreshToken {
   @Prop({ required: true })
   token: string;

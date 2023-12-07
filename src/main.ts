@@ -6,6 +6,7 @@ import * as cookieParser from 'cookie-parser';
 import * as dotenv from 'dotenv';
 import * as session from 'express-session';
 import { AppModule } from './app.module';
+import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 import { ConfigService } from './modules/common/config/config.service';
 
 dotenv.config();
@@ -54,6 +55,8 @@ async function bootstrap() {
   );
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
+
+  app.useGlobalInterceptors(new ResponseInterceptor());
 
   await app.listen(configService.get().app.port);
 }

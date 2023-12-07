@@ -66,6 +66,10 @@ export class AuthService {
     };
   }
 
+  async logout({ user }: { user: LoggedUser }) {
+    return user;
+  }
+
   async validateUser({ id, email }: TokenPayload): Promise<LoggedUser> {
     const user = await this.userModel.findOne({
       email: email.trim().toLowerCase(),
