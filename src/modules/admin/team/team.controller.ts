@@ -6,14 +6,19 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
-import { CreateTeamDto } from './dto/create-team.dto';
-import { UpdateTeamDto } from './dto/update-team.dto';
-import { TeamsService } from './teams.service';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtGuard } from 'src/modules/common/auth/guard/jwt.guard';
+import { CreateTeamDto, UpdateTeamDto } from './dto/team.dto';
+import { TeamService } from './team.service';
 
+@ApiTags('[Admin] Teams')
+@ApiBearerAuth()
+@UseGuards(JwtGuard)
 @Controller('teams')
-export class TeamsController {
-  constructor(private readonly teamsService: TeamsService) {}
+export class TeamController {
+  constructor(private readonly teamsService: TeamService) {}
 
   @Post()
   create(@Body() createTeamDto: CreateTeamDto) {

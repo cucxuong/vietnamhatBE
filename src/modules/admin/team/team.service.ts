@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTeamDto } from './dto/create-team.dto';
-import { UpdateTeamDto } from './dto/update-team.dto';
-import { Team, TeamDocument } from './schemas/team.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { CreateTeamDto, UpdateTeamDto } from './dto/team.dto';
+import { Team, TeamDocument } from './schema/team.schema';
 
 @Injectable()
-export class TeamsService {
+export class TeamService {
   constructor(
     @InjectModel(Team.name)
     private readonly teamModel: Model<TeamDocument>,
@@ -30,7 +29,13 @@ export class TeamsService {
     id: string,
     updateTeamDto: UpdateTeamDto,
   ): Promise<TeamDocument | null> {
-    return this.teamModel.findByIdAndUpdate(id, updateTeamDto);
+    try {
+      await this.teamModel.findByIdAndUpdate(id, updateTeamDto);
+
+      return await this.teamModel.findById(id);
+    } catch (e) {
+      throw e;
+    }
   }
 
   async remove(id: string) {
