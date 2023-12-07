@@ -2,7 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'src/modules/admin/users/schemas/user.schema';
-import { RefreshToken } from './schema/refresh.token.schema';
+import {
+  RefreshToken,
+  RefreshTokenDocument,
+} from './schema/refresh.token.schema';
 
 @Injectable()
 export class RefreshTokenService {
@@ -16,5 +19,9 @@ export class RefreshTokenService {
       token,
       user,
     });
+  }
+
+  async findOneByToken(token: string): Promise<RefreshTokenDocument | null> {
+    return await this.refreshTokenModel.findOne({ token });
   }
 }

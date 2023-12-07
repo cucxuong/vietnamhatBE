@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -68,6 +69,35 @@ export class AuthService {
 
   async logout({ user }: { user: LoggedUser }) {
     return user;
+  }
+
+  async refreshToken({ token }: { token: string }) {
+    try {
+      const payload: TokenPayload = await this.jwtService.verifyAsync(token, {
+        secret: this.refreshTokenSecret,
+      });
+
+      const user = await this.userModel.findById(payload.id);
+
+      if (!user) {
+        throw new BadRequestException('Invalid User');
+      }
+
+      const refreshToken = await this.refreshTokenService.findOneByToken(token);
+
+      if (!refreshToken) {
+        throw new BadRequestException('Invalid Token');
+      }
+      const access_token = this.genAccessToken({
+        email: user.email.trim().toLowerCase(),
+        id: user.id,
+        role: user.role,
+      });
+
+      return { access_token };
+    } catch (error) {
+      throw error;
+    }
   }
 
   async validateUser({ id, email }: TokenPayload): Promise<LoggedUser> {

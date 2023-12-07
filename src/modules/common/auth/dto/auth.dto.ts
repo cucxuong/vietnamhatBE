@@ -13,3 +13,10 @@ export class LoginDto {
   @IsNotEmpty()
   password: string;
 }
+
+export class RefreshTokenDTO {
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  refresh_token: string;
+}
