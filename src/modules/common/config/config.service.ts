@@ -34,7 +34,9 @@ export class ConfigService {
       },
       auth: {
         access_secret_key: env.JWT_ACCESS_SECRET_KEY || '',
+        access_expire_time: env.JWT_ACCESS_EXPIRE_TIME || '',
         refresh_secret_key: env.JWT_REFRESH_SECRET_KEY || '',
+        refresh_expire_time: env.JWT_REFRESH_EXPIRE_TIME || '',
       },
     };
   }

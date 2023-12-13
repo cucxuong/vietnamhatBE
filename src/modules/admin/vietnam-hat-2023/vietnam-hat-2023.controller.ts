@@ -1,20 +1,16 @@
 import {
-    Controller,
-    Get,
-    Post,
-    Req,
-    UnprocessableEntityException,
-    UseInterceptors
+  Controller,
+  Get,
+  Post,
+  Req,
+  UnprocessableEntityException
 } from '@nestjs/common';
 import { Request } from 'express';
-import { ResponseMessage } from '../../../common/decorators/response_message.decorator';
-import { ResponseInterceptor } from '../../../common/interceptors/response.interceptor';
 import { TOURNAMENT_PLAYER_STATUS } from '../../../utils/tournament.player.const';
 import { COUNTRY } from '../../../utils/vietnam.hat.2023.const';
 import { VietnamHat2023Service } from './vietnam-hat-2023.service';
 
 @Controller('vietnam-hat-2023')
-@UseInterceptors(ResponseInterceptor)
 export class VietnamHat2023Controller {
   constructor(private readonly service: VietnamHat2023Service) {}
 
@@ -32,7 +28,6 @@ export class VietnamHat2023Controller {
   }
 
   @Post('authorize')
-  @ResponseMessage('Authorize Successfully!')
   async authorizeCountry(@Req() request: Request) {
     const { code } = request.body;
 
@@ -149,5 +144,10 @@ export class VietnamHat2023Controller {
     });
 
     return {};
+  }
+
+  @Post('send-guide')
+  async sendGuide() {
+    this.service.run();
   }
 }

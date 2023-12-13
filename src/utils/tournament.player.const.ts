@@ -3,4 +3,5 @@ export enum TOURNAMENT_PLAYER_STATUS {
   PAID = 'paid',
   CONFIRMED = 'confirmed',
   HALF_PAID = 'half-paid',
+  CANCELLED = 'cancelled',
 }

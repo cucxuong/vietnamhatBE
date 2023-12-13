@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { Cron } from '@nestjs/schedule';
 import {
   compareAsc,
   endOfDay,
@@ -97,5 +98,63 @@ export class TournamentPlayerTask {
         });
       }
     }
+  }
+
+  @Cron('*/5 * * * *', {
+    name: 'VNHAT_Player_Ticket',
+    timeZone: 'Asia/Ho_Chi_Minh',
+  })
+  async sendTicket() {
+    const player = await this.tournamentPlayerModel.findOne({
+      status: { $ne: TOURNAMENT_PLAYER_STATUS.CANCELLED },
+      send_ticket: { $ne: true },
+    });
+
+    if (!player) {
+      console.log('==== SEND TICKET PLAYER FINISHED =====');
+      return;
+    }
+
+    const { addition } = JSON.parse(player.selected_options);
+    const { lunch, bus } = addition;
+
+    console.log('----- PLAYER TICKET -------');
+    console.log(Date.now().toString());
+    console.log(player.full_name);
+    console.log(player.player_code);
+    console.log(player.status);
+    console.log(lunch);
+    console.log(lunch ? 'Have lunch' : 'No lunch');
+    console.log(bus);
+    console.log(bus ? 'Have bus' : 'No bus');
+
+    await this.tournamentPlayerModel.updateOne(
+      { player_code: player.player_code },
+      { send_ticket: true },
+    );
+
+    await this.mailService.sendMail({
+      to: player.email,
+      subject: '[VNHat 2023] Lunch and Bus E-Tickets',
+      template: './ticket',
+      context: {
+        player_name: player.full_name,
+        player_code: player.player_code,
+        lunch,
+        bus,
+      },
+      attachments: [
+        {
+          filename: 'bus.png',
+          path: `${__dirname}/../common/mail/templates/images/bus.png`,
+          cid: 'bus',
+        },
+        {
+          filename: 'lunch.png',
+          path: `${__dirname}/../common/mail/templates/images/lunch.png`,
+          cid: 'lunch',
+        },
+      ],
+    });
   }
 }

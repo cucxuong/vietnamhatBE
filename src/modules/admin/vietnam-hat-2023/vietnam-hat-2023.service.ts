@@ -126,4 +126,49 @@ export class VietnamHat2023Service {
       { note },
     );
   }
+
+  async run(): Promise<void> {
+    const players = await this.tournamentPlayerModel.find({
+      status: { $ne: TOURNAMENT_PLAYER_STATUS.CANCELLED },
+      send_ticket: { $ne: true },
+    });
+
+    players.map((player) => {
+      const { addition } = JSON.parse(player.selected_options);
+      const { lunch, bus } = addition;
+
+      console.log('----- PLAYER -------');
+      console.log(player.full_name);
+      console.log(player.player_code);
+      console.log(player.status);
+      console.log(lunch);
+      console.log(lunch ? 'Have lunch' : 'No lunch');
+      console.log(bus);
+      console.log(bus ? 'Have bus' : 'No bus');
+      
+      // this.mailService.sendMail({
+      //   to: player.email,
+      //   subject: '[VNHat 2023] Lunch and Bus E-Tickets',
+      //   template: './ticket',
+      //   context: {
+      //     player_name: player.full_name,
+      //     player_code: player.player_code,
+      //     lunch,
+      //     bus,
+      //   },
+      //   attachments: [
+      //     {
+      //       filename: 'bus.png',
+      //       path: `${__dirname}/../../common/mail/templates/images/bus.png`,
+      //       cid: 'bus',
+      //     },
+      //     {
+      //       filename: 'lunch.png',
+      //       path: `${__dirname}/../../common/mail/templates/images/lunch.png`,
+      //       cid: 'lunch',
+      //     },
+      //   ],
+      // });
+    });
+  }
 }

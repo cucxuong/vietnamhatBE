@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket</title>
+</head>
+
+<body>
+    <div>
+        <table role="presentation" style="border-collapse:collapse;width:100%;background-color:#efefef">
+            <tbody>
+                <tr>
+                    <td style="padding:12px">
+                        <table role="presentation"
+                            style="border-collapse:collapse;font-family:Roboto,Arial,Helvetica,sans-serif;hyphens:none;overflow-wrap:break-word;word-wrap:break-word;word-break:break-word;width:100%;max-width:700px;min-width:280px;text-align:left; margin: 0 auto;">
+                            <tbody>
+                                <tr>
+                                    <td style="padding:0">
+                                        <table role="presentation"
+                                            style="width:100%;border-spacing:0;table-layout:fixed;border-collapse:separate">
+                                            <tbody>
+                                                <tr>
+                                                    <td dir="ltr">
+                                                        <table role="presentation"
+                                                            style="border-collapse:collapse;font-family:Roboto,Arial,Helvetica,sans-serif;font-size:16px;line-height:24px;letter-spacing:0.1px;table-layout:fixed;width:100%;overflow-wrap:break-word">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td style="vertical-align:top;padding:12px">
+                                                                        <div>Dear <%= player_name %> </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="vertical-align:top;padding:12px 0">
+                                                                        <div style="padding: 0 12px;">We hope this
+                                                                            emails finds you in high
+                                                                            spitits and good health.</div>
+                                                                        <div style="padding: 0 12px;">Because you have
+                                                                            registered for Lunch/Bus
+                                                                            sevices, here are the E-tickets for you
+                                                                        </div>
+
+                                                                        <table
+                                                                            style="width: 100%;background: #262626; color:#ffffff; border-radius: 16px; margin: 12px 0;">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td style="padding:4.5%;">
+                                                                                        <table border="1"
+                                                                                            borderColor="#d9d9d9"
+                                                                                            style="width: 100%;border-collapse: collapse; ">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td colspan="1"
+                                                                                                        style="padding: 3px 12px; width: 33.33%;">
+                                                                                                        <span
+                                                                                                            style="font-size: 16px; font-weight: bold;"><%= player_code %></span>
+                                                                                                    </td>
+                                                                                                    <!-- if lunch -->
+                                                                                                    <%if (lunch) { %>
+                                                                                                        <td colspan="1" style="padding: 3px 12px; width: 33.33%;">
+                                                                                                            <span style="font-size: 16px; font-weight: bold;">Lunch</span>
+
+                                                                                                            <div style="margin: auto;filter:invert(1);">
+                                                                                                                <img src="cid:lunch" width="32" height="32" style="filter: invert(1);" />
+                                                                                                            </div>
+                                                                                                        </td>
+                                                                                                    <% } %>
+                                                                                                    <!-- if bus -->
+                                                                                                    <%if (bus) { %>
+                                                                                                        <td colspan="1"
+                                                                                                            style="padding: 3px 12px; width: 33.33%;">
+                                                                                                            <span
+                                                                                                                style="font-size: 16px; font-weight: bold;">Shuttle
+                                                                                                                bus</span>
+
+                                                                                                            <div
+                                                                                                                style="margin: auto;filter:invert(1);">
+                                                                                                                <img src="cid:bus" width="32" height="32" style="filter:invert(1);" />
+                                                                                                            </div>
+                                                                                                        </td>
+                                                                                                    <% } %>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                        <div style="padding: 0 12px;">Please show it to
+                                                                            organizers at the Bus
+                                                                            stop/Canteen to use the service.</div>
+
+                                                                        <!-- if bus -->
+                                                                        <%if (bus) { %>
+                                                                            <table
+                                                                                style="width: 100%;background: #ffffff; color:#262626; border-radius: 16px; margin: 12px 0;">
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td style="padding: 4.5% 4.5% 6px;">
+                                                                                            <span
+                                                                                                style="font-size: 16px; font-weight: bold;">BUS
+                                                                                                ROUTE</span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td
+                                                                                            style="padding: 6px 4.5%; font-size:12px;">
+                                                                                            <table border="1"
+                                                                                                borderColor="#d9d9d9"
+                                                                                                style="width: 100%;border-collapse: collapse; ">
+                                                                                                <tbody>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2"
+                                                                                                            style="padding: 3px 12px;">
+                                                                                                            Check point
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px; width: 60px;">
+                                                                                                            16/12/23
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px; width: 60px;">
+                                                                                                            17/12/23
+                                                                                                        </td>
+                                                                                                    </tr>
+
+                                                                                                    <tr>
+                                                                                                        <td rowspan="3"
+                                                                                                            style="width:24px; text-align: center; vertical-align: top; padding: 3px;">
+                                                                                                            <div
+                                                                                                                style="padding: 2px 10px; font-size: 12px; font-weight: bold; height: 24px; border-radius: 24px; background-color: #262626; color: #ffffff;">
+                                                                                                                A
+                                                                                                            </div>
+                                                                                                        </td>
+                                                                                                        <td colspan="3"
+                                                                                                            style="padding: 3px 12px;">
+                                                                                                            <a
+                                                                                                                href="https://maps.app.goo.gl/LHsoCjsBZafXn3vT8">
+                                                                                                                <span
+                                                                                                                    style="font-size: 12px; font-weight: bold;">Turtle
+                                                                                                                    Lake</span></a>
+                                                                                                        </td>
+
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px;">
+                                                                                                            Arrive
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px; width: 60px;">
+                                                                                                            6:30
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px; width: 60px;">
+                                                                                                            6:20
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px;">
+                                                                                                            Depart
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px; width: 60px;">
+                                                                                                            6:45
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px; width: 60px;">
+                                                                                                            6:30
+                                                                                                        </td>
+                                                                                                    </tr>
+
+                                                                                                    <tr>
+                                                                                                        <td rowspan="3"
+                                                                                                            style="width:24px; text-align: center; vertical-align: top; padding: 3px;">
+                                                                                                            <div
+                                                                                                                style="padding: 2px 10px; font-size: 12px; font-weight: bold; height: 24px; border-radius: 24px; background-color: #262626; color: #ffffff;">
+                                                                                                                B
+                                                                                                            </div>
+                                                                                                        </td>
+                                                                                                        <td colspan="3"
+                                                                                                            style="padding: 3px 12px;">
+                                                                                                            <a
+                                                                                                                href="https://maps.app.goo.gl/ezYjAXC55kfqwStz8">
+                                                                                                                <span
+                                                                                                                    style="font-size: 12px; font-weight: bold;">Liberty
+                                                                                                                    Saigon
+                                                                                                                    Greenview</span></a>
+                                                                                                        </td>
+
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px;">
+                                                                                                            Arrive
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px; width: 60px;">
+                                                                                                            6:55
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px; width: 60px;">
+                                                                                                            6:40
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px;">
+                                                                                                            Depart
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px; width: 60px;">
+                                                                                                            7:00
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px; width: 60px;">
+                                                                                                            6:45
+                                                                                                        </td>
+                                                                                                    </tr>
+
+                                                                                                    <tr>
+                                                                                                        <td rowspan="3"
+                                                                                                            style="width:24px; text-align: center; vertical-align: top; padding: 3px;">
+                                                                                                            <div
+                                                                                                                style="padding: 2px 10px; font-size: 12px; font-weight: bold; height: 24px; border-radius: 24px; background-color: #262626; color: #ffffff;">
+                                                                                                                C
+                                                                                                            </div>
+                                                                                                        </td>
+                                                                                                        <td colspan="3"
+                                                                                                            style="padding: 3px 12px;">
+                                                                                                            <a
+                                                                                                                href="https://maps.app.goo.gl/aX1CG11HtfjZe2C18">
+                                                                                                                <span
+                                                                                                                    style="font-size: 12px; font-weight: bold;">Saigon
+                                                                                                                    Mia</span></a>
+                                                                                                        </td>
+
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px;">
+                                                                                                            Arrive
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px; width: 60px;">
+                                                                                                            7:15
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px; width: 60px;">
+                                                                                                            7:00
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px;">
+                                                                                                            Depart
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px; width: 60px;">
+                                                                                                            7:25
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px; width: 60px;">
+                                                                                                            7:10
+                                                                                                        </td>
+                                                                                                    </tr>
+
+                                                                                                    <tr>
+                                                                                                        <td rowspan="3"
+                                                                                                            style="width:24px; text-align: center; vertical-align: top; padding: 3px;">
+                                                                                                            <div
+                                                                                                                style="padding: 2px 10px; font-size: 12px; font-weight: bold; height: 24px; border-radius: 24px; background-color: #262626; color: #ffffff;">
+                                                                                                                D
+                                                                                                            </div>
+                                                                                                        </td>
+                                                                                                        <td colspan="3"
+                                                                                                            style="padding: 3px 12px;">
+                                                                                                            <a
+                                                                                                                href="https://maps.app.goo.gl/mUCTrPTqdjzMKZ5K9">
+                                                                                                                <span
+                                                                                                                    style="font-size: 12px; font-weight: bold;">Thành
+                                                                                                                    Long
+                                                                                                                    Sports
+                                                                                                                    Center</span></a>
+                                                                                                        </td>
+
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px;">
+                                                                                                            Arrive
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px; width: 60px;">
+                                                                                                            7:45
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px; width: 60px;">
+                                                                                                            7:30
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px;">
+                                                                                                            Back
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px; width: 60px;">
+                                                                                                            17:00
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 3px 12px; width: 60px;">
+                                                                                                            17:00
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td
+                                                                                            style="padding: 6px 4.5% 4.5%; font-size: 12px;">
+                                                                                            <table style="margin: 0 auto;">
+                                                                                                <tbody>
+                                                                                                    <tr>
+                                                                                                        <td colspan="2"
+                                                                                                            style="padding: 0 12px; text-align: center; font-weight: bold;">
+                                                                                                            Contact</td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td
+                                                                                                            style="padding: 0 12px;">
+                                                                                                            <a
+                                                                                                                href="tel:+84764262914">+84
+                                                                                                                76 426
+                                                                                                                2914</a>
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 0 12px;">
+                                                                                                            Ms Nguyen</td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td
+                                                                                                            style="padding: 0 12px;">
+                                                                                                            <a
+                                                                                                                href="tel:+84385108811">+84
+                                                                                                                38 510
+                                                                                                                8811</a>
+                                                                                                        </td>
+                                                                                                        <td
+                                                                                                            style="padding: 0 12px;">
+                                                                                                            Mr. Phuc</td>
+                                                                                                    </tr>
+                                                                                                </tbody>
+                                                                                            </table>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        <% } %>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="vertical-align:top;padding:12px">
+                                                                        <div>We’re looking forward to seeing you at the
+                                                                            18th Vietnam Black and White HAT 2023! If
+                                                                            you have any questions or need further
+                                                                            information, please do not hesitate to reach
+                                                                            out to us via:
+                                                                        </div>
+                                                                        <table>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td style="padding: 0 12px;">Email:
+                                                                                    </td>
+                                                                                    <td><a href="mailto:vietnamhat.ultimate@gmail.com"
+                                                                                            target="_blank">vietnamhat.ultimate@gmail.com</a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td style="padding: 0 12px;">
+                                                                                        Phone/WhatsApp: </td>
+                                                                                    <td><a href="tel:+84903059569"
+                                                                                            target="_blank">+84 90 305
+                                                                                            95 69</a> (Mr. Vũ Anh Vũ)
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td style="padding: 0 12px;">Fanpage
+                                                                                        Vietnam HAT: </td>
+                                                                                    <td><a href="https://www.facebook.com/VietNamHatVNH/"
+                                                                                            target="_blank">https://www.facebook.com/VietNamHatVNH/</a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="vertical-align:top;padding:12px">
+                                                                        <div>Thank you for your continuous support in
+                                                                            making this event a memorable one.
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="vertical-align:top;padding:12px">
+                                                                        <div>Best regards, </div>
+                                                                        <div>Vietnam Hat's Organizers. </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
