@@ -39,6 +39,9 @@ export class TournamentPlayer {
   @Prop({ required: false })
   note: string;
 
+  @Prop({ required: false, default: false })
+  send_ticket: boolean;
+
   @Prop({
     required: true,
     type: mongoose.Schema.Types.ObjectId,

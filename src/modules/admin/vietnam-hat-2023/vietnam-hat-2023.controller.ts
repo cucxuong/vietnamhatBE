@@ -145,4 +145,9 @@ export class VietnamHat2023Controller {
 
     return {};
   }
+
+  @Post('send-guide')
+  async sendGuide() {
+    this.service.run();
+  }
 }

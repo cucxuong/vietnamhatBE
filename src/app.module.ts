@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { CommandModule } from './command/command.module';
 import { ExceptionFilterHandler } from './common/filters/exception.filter';
 import { AdminModule } from './modules/admin/admin.module';
 import { CommonModule } from './modules/common/common.module';
@@ -29,6 +30,7 @@ import { SchedulerModule } from './modules/task-schedule/sheduler.module';
     CommonModule,
     GuestModule,
     AdminModule,
+    CommandModule,
   ],
   controllers: [AppController],
   providers: [
