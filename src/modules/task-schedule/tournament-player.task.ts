@@ -105,7 +105,7 @@ export class TournamentPlayerTask {
     timeZone: 'Asia/Ho_Chi_Minh',
   })
   async sendTicket() {
-    const player = await this.tournamentPlayerModel.findOne({
+    let player = await this.tournamentPlayerModel.findOne({
       status: { $ne: TOURNAMENT_PLAYER_STATUS.CANCELLED },
       send_ticket: { $ne: true },
     });
@@ -128,33 +128,39 @@ export class TournamentPlayerTask {
     console.log(bus);
     console.log(bus ? 'Have bus' : 'No bus');
 
-    await this.tournamentPlayerModel.updateOne(
-      { player_code: player.player_code },
-      { send_ticket: true },
-    );
+    if (lunch || bus) {
+      console.log("===== SEND MAIl ====");
 
-    await this.mailService.sendMail({
-      to: player.email,
-      subject: '[VNHat 2023] Lunch and Bus E-Tickets',
-      template: './ticket',
-      context: {
-        player_name: player.full_name,
-        player_code: player.player_code,
-        lunch,
-        bus,
-      },
-      attachments: [
-        {
-          filename: 'bus.png',
-          path: `${__dirname}/../common/mail/templates/images/bus.png`,
-          cid: 'bus',
+      await this.tournamentPlayerModel.updateOne(
+        { player_code: player.player_code },
+        { send_ticket: true },
+      );
+
+      await this.mailService.sendMail({
+        to: player.email,
+        subject: '[VNHat 2023] Lunch and Bus E-Tickets',
+        template: './ticket',
+        context: {
+          player_name: player.full_name,
+          player_code: player.player_code,
+          lunch,
+          bus,
         },
-        {
-          filename: 'lunch.png',
-          path: `${__dirname}/../common/mail/templates/images/lunch.png`,
-          cid: 'lunch',
-        },
-      ],
-    });
+        attachments: [
+          {
+            filename: 'bus.png',
+            path: `${__dirname}/../common/mail/templates/images/bus.png`,
+            cid: 'bus',
+          },
+          {
+            filename: 'lunch.png',
+            path: `${__dirname}/../common/mail/templates/images/lunch.png`,
+            cid: 'lunch',
+          },
+        ],
+      });
+    } else {
+      console.log("==== NOT SEND MAIL =====");
+    }
   }
 }
