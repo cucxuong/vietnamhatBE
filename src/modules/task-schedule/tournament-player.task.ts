@@ -131,11 +131,6 @@ export class TournamentPlayerTask {
     if (lunch || bus) {
       console.log("===== SEND MAIl ====");
 
-      await this.tournamentPlayerModel.updateOne(
-        { player_code: player.player_code },
-        { send_ticket: true },
-      );
-
       await this.mailService.sendMail({
         to: player.email,
         subject: '[VNHat 2023] Lunch and Bus E-Tickets',
@@ -162,5 +157,9 @@ export class TournamentPlayerTask {
     } else {
       console.log("==== NOT SEND MAIL =====");
     }
+    await this.tournamentPlayerModel.updateOne(
+      { player_code: player.player_code },
+      { send_ticket: true },
+    );
   }
 }
