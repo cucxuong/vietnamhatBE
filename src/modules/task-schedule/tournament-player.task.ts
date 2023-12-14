@@ -100,10 +100,10 @@ export class TournamentPlayerTask {
     }
   }
 
-  @Cron('*/5 * * * *', {
-    name: 'VNHAT_Player_Ticket',
-    timeZone: 'Asia/Ho_Chi_Minh',
-  })
+//  @Cron('*/5 * * * *', {
+//    name: 'VNHAT_Player_Ticket',
+//    timeZone: 'Asia/Ho_Chi_Minh',
+//  })
   async sendTicket() {
     let player = await this.tournamentPlayerModel.findOne({
       status: { $ne: TOURNAMENT_PLAYER_STATUS.CANCELLED },
